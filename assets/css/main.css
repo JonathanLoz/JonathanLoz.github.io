@@ -14154,7 +14154,7 @@ progress::-moz-progress-bar { background-color: #770053; }
 .bibliography li .author a { color: #3c4858; border-bottom: 1px dashed; }
 .bibliography li .author a:hover { border-bottom-style: solid; text-decoration: none; }
 
-nobr > em { font-weight: bold; font-style: normal; color: #683648; }
+nobr > em { font-weight: bold; font-style: normal; color: #770053; }
 
 pre, code { font-family: 'Source Code Pro', monospace; font-weight: normal; font-size: 13px; line-height: 1.3em; }
 
