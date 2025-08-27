@@ -1,720 +1,192 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jonathan Lozano Mayo - Particle Physics Researcher</title>
-    <meta name="description" content="PhD student at UT Austin researching heavy-ion physics and quark-gluon plasma">
-    
-    <!-- Modern Font Stack -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #0ea5e9;
-            --primary-dark: #0284c7;
-            --secondary: #06b6d4;
-            --accent: #8b5cf6;
-            --dark: #0f172a;
-            --dark-secondary: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(139, 92, 246, 0.5);
-            border-radius: 50%;
-            animation: float 20s infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 0;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 50%;
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 6rem 2rem 2rem;
-            position: relative;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .highlight {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--gray);
-            margin-bottom: 2rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        .hero-description {
-            color: #cbd5e1;
-            margin-bottom: 2rem;
-            line-height: 1.8;
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .btn {
-            padding: 0.75rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            border: 2px solid transparent;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        .hero-image {
-            position: relative;
-            animation: fadeInUp 0.8s ease 0.8s both;
-        }
-
-        .profile-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        .profile-img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 2;
-        }
-
-        .profile-decoration {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 20px;
-            z-index: 1;
-            opacity: 0.3;
-            animation: pulse 3s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.05) rotate(2deg);
-            }
-        }
-
-        /* About Section */
-        .about {
-            padding: 5rem 2rem;
-            background: var(--dark-secondary);
-        }
-
-        .section-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .about-content {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #cbd5e1;
-            text-align: justify;
-        }
-
-        .about-text a {
-            color: var(--primary);
-            text-decoration: none;
-            position: relative;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .about-text a:hover {
-            color: var(--accent);
-        }
-
-        /* News Section */
-        .news {
-            padding: 5rem 2rem;
-            background: var(--dark);
-        }
-
-        .news-grid {
-            display: grid;
-            gap: 2rem;
-        }
-
-        .news-item {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 2rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .news-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
-            border-color: var(--primary);
-        }
-
-        .news-date {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            white-space: nowrap;
-            height: fit-content;
-        }
-
-        .news-content {
-            color: #cbd5e1;
-        }
-
-        .news-content em {
-            color: var(--primary);
-            font-style: normal;
-            font-weight: 500;
-        }
-
-        /* Research Interests */
-        .research {
-            padding: 5rem 2rem;
-            background: var(--dark-secondary);
-        }
-
-        .research-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .research-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .research-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2);
-        }
-
-        .research-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .research-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--light);
-        }
-
-        .research-description {
-            color: var(--gray);
-            font-size: 0.95rem;
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 2rem;
-            background: var(--dark);
-            border-top: 1px solid var(--glass-border);
-            text-align: center;
-            color: var(--gray);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Mobile Responsive */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--dark-secondary);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1rem;
-                border-top: 1px solid var(--glass-border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .hero-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-image {
-                order: -1;
-            }
-
-            .research-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Jonathan Lozano Mayo</title>
+  <meta name="description" content="">
+
+  <!-- Fonts and Icons -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons" />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="/assets/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/academicons.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="canonical" href="/">
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
-        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
-        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
-        <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
-        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
-        <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
-        <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
-        <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
-        <div class="particle" style="left: 90%; animation-delay: 16s;"></div>
+  <!-- Header -->
+  <nav id="navbar" class="navbar fixed-top navbar-expand-md grey lighten-5 z-depth-1 navbar-light">
+    <div class="container-fluid p-0">
+      <div class="row ml-1 ml-sm-0">
+        <span class="contact-icon text-center" style="line-height: 1em;">
+          <a href="mailto:jonathanloz@utexas.edu"><i class="fa fa-envelope-square gm-icon"></i></a>
+          <a href="https://scholar.google.com/citations?user=1IEdTygAAAAJ&hl=en" target="_blank" title="Google Scholar"><i class="ai ai-google-scholar-square gs-icon"></i></a>
+        </span>
+      </div>
+
+      <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          <li class="nav-item navbar-active font-weight-bold">
+            <a class="nav-link" href="/">
+              About
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/cv/">CV</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/projects/">Projects</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/publications/">Publications</a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/teaching/">Teaching</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scrolling Progress Bar -->
+  <progress id="progress" value="0" max="100"></progress>
+
+  <!-- Content -->
+  <div class="content">
+    <div class="col p-0 pt-4 pb-4">
+      <h1 class="pb-3 title text-left font-weight-bold">Jonathan <font style="color: #16A085">Lozano Mayo</font></h1>
+      <h6 class="m-0 mb-2" style="font-size: 0.83em;"></h6>
+      <h6 class="m-0 mb-2" style="font-size: 0.83em;">
+        <a href="https://www.google.com/maps/place/Googleplex/@37.4220656,-122.0862837,17z/data=!3m1!4b1!4m5!3m4!1s0x808fba02425dad8f:0x6c296c66619367e0!8m2!3d37.4220656!4d-122.0840897" class="page-description" target="_blank">Weinberg Institute, Austin, Texas</a>
+      </h6>
     </div>
 
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">JLM</div>
-            
-            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
-            
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="nav-link active">About</a></li>
-                <li><a href="#research" class="nav-link">Research</a></li>
-                <li><a href="#publications" class="nav-link">Publications</a></li>
-                <li><a href="#teaching" class="nav-link">Teaching</a></li>
-                <li><a href="#cv" class="nav-link">CV</a></li>
-            </ul>
-
-            <div class="social-links">
-                <a href="mailto:jonathanloz@utexas.edu" class="social-link" title="Email">
-                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                </a>
-                <a href="https://scholar.google.com/citations?user=1IEdTygAAAAJ&hl=en" class="social-link" target="_blank" title="Google Scholar">
-                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 24a7 7 0 110-14 7 7 0 010 14zm0-24L0 9.5l4.838 3.94A8 8 0 0112 9a8 8 0 017.162 4.44L24 9.5z"/>
-                    </svg>
-                </a>
-            </div>
+    <!-- Introduction -->
+    <div style="display: flex; flex-wrap: wrap;">
+      <div class="text-justify p-0">
+        <div class="col-xs-12 col-sm-6 p-0 pt-2 pb-sm-2 pb-4 pl-sm-4 text-center" style="float: right;">
+          <img class="profile-img img-responsive rounded" src="/assets/img/prof_pic.jpg" />
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>Jonathan <span class="highlight">Lozano Mayo</span></h1>
-                <p class="hero-subtitle">PhD Student in Particle Physics</p>
-                <p class="hero-description">
-                    Heavy-Ion Physics Researcher at UT Austin | ALICE Experiment | Quark-Gluon Plasma
-                </p>
-                <div class="hero-buttons">
-                    <a href="#research" class="btn btn-primary">View Research</a>
-                    <a href="mailto:jonathanloz@utexas.edu" class="btn btn-outline">Contact Me</a>
-                </div>
-            </div>
-            
-            <div class="hero-image">
-                <div class="profile-wrapper">
-                    <div class="profile-decoration"></div>
-                    <img src="/assets/img/prof_pic.jpg" alt="Jonathan Lozano Mayo" class="profile-img">
-                </div>
-            </div>
+        <p>Hi! My name is Jonathan. I am a Ph.D student at the Heavy-Ion group of <a href="https://ph.utexas.edu/" target="_blank">the University of Texas at Austin</a> working in the field of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds with the ALICE experiment. I'm also interested in theoretical physics specially the study of field of topological and non-topological solitons, Higgs physics, electroweak symmetry breaking, strong CP problem axions, collider phenomenology, and effective field theory applications.</p>
+        
+        <p>I got my BSc at <a href="https://www.unam.mx" target="_blank">the National Autonomous University of Mexico</a>, advised by <a href="https://www.fisica.unam.mx/es/personal.php?id=63" target="_blank">Manuel Torres Labansat</a>. My BSc research focused on studying the spontaneous symmetry breaking of gauge symmetries in scalar theories in a potential with two continuous vacuum families. Besides, I studied the properties of topological and non-topological field configurations such as kinks, vortices and instantons. I am also studyng mechanisms to produce static multikink configurations using deformed potentials with a degeneracy parameter. I'm passionate about quantum field theory, in particular, the topics of physics beyond the standard model, vacuum decay, effective field theories, and non-perturbative fenomena in field theories.</p>
+      </div>
+    </div>
+
+    <!-- News -->
+    <div class="news mt-3 p-0">
+      <h1 class="title mb-4 p-0">news</h1>
+      
+      <div class="row p-0">
+        <div class="col-sm-2 p-0">
+          <span class="badge light-green darken-1 font-weight-bold text-uppercase align-middle date ml-3">
+            Feb, 2022
+          </span>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about">
-        <div class="section-container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <p class="about-text">
-                    Hi! My name is Jonathan. I am a Ph.D student at the Heavy-Ion group of <a href="https://ph.utexas.edu/" target="_blank">the University of Texas at Austin</a> working in the field of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds with the ALICE experiment. I'm also interested in theoretical physics specially the study of field of topological and non-topological solitons, Higgs physics, electroweak symmetry breaking, strong CP problem axions, collider phenomenology, and effective field theory applications.
-                </p>
-                
-                <p class="about-text">
-                    I got my BSc at <a href="https://www.unam.mx" target="_blank">the National Autonomous University of Mexico</a>, advised by <a href="https://www.fisica.unam.mx/es/personal.php?id=63" target="_blank">Manuel Torres Labansat</a>. My BSc research focused on studying the spontaneous symmetry breaking of gauge symmetries in scalar theories in a potential with two continuous vacuum families. Besides, I studied the properties of topological and non-topological field configurations such as kinks, vortices and instantons. I am also studying mechanisms to produce static multikink configurations using deformed potentials with a degeneracy parameter. I'm passionate about quantum field theory, in particular, the topics of physics beyond the standard model, vacuum decay, effective field theories, and non-perturbative phenomena in field theories.
-                </p>
-            </div>
+        <div class="col-sm-10 mt-2 mt-sm-0 ml-3 ml-md-0 p-0 font-weight-light text">
+          <p>Awarded the <em>Juan Manuel Lozano Mejia</em> diploma 2021.</p>
         </div>
-    </section>
+      </div>
+      
+    </div>
+  </div> <!-- END .content -->
 
-    <!-- Research Interests -->
-    <section class="research" id="research">
-        <div class="section-container">
-            <h2 class="section-title">Research Interests</h2>
-            <div class="research-grid">
-                <div class="research-card">
-                    <div class="research-icon">⚛️</div>
-                    <h3 class="research-title">Quark-Gluon Plasma</h3>
-                    <p class="research-description">Heavy-flavor angular correlations with the ALICE experiment</p>
-                </div>
-                <div class="research-card">
-                    <div class="research-icon">🌀</div>
-                    <h3 class="research-title">Topological Solitons</h3>
-                    <p class="research-description">Kinks, vortices, and instantons in field theories</p>
-                </div>
-                <div class="research-card">
-                    <div class="research-icon">⚡</div>
-                    <h3 class="research-title">Higgs Physics</h3>
-                    <p class="research-description">Electroweak symmetry breaking and beyond standard model physics</p>
-                </div>
-                <div class="research-card">
-                    <div class="research-icon">🔬</div>
-                    <h3 class="research-title">Collider Phenomenology</h3>
-                    <p class="research-description">Effective field theory applications and experimental signatures</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Footer -->
+  <footer>
+    &copy; Copyright 2021 Jonathan Lozano Mayo.
+  </footer>
 
-    <!-- News Section -->
-    <section class="news">
-        <div class="section-container">
-            <h2 class="section-title">Recent News</h2>
-            <div class="news-grid">
-                <div class="news-item">
-                    <span class="news-date">Feb 2022</span>
-                    <div class="news-content">
-                        <p>Awarded the <em>Juan Manuel Lozano Mejia</em> diploma 2021.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Core JavaScript Files -->
+  <script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+  <script src="/assets/js/popper.min.js" type="text/javascript"></script>
+  <script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/assets/js/mdb.min.js" type="text/javascript"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="/assets/js/common.js"></script>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 Jonathan Lozano Mayo. All rights reserved.</p>
-        <p style="margin-top: 0.5rem; font-size: 0.875rem;">
-            Weinberg Institute, Austin, Texas
-        </p>
-    </footer>
+  <!-- Scrolling Progress Bar -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
+      $('.progress-container').css({ 'padding-top': navbarHeight }); // FIXED
+      var progressBar = $('#progress');
+      progressBar.css({ 'top': navbarHeight });
+      var getMax = function() { return $(document).height() - $(window).height(); }
+      var getValue = function() { return $(window).scrollTop(); }
 
-    <script>
-        // Mobile menu toggle
-        function toggleMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+      if ('max' in document.createElement('progress')) {
+        progressBar.attr({ max: getMax() });
+        progressBar.attr({ value: getValue() });
+
+        $(document).on('scroll', function() {
+          progressBar.attr({ value: getValue() });
+        });
+
+        $(window).resize(function() {
+          var navbarHeight = $('#navbar').outerHeight(true);
+          $('body').css({ 'padding-top': navbarHeight });
+          $('.progress-container').css({ 'padding-top': navbarHeight }); // FIXED
+          progressBar.css({ 'top': navbarHeight });
+          progressBar.attr({ max: getMax(), value: getValue() });
+        });
+      } else {
+        var max = getMax(), value, width;
+        var getWidth = function() {
+          value = getValue();
+          width = (value/max) * 100;
+          return width + '%';
         }
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+        var setWidth = function() { progressBar.css({ width: getWidth() }); };
+        setWidth();
+        $(document).on('scroll', setWidth);
+        $(window).on('resize', function() {
+          max = getMax();
+          setWidth();
         });
+      }
+    });
+  </script>
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+  <!-- Code Syntax Highlighting -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+  <script src="/assets/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
 
-        // Active navigation link
-        window.addEventListener('scroll', function() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 100)) {
-                    current = section.getAttribute('id');
-                }
-            });
+  <!-- Project Cards Layout -->
+  <script type="text/javascript">
+    var $grid = $('#projects');
+    $grid.imagesLoaded().progress(function() {
+      $grid.masonry({ percentPosition: true });
+      $grid.masonry('layout');
+    });
+  </script>
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+  <!-- Enable Tooltips -->
+  <script type="text/javascript">
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
+
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '', 'auto');
+    ga('send', 'pageview');
+  </script>
 </body>
 </html>
