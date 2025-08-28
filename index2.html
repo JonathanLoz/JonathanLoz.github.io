@@ -23,8 +23,8 @@
         }
 
         :root {
-            --primary: #0ea5e9;
-            --primary-dark: #0284c7;
+            --primary: #16A085;
+            --primary-dark: #0e7c64;
             --secondary: #06b6d4;
             --accent: #8b5cf6;
             --dark: #0f172a;
@@ -33,7 +33,7 @@
             --gray: #64748b;
             --success: #10b981;
             --warning: #f59e0b;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient: linear-gradient(135deg, #16A085 0%, #8b5cf6 100%);
             --glass: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
         }
@@ -737,432 +737,7 @@
                 transform: translateY(0);
             }
         }
-    
-
-/* ===== Imported from index2 (modern styles) ===== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Animated Background */
-        .bg-animation {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(139, 92, 246, 0.5);
-            border-radius: 50%;
-            animation: float 20s infinite;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(100px);
-                opacity: 0;
-            }
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 0;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-brand {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 80px;
-            padding: 4rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--gray);
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-
-        /* Projects Container */
-        .projects-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Project Card */
-        .project {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 3rem;
-            margin-bottom: 3rem;
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease;
-            transition: all 0.3s ease;
-        }
-
-        .project:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(14, 165, 233, 0.1);
-            border-color: rgba(14, 165, 233, 0.3);
-        }
-
-        .project::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
-        }
-
-        .project-number {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            font-size: 4rem;
-            font-weight: 800;
-            opacity: 0.1;
-            color: var(--accent);
-        }
-
-        .project-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: var(--light);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .project-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: white;
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: start;
-        }
-
-        .project-text {
-            color: #cbd5e1;
-            line-height: 1.8;
-            text-align: justify;
-        }
-
-        .project-text p {
-            margin-bottom: 1rem;
-        }
-
-        .project-text a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .project-text a:hover {
-            color: var(--accent);
-        }
-
-        .project-figure {
-            position: relative;
-            background: var(--dark);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-figure img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .project-figure:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-figure figcaption {
-            padding: 1rem;
-            background: var(--dark-secondary);
-            color: var(--gray);
-            font-size: 0.875rem;
-            line-height: 1.6;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        /* Tags */
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .tag {
-            padding: 0.25rem 0.75rem;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            font-size: 0.875rem;
-            color: var(--gray);
-            transition: all 0.3s ease;
-        }
-
-        .tag:hover {
-            background: rgba(14, 165, 233, 0.1);
-            border-color: var(--primary);
-            color: var(--primary);
-        }
-
-        /* Math equations styling */
-        .MathJax {
-            color: var(--light) !important;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 2rem;
-            background: var(--dark);
-            border-top: 1px solid var(--glass-border);
-            text-align: center;
-            color: var(--gray);
-            margin-top: 5rem;
-        }
-
-        /* Mobile menu toggle */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .project-content {
-                grid-template-columns: 1fr;
-            }
-
-            .project-figure {
-                order: -1;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--dark-secondary);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1rem;
-                border-top: 1px solid var(--glass-border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .project {
-                padding: 2rem 1.5rem;
-            }
-
-            .project-title {
-                font-size: 1.5rem;
-            }
-
-            .project-number {
-                font-size: 3rem;
-            }
-        }
-
-        /* Loading animation for images */
-        .loading {
-            background: linear-gradient(90deg, var(--glass) 25%, rgba(255,255,255,0.1) 50%, var(--glass) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-    
-/* === Purple gradient text for project names & header === */
-#projects .section-title,
-#projects .project-title,
-#projects .project-title b,
-#projects .project-title strong {
-    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 50%, #6d28d9 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-}
-
-</style>
+    </style>
 </head>
 <body>
     <!-- Animated Background -->
@@ -1459,16 +1034,13 @@
             <h1 class="section-title">Some projects I have worked on</h1>
             
             <article class="project">
-            <span class="project-number">01</span>
-                <h4 class="project-title"><li><b>Static multikinks</b></li> <span class="project-badge">In Preparation</span></h4>
+                <h4 class="project-title"><li><b>Static multikinks</b></li></h4>
                 <div class="project-content">
                     <div class="project-text">
                         <p>
                             I worked with Prof.Manuel Torres Labansat, studying the properties of topological solitons in potentials that have many local minima trapped between two global minima. We found that in many cases, the false vacuum pressure stabilizes the repulsive force between solitons, allowing for static multikink solutions. In addition, I simulated the collision between the multikinks of a modulated double sine-gordon potential we proposed. The generalization to higher-dimensional topological solitons arising in gauge theories and their interpretation is a potential research topic, and we have plans to work on it in the future. I presented this project at the AMC National Physics Congress, and there's an article in preparation for reporting our results.
                         </p>
-                    
-<div class="project-tags"><span class="tag">Topological Solitons</span><span class="tag">Sine-Gordon</span><span class="tag">False Vacuum</span><span class="tag">Simulation</span></div>
-</div>
+                    </div>
                     <figure class="project-figure">
                         <img src="/assets/img/Kinkdens3.gif" alt="Energy density plot">
                         <figcaption>Fig.1—Energy density plot of multikink and its counterpart colliding. Simulated in Julia, using a finite differences scheme with non-reflective boundary conditions. The two configurations are initially really far to ensure that they don't overlap.</figcaption>
@@ -1477,16 +1049,13 @@
             </article>
 
             <article class="project">
-            <span class="project-number">02</span>
-                <h4 class="project-title"><li><b>One loop mass renormalization of kink solutions.</b></li> <span class="project-badge">Published</span></h4>
+                <h4 class="project-title"><li><b>One loop mass renormalization of kink solutions.</b></li></h4>
                 <div class="project-content">
                     <div class="project-text">
                         <p>
                             Due to the particle like properties of solitons, it's natural to ask whether they have a corresponding one-particle state in the quantum theory. In this project I quantized around the kink solutions of a generalized \(\phi^4\) potential which allowed for static multikink solutions. Given the non analytic behaviour of the potential, solving for the normal modes in the kink sector was highly non trivial. However, with a suitable transformation the eigenvalue equation can be cast as Pöschl—Teller Schrödinger equation. The force between interacting kinks was also calculated using asymptotic analysis. This project led to an <a href="https://iopscience.iop.org/article/10.1088/2399-6528/abdd83" target="_blank">article</a> published in 2021.
                         </p>
-                    
-<div class="project-tags"><span class="tag">Topological Solitons</span><span class="tag">Renormalization</span></div>
-</div>
+                    </div>
                     <figure class="project-figure">
                         <img src="/assets/img/solitonABC.png" alt="Kink solution comparison">
                         <figcaption>Fig.2—Comparison of the exact kink solution, dotted (black) line, with the multikink ansatz, dashed (red) line.</figcaption>
@@ -1495,8 +1064,7 @@
             </article>
 
             <article class="project">
-            <span class="project-number">03</span>
-                <h4 class="project-title"><li><b>Fate of the false vacuum!</b></li> <span class="project-badge">Research</span></h4>
+                <h4 class="project-title"><li><b>Fate of the false vacuum!</b></li></h4>
                 <div class="project-content">
                     <div class="project-text">
                         <p>
@@ -1504,9 +1072,7 @@
                         </p>
                         <p>It turns out that, in field theory, it's impossible for a system at a higher energy vacuum (false vacuum) to decay to a vacuum with lower energy (true vacuum) by standard means. An infinite amount of energy would be necessary to turn all the false vacuum into true vacuum at the same time in all space. However, Coleman theoreticized that in field theory the tunneling occurs through the nucleation of true vacuum bubbles which later expand at near \(c\) speed. Of special interest are the tunneling rates which are calculated by using Coleman's formalism. Coleman's formalism involves finding solutions to the non-linear field equations in Euclidian space, the solutions are an special kind of non-topological solitons called bounces.</p>
                         <p>While working with Prof. Manuel Torres Labansat on a generalized \(\phi^4\) model, we noticed that our model was adecuate to study the vacuum decay phenomenon. As a result we found a general set of virial relations that reproduce two well known results in scalar theories with vacuum decay and lead to more relations whose interpretation has still to be studied.</p>
-                    
-<div class="project-tags"><span class="tag">Topological Solitons</span><span class="tag">Field Theory</span><span class="tag">False Vacuum</span></div>
-</div>
+                    </div>
                     <figure class="project-figure">
                         <img src="/assets/img/vdmeme.png" alt="Vacuum decay potential">
                         <figcaption>Fig.3—Potential with both a metastable vacuum and a stable vacuum.</figcaption>
@@ -1515,17 +1081,14 @@
             </article>
 
             <article class="project">
-            <span class="project-number">04</span>
-                <h4 class="project-title"><li><b>Can we have a well defined photon wave function?</b></li> <span class="project-badge">Research</span></h4>
+                <h4 class="project-title"><li><b>Can we have a well defined photon wave function?</b></li></h4>
                 <div class="project-content">
                     <div class="project-text">
                         <p>
                             Can we have a well defined photon wave function in position space? Are Maxwell's equations already quantum? does the position operator make sense for photons?. Motivated by the above questions, I started my research journey.
                         </p>
                         <p>This was my first research project, along the way, I constructed the photon wave function, found its wave equation, constructed the Hamiltonian and Spin operators, learned and applied representation group theory to further examine the transformation properties of the wave function, and, worked with the expected symmetries of the theory to prove they hold.</p>
-                    
-<div class="project-tags"><span class="tag">Photon</span><span class="tag">Talk / Slides</span></div>
-</div>
+                    </div>
                     <figure class="project-figure">
                         <img src="/assets/img/Maxwells-Equations-close-up.jpeg" alt="Maxwell's equations">
                         <figcaption>Fig.4—Illustration of Maxwell's equations. Credit to <a href="https://publish.illinois.edu/flowing-from-quantum-to-cosmic/the-equations/" target="_blank" style="color: var(--primary);">Sean Lang</a>.</figcaption>
