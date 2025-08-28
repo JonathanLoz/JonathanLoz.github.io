@@ -1162,41 +1162,6 @@
     color: transparent;
 }
 
-
-/* === Style tweak: unify green badges with site gradient === */
-.news-date,
-.publication-badge,
-.teaching-badge,
-.cv-date {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%) !important;
-    color: white !important;
-    border: none;
-}
-
-.publication-badge:hover {
-    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.25);
-    transform: translateY(-3px);
-}
-
-
-/* === Projects tag contrast fix === */
-#projects .project-tags .tag {
-    color: #ffffff !important;
-    border-color: rgba(255, 255, 255, 0.28) !important;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.25);
-}
-#projects .project-tags .tag:hover {
-    background: rgba(255, 255, 255, 0.18) !important;
-}
-
-
-/* === Project badge contrast fix (force readable white text) === */
-#projects .project-title .project-badge {
-    color: #ffffff !important;
-    -webkit-text-fill-color: #ffffff !important; /* override inherited transparent from gradient headings */
-    text-shadow: 0 1px 1px rgba(0,0,0,0.25);
-}
-
 </style>
 </head>
 <body>
