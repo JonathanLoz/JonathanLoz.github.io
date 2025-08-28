@@ -1197,6 +1197,20 @@
     text-shadow: 0 1px 1px rgba(0,0,0,0.25);
 }
 
+
+/* ===== Minimal Nodes Background v3 (no content changes) ===== */
+#nodes-bg-canvas{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* clicks pass through to your site */
+  z-index: 0;
+  opacity: var(--nodes-opacity, 0.55); /* slightly more transparent */
+}
+@media (prefers-reduced-motion: reduce){
+  #nodes-bg-canvas{ display: none; }
+}
 </style>
 </head>
 <body>
@@ -1739,5 +1753,251 @@ a Salpeter IMF and constant star formation rate).
             abstract.classList.toggle('show');
         }
     </script>
+
+<script>
+/* ===== Minimal Nodes Background v3 (no content changes) ===== */
+(function(){
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const host = document.querySelector('.bg-animation') || document.body;
+  const useFixed = host === document.body;
+
+  const canvas = document.createElement('canvas');
+  canvas.id = 'nodes-bg-canvas';
+  canvas.style.position = useFixed ? 'fixed' : 'absolute';
+  canvas.style.inset = '0';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '0';
+  host.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+  let w=0, h=0, nodes=[], animId=null, avgDt=16;
+  let mouse = {x:-9999, y:-9999, active:false};
+
+  function cssColor(varName, fallback){
+    const rs = getComputedStyle(document.documentElement);
+    let v = rs.getPropertyValue(varName).trim() || fallback;
+    if(/^#/.test(v)){
+      const hex = v.replace('#','');
+      const arr = hex.length===3 ? hex.split('').map(c=>c+c) : hex.match(/.{1,2}/g) || ['6a','a0','ff'];
+      return arr.map(h=>parseInt(h,16));
+    }
+    const m = v.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+    return m ? [parseInt(m[1]), parseInt(m[2]), parseInt(m[3])] : [106,160,255];
+  }
+  let [R,G,B] = cssColor('--accent', '#6aa0ff');
+
+  function resize(){
+    const rect = useFixed ? {width: window.innerWidth, height: window.innerHeight}
+                          : host.getBoundingClientRect();
+    w = Math.max(1, rect.width);
+    h = Math.max(1, rect.height);
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    seed();
+  }
+
+  function densityForArea(a){
+    const base = window.matchMedia('(max-width: 640px)').matches ? 0.00003 : 0.00005;
+    return Math.max(14, Math.min(120, Math.floor(a * base)));
+  }
+
+  function makeNode(x,y,burst=false){
+    const speed = burst ? (0.35 + Math.random()*0.9) : (0.12 + Math.random()*0.18);
+    const ang = Math.random()*Math.PI*2;
+    const life = burst ? (8 + Math.random()*8) : Infinity; // seconds
+    return {
+      x, y,
+      vx: Math.cos(ang)*speed,
+      vy: Math.sin(ang)*speed,
+      r: Math.random()*1.0 + 0.35,
+      phase: Math.random()*Math.PI*2,
+      freq: 0.15 + Math.random()*0.25,
+      speed: 0.16 + Math.random()*0.22,
+      life,
+      age: 0
+    };
+  }
+
+  function seed(){
+    const count = densityForArea(w*h);
+    nodes.length = 0;
+    for(let i=0;i<count;i++){
+      nodes.push(makeNode(Math.random()*w, Math.random()*h, false));
+    }
+  }
+
+  function adaptPerformance(){
+    const targetDt = 16;
+    if(avgDt > 25 && nodes.length > 20){
+      const drop = Math.ceil(nodes.length * 0.15);
+      nodes.splice(nodes.length - drop, drop);
+    } else if(avgDt < 12){
+      const add = Math.min(10, Math.ceil(nodes.length * 0.08));
+      for(let i=0;i<add;i++){
+        nodes.push(makeNode(Math.random()*w, Math.random()*h, false));
+      }
+    }
+  }
+
+  function step(){
+    const tNow = performance.now();
+    if(!step._last){ step._last = tNow; step._perfTick = tNow; }
+    const dtMs = tNow - step._last; step._last = tNow;
+    const dt = dtMs / 1000;
+    avgDt = avgDt*0.9 + dtMs*0.1;
+
+    ctx.clearRect(0,0,w,h);
+
+    // Spatial hashing
+    const maxDist = Math.min(140, Math.max(70, Math.min(w,h) * 0.2));
+    const cell = Math.max(36, Math.floor(maxDist * 0.66));
+    const cols = Math.ceil(w / cell), rows = Math.ceil(h / cell);
+    const grid = Array(cols*rows).fill(null).map(()=>[]);
+    const idx = (cx,cy)=> cy*cols + cx;
+    for(let i=0;i<nodes.length;i++){
+      const n = nodes[i];
+      const cx = Math.max(0, Math.min(cols-1, Math.floor(n.x / cell)));
+      const cy = Math.max(0, Math.min(rows-1, Math.floor(n.y / cell)));
+      grid[idx(cx,cy)].push(i);
+    }
+
+    // Lines
+    for(let cy=0; cy<rows; cy++){
+      for(let cx=0; cx<cols; cx++){
+        const bucket = [];
+        for(let oy=-1; oy<=1; oy++){
+          for(let ox=-1; ox<=1; ox++){
+            const nx = cx+ox, ny = cy+oy;
+            if(nx<0||ny<0||nx>=cols||ny>=rows) continue;
+            bucket.push(...grid[idx(nx,ny)]);
+          }
+        }
+        for(let bi=0; bi<bucket.length; bi++){
+          const i = bucket[bi];
+          const a = nodes[i];
+          for(let bj=bi+1; bj<bucket.length; bj++){
+            const j = bucket[bj];
+            const b = nodes[j];
+            const dx = a.x - b.x, dy = a.y - b.y;
+            const d2 = dx*dx + dy*dy;
+            if(d2 < maxDist*maxDist){
+              const d = Math.sqrt(d2);
+              // Lighter, less intrusive lines
+              let alpha = 0.03 + 0.12*(1 - d/maxDist);
+              if(mouse.active){
+                const mx = mouse.x, my = mouse.y;
+                const nearA = (a.x-mx)*(a.x-mx) + (a.y-my)*(a.y-my) < (maxDist*0.6)*(maxDist*0.6);
+                const nearB = (b.x-mx)*(b.x-mx) + (b.y-my)*(b.y-my) < (maxDist*0.6)*(maxDist*0.6);
+                if(nearA || nearB) alpha += 0.05;
+              }
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(${R},${G},${B},${alpha.toFixed(3)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+    }
+
+    // Nodes update/draw
+    const t = tNow * 0.001;
+    for(const n of nodes){
+      n.x += n.vx + Math.cos(t*n.freq + n.phase) * n.speed * 0.07;
+      n.y += n.vy + Math.sin(t*n.freq + n.phase) * n.speed * 0.07;
+      n.age += dt;
+      if(n.life !== Infinity && n.age > n.life) n._dead = true;
+
+      // soft wrap
+      if(n.x < -10) n.x = w+10;
+      if(n.x > w+10) n.x = -10;
+      if(n.y < -10) n.y = h+10;
+      if(n.y > h+10) n.y = -10;
+
+      // draw node with lighter alpha
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+      let a = 0.28; // more transparent base
+      if(n.life !== Infinity){
+        // fade over life
+        const k = Math.max(0, 1 - n.age / n.life);
+        a *= 0.4 + 0.6*k;
+      }
+      if(mouse.active){
+        const dx = n.x - mouse.x, dy = n.y - mouse.y;
+        const d2 = dx*dx + dy*dy;
+        if(d2 < (maxDist*0.6)*(maxDist*0.6)) a += 0.08;
+      }
+      ctx.fillStyle = `rgba(${R},${G},${B},${a})`;
+      ctx.fill();
+    }
+
+    // Cleanup ephemeral nodes
+    if(nodes.length > 0 && (nodes[0]._dead || nodes[nodes.length-1]._dead)){
+      nodes = nodes.filter(n => !n._dead);
+    }
+
+    // periodic perf adaptation + refresh color
+    if(tNow - step._perfTick > 1800){
+      adaptPerformance();
+      step._perfTick = tNow;
+      [R,G,B] = cssColor('--accent', '#6aa0ff');
+    }
+
+    animId = requestAnimationFrame(step);
+  }
+
+  function start(){
+    if(prefersReduced) return;
+    stop();
+    step();
+  }
+  function stop(){
+    if(animId){ cancelAnimationFrame(animId); animId = null; }
+  }
+
+  // Add interactive bursts on click (still doesn't block UI; canvas is pointer-events:none)
+  function addBurstAt(clientX, clientY){
+    const rect = canvas.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    const mobile = window.matchMedia('(max-width: 640px)').matches;
+    const count = mobile ? 8 : 14;
+    for(let i=0;i<count;i++){
+      const n = makeNode(x, y, true);
+      nodes.push(n);
+    }
+  }
+
+  // Events
+  const ro = new ResizeObserver(resize);
+  ro.observe(host);
+  window.addEventListener('resize', resize);
+  window.addEventListener('visibilitychange', ()=>{
+    if(document.visibilityState === 'hidden') stop(); else start();
+  });
+  window.addEventListener('pointermove', (e)=>{
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+    mouse.active = true;
+  }, {passive:true});
+  window.addEventListener('pointerleave', ()=>{ mouse.active=false; }, {passive:true});
+  window.addEventListener('pointerdown', (e)=>{
+    // Add nodes on any click. This won't block links since the canvas is non-interactive.
+    addBurstAt(e.clientX, e.clientY);
+  }, {passive:true});
+
+  // Init
+  resize();
+  if(!prefersReduced) start();
+})();
+</script>
 </body>
 </html>
