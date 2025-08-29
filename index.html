@@ -92,7 +92,7 @@
             width: 100%;
             padding: 1rem 0;
             background: var(--glass);
-            pointer-events: auto; backdrop-filter: blur(10px);
+            pointer-events: auto; pointer-events: auto; backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
             z-index: 9999;
             transition: all 0.3s ease;
@@ -1464,7 +1464,7 @@ nav,
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a class="nav-brand" onclick="showSection('about')">
+            <a class="nav-brand" href="#about" data-section="about" onclick="showSection('about')">
                 <strong>Jonathan</strong> Lozano Mayo
             </a>
             
