@@ -1310,6 +1310,7 @@ code, pre, kbd, samp { font-family: var(--mono-font) !important; }
 </style>
 </head>
 <body>
+    <canvas id="nodes-bg-canvas" aria-hidden="true"></canvas>
     <!-- Animated Background -->
     <div class="bg-animation">
         <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
@@ -1364,7 +1365,7 @@ code, pre, kbd, samp { font-family: var(--mono-font) !important; }
                     <a href="#" class="location-link">Weinberg Institute, Austin, Texas</a>
                     
                     <p class="hero-description">
-                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University of Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
+                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University oF Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
                     </p>
                     
                     <p class="hero-description">
@@ -2142,5 +2143,174 @@ a Salpeter IMF and constant star formation rate).
   if(!prefersReduced) start();
 })();
 </script>
+
+    <script>
+    /* === Constellation Nodes Background v1 (minimal, elegant) === */
+    (function(){
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return; // Respect reduced motion
+      
+      const canvas = document.getElementById('nodes-bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
+      
+      let w = 0, h = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
+      const resize = () => {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = Math.floor(w * DPR);
+        canvas.height = Math.floor(h * DPR);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      };
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+      
+      // Pull theme colors from CSS variables
+      const css = getComputedStyle(document.documentElement);
+      function hexToRgb(hex){
+        const m = hex.trim().replace('#','');
+        const int = parseInt(m.length===3 ? m.split('').map(c=>c+c).join('') : m, 16);
+        return { r:(int>>16)&255, g:(int>>8)&255, b:int&255 };
+      }
+      const primaryRGB = hexToRgb(css.getPropertyValue('--primary') || '#0ea5e9');
+      const accentRGB  = hexToRgb(css.getPropertyValue('--accent')  || '#8b5cf6');
+      const lineAlpha  = 0.18;
+      const dotAlpha   = 0.75;
+      
+      // Config scaled with viewport size
+      const area = Math.max(1, (w*h));
+      const target = Math.max(48, Math.min(140, Math.floor(area / 28000))); // node count
+      const linkDist = Math.max(80, Math.min(180, Math.sqrt(Math.max(w,h)) * 9)); // px
+      
+      // Spatial hashing for O(n) neighbor search
+      const cell = Math.max(64, Math.min(160, linkDist*0.75));
+      const grid = new Map();
+      function key(x,y){ return ((x/cell)|0)+'|'+((y/cell)|0); }
+      
+      const nodes = [];
+      function addNode(x=Math.random()*w, y=Math.random()*h, burst=false){
+        const speed = burst ? 0.6 : 0.25;
+        const a = Math.random()*Math.PI*2;
+        const r = 1 + Math.random()*1.2;
+        nodes.push({
+          x, y,
+          vx: Math.cos(a)*speed*(0.5+Math.random()),
+          vy: Math.sin(a)*speed*(0.5+Math.random()),
+          r
+        });
+      }
+      for (let i=0;i<target;i++) addNode();
+      
+      // Cursor "ghost" node
+      const mouse = { x: -1e6, y: -1e6, r: 2.2 };
+      window.addEventListener('pointermove', (e)=>{
+        mouse.x = e.clientX; mouse.y = e.clientY;
+      }, { passive: true });
+      window.addEventListener('pointerleave', ()=>{
+        mouse.x = -1e6; mouse.y = -1e6;
+      }, { passive: true });
+      
+      // Click to scatter new nodes
+      window.addEventListener('pointerdown', (e)=>{
+        const N = e.shiftKey ? 16 : 6;
+        for (let i=0;i<N;i++) addNode(e.clientX, e.clientY, true);
+      });
+      
+      let running = true;
+      document.addEventListener('visibilitychange', ()=>{
+        running = document.visibilityState === 'visible';
+        if (running) raf();
+      });
+      
+      function colorMix(t){
+        const r = Math.round(primaryRGB.r*(1-t)+accentRGB.r*t);
+        const g = Math.round(primaryRGB.g*(1-t)+accentRGB.g*t);
+        const b = Math.round(primaryRGB.b*(1-t)+accentRGB.b*t);
+        return {r,g,b};
+      }
+      
+      function draw(){
+        ctx.clearRect(0,0,w,h);
+        grid.clear();
+        
+        // Update and index nodes
+        for (const n of nodes){
+          n.x += n.vx;
+          n.y += n.vy;
+          if (n.x < -10 || n.x > w+10) n.vx *= -1, n.x = Math.max(-10, Math.min(w+10, n.x));
+          if (n.y < -10 || n.y > h+10) n.vy *= -1, n.y = Math.max(-10, Math.min(h+10, n.y));
+          const k = key(n.x, n.y);
+          if (!grid.has(k)) grid.set(k, []);
+          grid.get(k).push(n);
+        }
+        
+        // Draw lines via neighbors in adjacent cells
+        function forNeighbors(n, fn){
+          const gx = (n.x/cell)|0, gy = (n.y/cell)|0;
+          for (let ix=-1; ix<=1; ix++){
+            for (let iy=-1; iy<=1; iy++){
+              const arr = grid.get((gx+ix)+'|'+(gy+iy));
+              if (!arr) continue;
+              for (const m of arr) fn(m);
+            }
+          }
+        }
+        
+        // Lines
+        ctx.lineWidth = 1;
+        nodes.forEach((n, idx)=>{
+          forNeighbors(n, (m)=>{
+            if (m === n) return;
+            const dx = n.x - m.x, dy = n.y - m.y;
+            const d2 = dx*dx + dy*dy;
+            const d = Math.sqrt(d2);
+            if (d > linkDist) return;
+            const t = d/linkDist;
+            const {r,g,b} = colorMix(t);
+            ctx.strokeStyle = `rgba(${r},${g},${b},${(1-t)*lineAlpha})`;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.stroke();
+          });
+        });
+        
+        // Connect to mouse ghost node
+        if (mouse.x > -1e5){
+          forNeighbors(mouse, (m)=>{
+            const dx = mouse.x - m.x, dy = mouse.y - m.y;
+            const d = Math.hypot(dx, dy);
+            if (d > linkDist*0.8) return;
+            const t = d/(linkDist*0.8);
+            const {r,g,b} = colorMix(t*0.6);
+            ctx.strokeStyle = `rgba(${r},${g},${b},${(1-t)*0.25})`;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.stroke();
+          });
+        }
+        
+        // Dots
+        for (const n of nodes){
+          const {r,g,b} = colorMix(0.35);
+          ctx.fillStyle = `rgba(${r},${g},${b},${dotAlpha})`;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+      }
+      
+      function raf(){
+        if (!running) return;
+        draw();
+        requestAnimationFrame(raf);
+      }
+      raf();
+    })();
+    </script>
+    
 </body>
 </html>
