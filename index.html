@@ -1434,6 +1434,85 @@ nav,
   .nav-link:active{ background: rgba(255,255,255,0.06); }
 }
 
+
+/* === Mobile dropdown fixes (menu visibility & layering) === */
+@media (max-width: 768px){
+  .mobile-menu-toggle{
+    display: block;
+    position: relative;
+    z-index: 10000;
+    font-size: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--light);
+  }
+  .nav-links{
+    display: none;
+    position: fixed;
+    top: 64px; /* just below the navbar */
+    right: 12px;
+    left: 12px;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: var(--glass);
+    backdrop-filter: blur(12px) saturate(110%);
+    -webkit-backdrop-filter: blur(12px) saturate(110%);
+    padding: 0.75rem;
+    margin: 0;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+  }
+  .nav-links.active{ display: flex; }
+  .nav-link{
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+  }
+  .nav-link:active{ background: rgba(255,255,255,0.06); }
+}
+/* Do not let background effects block taps */
+#nodes-bg-canvas{ pointer-events: none !important; }
+/* Ensure navbar always sits on top of effects */
+nav{ z-index: 9999 !important; pointer-events: auto; }
+
+
+/* === DROPDOWN FINALIZER (authoritative small-width rules) === */
+@media (max-width: 960px){
+  nav .mobile-menu-toggle{ display: block !important; }
+  nav .nav-links{
+    display: none !important;
+    position: fixed !important;
+    top: 64px !important;
+    left: 12px !important;
+    right: 12px !important;
+    z-index: 9999 !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    background: var(--glass) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    padding: 0.75rem !important;
+    margin: 0 !important;
+    backdrop-filter: blur(12px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(110%) !important;
+  }
+  nav .nav-links.active{ display: flex !important; }
+  nav .nav-link{ padding: 1rem 1.25rem !important; border-radius: 0.75rem !important; }
+  #nodes-bg-canvas{ pointer-events: none !important; }
+  nav{ z-index: 9999 !important; pointer-events: auto !important; }
+}
+
+
+/* === Dropdown underline/bar fix === */
+@media (max-width: 960px){
+  nav.menu-open { border-bottom-color: transparent !important; }
+  nav .nav-links.active .nav-link::after,
+  nav .nav-links .nav-link.active::after {
+    content: none !important; /* remove animated underline inside dropdown */
+  }
+}
+
 </style>
 
 </head>
@@ -1468,7 +1547,7 @@ nav,
                 <strong>Jonathan</strong> Lozano Mayo
             </a>
             
-            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+            <button class="mobile-menu-toggle" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false" onclick="toggleMenu()">☰</button>
             
             <ul class="nav-links" id="navLinks">
                 <li><a class="nav-link active" onclick="showSection('about')">About</a></li>
@@ -1502,7 +1581,7 @@ nav,
                     <a href="#" class="location-link">Weinberg Institute, Austin, Texas</a>
                     
                     <p class="hero-description">
-                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University oF Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
+                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University of Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
                     </p>
                     
                     <p class="hero-description">
@@ -2519,6 +2598,108 @@ function toggleMenu() {
   layoutBlobs();
   window.addEventListener('resize', layoutBlobs, { passive: true });
 })();</script>
+
+
+<script>
+// === Robust mobile menu toggle + outside click close ===
+(function(){
+  // Replace/define toggleMenu globally
+  window.toggleMenu = function(){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var isOpen = nav.classList.toggle('active');
+    var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.toggle("menu-open", isOpen); }
+if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
+
+  // Close when clicking outside the nav menu or on a nav-link
+  document.addEventListener('click', function(e){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var insideMenu = e.target.closest && (e.target.closest('#navLinks') || e.target.closest('.mobile-menu-toggle'));
+    if (!insideMenu && nav.classList.contains('active')){
+      nav.classList.remove('active');
+      var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  }, { passive: true });
+
+  // Also close on ESC for accessibility
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      var nav = document.getElementById('navLinks');
+      var btn = document.querySelector('.mobile-menu-toggle');
+      if (nav && nav.classList.contains('active')){
+        nav.classList.remove('active');
+        var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+})();
+</script>
+
+
+<!-- === DROPDOWN FINALIZER JS (robust toggle + outside close) === -->
+<script>
+(function(){
+  if (window.__dropdownFinalized) return; // prevent duplicates
+  window.__dropdownFinalized = true;
+
+  window.toggleMenu = function(){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var isOpen = nav.classList.toggle('active');
+    var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.toggle("menu-open", isOpen); }
+if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
+
+  // Close when tapping outside
+  document.addEventListener('click', function(e){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var inside = e.target.closest && (e.target.closest('#navLinks') || e.target.closest('.mobile-menu-toggle'));
+    if (!inside && nav.classList.contains('active')){
+      nav.classList.remove('active');
+      var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded','false');
+    }
+  }, { passive: true });
+
+  // Close on ESC
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      var nav = document.getElementById('navLinks');
+      var btn = document.querySelector('.mobile-menu-toggle');
+      if (nav && nav.classList.contains('active')){
+        nav.classList.remove('active');
+        var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded','false');
+      }
+    }
+  });
+
+  // Ensure nav links close menu on click
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.nav-link[data-section]');
+    var nav = document.getElementById('navLinks');
+    if (a && nav){
+      nav.classList.remove('active');
+      var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var btn = document.querySelector('.mobile-menu-toggle');
+      if (btn) btn.setAttribute('aria-expanded','false');
+    }
+  }, { passive: false });
+})();
+</script>
 
 </body>
 </html>
