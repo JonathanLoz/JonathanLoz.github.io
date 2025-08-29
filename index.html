@@ -1215,6 +1215,18 @@
 /* === JWST image visibility/stacking fix === */
 .jwst-img, img[data-role="jwst"] { position: relative; z-index: 4; display: block; }
 
+
+/* === PDF-as-image compatibility (Chrome desktop) === */
+.pdf-object {
+  width: 100%;
+  height: min(60vh, 520px);
+  border: none;
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.project .pdf-object, .cv-card .pdf-object { border-radius: 12px; }
+
 </style>
 </head>
 <body>
@@ -1560,7 +1572,7 @@
 <div class="project-tags"><span class="tag">Cosmology</span><span class="tag">Python</span><span class="tag">Astrophysics</span></div>
 </div>
                     <figure class="project-figure">
-                        <img src="/assets/img/betaRatio.pdf" alt="Energy density plot">
+                        <object class="pdf-object" data="/assets/img/betaRatio.pdf#view=FitH" type="application/pdf" aria-label="Energy density plot"><a href="/assets/img/betaRatio.pdf" target="_blank" rel="noopener">Open PDF: Energy density plot</a></object>
                         <figcaption>Fig.3—\(\it{Left}\): Evolution of the star formation efficiency ratio \(\epsilon/\epsilon_{\rm fid}\) (equivalently the inferred mass ratio \(M_{\rm lum}/ M_{\rm fid}\)) as a function of the age of a galaxy \(t\) for various top-heavy IMFs \(dN/dM \propto M^{-\alpha}\)
  characterized by different high-mass power-law slopes  \(\alpha\)  ranging from 2.35 (Salpeter-like IMF)  to 1.35. Each IMF is represented by a distinct color as indicated by the colorbar to the right of the panel. All simulations assume an initial metallicity  \(Z_{\rm ini}=0.001\,Z_{\odot}\) and a constant star formation rate. The denominator, \(\epsilon_{\rm fid}\), corresponds to the fiducial Salpeter-like IMF (\(\alpha=2.35\)). \({\it Right:}\) Relation between the ratio \(\epsilon/\epsilon_{\rm fid}\) and the high-mass IMF slope \(\alpha\) at different galaxy ages, from 10 to 250 Myr shown in a color gradient from yellow  to red.</figcaption>
                     </figure>
