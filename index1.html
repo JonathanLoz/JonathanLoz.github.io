@@ -7,7 +7,7 @@
     <meta name="description" content="PhD student at UT Austin researching heavy-ion physics and quark-gluon plasma">
     
     <!-- Modern Font Stack -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
@@ -92,9 +92,9 @@
             width: 100%;
             padding: 1rem 0;
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            pointer-events: auto; pointer-events: auto; backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
+            z-index: 9999;
             transition: all 0.3s ease;
         }
 
@@ -803,7 +803,7 @@
             background: var(--glass);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
+            z-index: 2000;
             transition: all 0.3s ease;
         }
 
@@ -1206,18 +1206,327 @@
   height: 100vh;
   pointer-events: none; /* clicks pass through to your site */
   z-index: 0;
-  opacity: var(--nodes-opacity, 0.55); /* slightly more transparent */
+  opacity: var(--nodes-opacity, 0.65); /* slightly more transparent */
 }
 @media (prefers-reduced-motion: reduce){
   #nodes-bg-canvas{ display: none; }
 }
 
-/* === JWST image visibility/stacking fix === */
-.jwst-img, img[data-role="jwst"] { position: relative; z-index: 4; display: block; }
+/* === Typography Upgrade (modern, elegant, sophisticated) === */
+:root {
+  --heading-font: 'Playfair Display', serif;
+  --ui-font: 'DM Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --body-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+  --mono-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Base & body */
+body {
+  font-family: var(--body-font) !important;
+  line-height: 1.75 !important;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings: elegant, high-contrast serif */
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.project-title {
+  font-family: var(--heading-font) !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* UI & badges: modern geometric sans */
+nav, .nav-link, .project-badge,
+.cv-date, .teaching-badge, .news-date, .publication-badge {
+  font-family: var(--ui-font) !important;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Body copy & lists */
+p, li, .cv-description, .news-content,
+.hero-description, .publication-authors, .cv-title, .cv-subtitle, .cv-list {
+  font-family: var(--body-font) !important;
+  font-weight: 400;
+}
+
+/* Code / monospace */
+code, pre, kbd, samp {
+  font-family: var(--mono-font) !important;
+}
+
+/* Small refinements */
+.nav-brand { font-family: var(--heading-font) !important; font-weight: 700; letter-spacing: -0.01em; }
+.hero-subtitle { font-family: var(--body-font) !important; font-weight: 400; }
+
+
+/* === Minimal Typography Override (single-family: Manrope) === */
+:root {
+  --heading-font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ui-font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --body-font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+body {
+  font-family: var(--body-font) !important;
+  line-height: 1.7 !important;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.project-title {
+  font-family: var(--heading-font) !important;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+nav, .nav-link, .project-badge,
+.cv-date, .teaching-badge, .news-date, .publication-badge {
+  font-family: var(--ui-font) !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none !important; /* keep it minimal, avoid all-caps */
+}
+
+p, li, .cv-description, .news-content,
+.hero-description, .publication-authors, .cv-title, .cv-subtitle, .cv-list {
+  font-family: var(--body-font) !important;
+  font-weight: 400;
+}
+
+code, pre, kbd, samp { font-family: var(--mono-font) !important; }
+
+.nav-brand { font-family: var(--heading-font) !important; font-weight: 800; letter-spacing: -0.01em; }
+.hero-subtitle { font-family: var(--body-font) !important; font-weight: 400; }
+
+
+/* === BOLD CONSTELLATIONS + GLASS OVERRIDES === */
+
+/* Make glass slightly stronger for bold mode */
+:root {
+  --glass: rgba(255,255,255,0.045);
+  --glass-border: rgba(255,255,255,0.12);
+}
+
+/* Elevate constellation layer above aurora, but below spotlight & content */
+#nodes-bg-canvas{ z-index: 1 !important; opacity: var(--nodes-opacity, 0.68) !important; }
+#aurora-bg{ position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  filter: saturate(140%) brightness(110%); opacity: 0.92; }
+#cursor-spotlight{ display:none !important; }
+
+/* Keep all content above effects */
+.section, nav, footer { position: relative; z-index: 3; }
+
+/* Aurora color blobs (use your theme colors) */
+#aurora-bg .blob{
+  position: absolute;
+  width: 42vmax;
+  height: 42vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transform: translate3d(0,0,0) scale(1);
+  will-change: transform;
+}
+#aurora-bg .b1{ background: radial-gradient(closest-side, rgba(14,165,233,0.9), rgba(14,165,233,0)); animation: aurA 18s ease-in-out infinite alternate; }
+#aurora-bg .b2{ background: radial-gradient(closest-side, rgba(139,92,246,0.9), rgba(139,92,246,0)); animation: aurB 20s ease-in-out infinite alternate; }
+#aurora-bg .b3{ background: radial-gradient(closest-side, rgba(6,182,212,0.9), rgba(6,182,212,0)); animation: aurC 22s ease-in-out infinite alternate; }
+#aurora-bg .b4{ background: radial-gradient(closest-side, rgba(245,158,11,0.7), rgba(245,158,11,0)); animation: aurD 24s ease-in-out infinite alternate; }
+#aurora-bg .b5{ background: radial-gradient(closest-side, rgba(255,255,255,0.35), rgba(255,255,255,0)); animation: aurE 28s ease-in-out infinite alternate; }
+
+@keyframes aurA { 0%{transform:translate3d(-12%,-12%,0) scale(1.1);} 100%{transform:translate3d(52%,12%,0) scale(1.35);} }
+@keyframes aurB { 0%{transform:translate3d(60%,-18%,0) scale(0.95);} 100%{transform:translate3d(-8%,48%,0) scale(1.25);} }
+@keyframes aurC { 0%{transform:translate3d(12%,62%,0) scale(1.05);} 100%{transform:translate3d(68%,-6%,0) scale(1.30);} }
+@keyframes aurD { 0%{transform:translate3d(-18%,38%,0) scale(1.00);} 100%{transform:translate3d(38%,-14%,0) scale(1.25);} }
+@keyframes aurE { 0%{transform:translate3d(28%,10%,0) scale(0.9);} 100%{transform:translate3d(6%,62%,0) scale(1.1);} }
+
+/* Stronger glassmorphism on key cards */
+nav,
+.project,
+.cv-card,
+.news-item,
+.publication-item,
+.teaching-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px) saturate(105%);
+  -webkit-backdrop-filter: blur(10px) saturate(105%);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.02) inset;
+}
+
+/* Subtle gradient hairline at top of cards */
+.project::before,
+.cv-card::before,
+.news-item::before,
+.publication-item::before,
+.teaching-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  opacity: 0.25;
+}
+
+/* Hover glow */
+.project:hover,
+.cv-card:hover,
+.news-item:hover,
+.publication-item:hover,
+.teaching-card:hover {
+  border-color: rgba(255,255,255,0.28);
+  box-shadow: 0 28px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  transform: translateY(-3px);
+  transition: all 300ms ease;
+}
+
+/* Respect reduced motion: disable aurora & spotlight */
+@media (prefers-reduced-motion: reduce){
+  #aurora-bg, #cursor-spotlight{ display:none !important; }
+}
+
+
+/* #navLinks-clickable-patch: ensure taps go through on iOS/Android */
+.nav-links, .nav-links * { pointer-events: auto; }
+/* Mobile menu visibility should overlay content fully */
+@media (max-width: 768px){
+  .nav-links { position: fixed; top: 64px; right: 0; left: 0; z-index: 9999; }
+}
+
+#nodes-bg-canvas{ pointer-events: none !important; }
+
+/* === Mobile UX hardening for menu === */
+@media (max-width: 768px){
+  .mobile-menu-toggle{
+    display: block;
+    position: relative;
+    z-index: 10000;
+    font-size: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--light);
+  }
+  .nav-links{
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: var(--glass);
+    backdrop-filter: blur(12px) saturate(110%);
+    -webkit-backdrop-filter: blur(12px) saturate(110%);
+    padding: 0.75rem;
+    margin: 0;
+    border-top: 1px solid var(--glass-border);
+  }
+  .nav-links.active{ display: flex; }
+  .nav-link{
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+  }
+  .nav-link:active{ background: rgba(255,255,255,0.06); }
+}
+
+
+/* === Mobile dropdown fixes (menu visibility & layering) === */
+@media (max-width: 768px){
+  .mobile-menu-toggle{
+    display: block;
+    position: relative;
+    z-index: 10000;
+    font-size: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--light);
+  }
+  .nav-links{
+    display: none;
+    position: fixed;
+    top: 64px; /* just below the navbar */
+    right: 12px;
+    left: 12px;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: var(--glass);
+    backdrop-filter: blur(12px) saturate(110%);
+    -webkit-backdrop-filter: blur(12px) saturate(110%);
+    padding: 0.75rem;
+    margin: 0;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+  }
+  .nav-links.active{ display: flex; }
+  .nav-link{
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+  }
+  .nav-link:active{ background: rgba(255,255,255,0.06); }
+}
+/* Do not let background effects block taps */
+#nodes-bg-canvas{ pointer-events: none !important; }
+/* Ensure navbar always sits on top of effects */
+nav{ z-index: 9999 !important; pointer-events: auto; }
+
+
+/* === DROPDOWN FINALIZER (authoritative small-width rules) === */
+@media (max-width: 960px){
+  nav .mobile-menu-toggle{ display: block !important; }
+  nav .nav-links{
+    display: none !important;
+    position: fixed !important;
+    top: 64px !important;
+    left: 12px !important;
+    right: 12px !important;
+    z-index: 9999 !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    background: var(--glass) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    padding: 0.75rem !important;
+    margin: 0 !important;
+    backdrop-filter: blur(12px) saturate(110%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(110%) !important;
+  }
+  nav .nav-links.active{ display: flex !important; }
+  nav .nav-link{ padding: 1rem 1.25rem !important; border-radius: 0.75rem !important; }
+  #nodes-bg-canvas{ pointer-events: none !important; }
+  nav{ z-index: 9999 !important; pointer-events: auto !important; }
+}
+
+
+/* === Dropdown underline/bar fix === */
+@media (max-width: 960px){
+  nav.menu-open { border-bottom-color: transparent !important; }
+  nav .nav-links.active .nav-link::after,
+  nav .nav-links .nav-link.active::after {
+    content: none !important; /* remove animated underline inside dropdown */
+  }
+}
 
 </style>
+
 </head>
 <body>
+
+    <!-- === BOLD EFFECT: Aurora Gradient + Spotlight (with Constellations) === -->
+    <div id="aurora-bg" aria-hidden="true">
+        <span class="blob b1"></span>
+        <span class="blob b2"></span>
+        <span class="blob b3"></span>
+        <span class="blob b4"></span>
+        <span class="blob b5"></span>
+    </div>
+<canvas id="nodes-bg-canvas" aria-hidden="true"></canvas>
     <!-- Animated Background -->
     <div class="bg-animation">
         <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
@@ -1234,18 +1543,18 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a class="nav-brand" onclick="showSection('about')">
+            <a class="nav-brand" href="#about" data-section="about" onclick="showSection('about')">
                 <strong>Jonathan</strong> Lozano Mayo
             </a>
             
-            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+            <button class="mobile-menu-toggle" aria-label="Open menu" aria-controls="navLinks" aria-expanded="false" onclick="toggleMenu()">☰</button>
             
             <ul class="nav-links" id="navLinks">
                 <li><a class="nav-link active" onclick="showSection('about')">About</a></li>
-                <li><a class="nav-link" onclick="showSection('cv')">CV</a></li>
-                <li><a class="nav-link" onclick="showSection('projects')">Projects</a></li>
-                <li><a class="nav-link" onclick="showSection('publications')">Publications</a></li>
-                <li><a class="nav-link" onclick="showSection('teaching')">Teaching</a></li>
+                <li><a class="nav-link" href="#cv" data-section="cv" onclick="showSection('cv')">CV</a></li>
+                <li><a class="nav-link" href="#projects" data-section="projects" onclick="showSection('projects')">Projects</a></li>
+                <li><a class="nav-link" href="#publications" data-section="publications" onclick="showSection('publications')">Publications</a></li>
+                <li><a class="nav-link" href="#teaching" data-section="teaching" onclick="showSection('teaching')">Teaching</a></li>
             </ul>
 
             <div class="social-links">
@@ -1272,7 +1581,7 @@
                     <a href="#" class="location-link">Weinberg Institute, Austin, Texas</a>
                     
                     <p class="hero-description">
-                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University oF Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
+                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University of Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
                     </p>
                     
                     <p class="hero-description">
@@ -1783,7 +2092,55 @@ a Salpeter IMF and constant star formation rate).
         }
 
         // Mobile menu toggle
-        function toggleMenu() {
+        
+// === Mobile-friendly nav: reliable tap handlers for iOS/Android ===
+document.addEventListener('DOMContentLoaded', function(){
+  const links = document.querySelectorAll('.nav-link[data-section]');
+  links.forEach(link => {
+    const section = link.getAttribute('data-section');
+    const handler = function(e){
+      if (e) e.preventDefault();
+      if (section && typeof showSection === 'function') { showSection(section); }
+      const navLinks = document.getElementById('navLinks');
+      if (navLinks) navLinks.classList.remove('active');
+      return false;
+    };
+    link.addEventListener('click', handler, { passive: false });
+    link.addEventListener('touchend', handler, { passive: false });
+  });
+});
+
+
+// === Mobile-friendly nav: reliable tap handlers + hash routing ===
+document.addEventListener('DOMContentLoaded', function(){
+  // Delegated taps on the nav list (more reliable on mobile)
+  const navList = document.getElementById('navLinks');
+  if (navList){
+    const handler = function(e){
+      const a = e.target.closest && e.target.closest('a.nav-link[data-section]');
+      if (!a) return;
+      e.preventDefault();
+      const section = a.getAttribute('data-section');
+      if (section && typeof showSection === 'function'){ showSection(section); }
+      // Update hash so back button works too
+      if (section) history.pushState(null, '', '#' + section);
+      navList.classList.remove('active');
+      return false;
+    };
+    navList.addEventListener('click', handler, { passive: false });
+    navList.addEventListener('touchend', handler, { passive: false });
+  }
+
+  // Hash router: load correct section on page load or when hash changes
+  function routeFromHash(){
+    const h = (location.hash || '').replace(/^#/, '') || 'about';
+    if (typeof showSection === 'function') showSection(h);
+  }
+  window.addEventListener('hashchange', routeFromHash);
+  routeFromHash();
+});
+
+function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
@@ -2051,55 +2408,296 @@ a Salpeter IMF and constant star formation rate).
 })();
 </script>
 
-<!-- === JWST compatibility patch (Chrome on PC) === -->
+    <script>
+    /* === Constellation Nodes Background v1 (minimal, elegant) === */
+    (function(){
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return; // Respect reduced motion
+      
+      const canvas = document.getElementById('nodes-bg-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d', { alpha: true });
+      
+      let w = 0, h = 0, DPR = Math.min(2, window.devicePixelRatio || 1);
+      const resize = () => {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = Math.floor(w * DPR);
+        canvas.height = Math.floor(h * DPR);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      };
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+      
+      // Pull theme colors from CSS variables
+      const css = getComputedStyle(document.documentElement);
+      function hexToRgb(hex){
+        const m = hex.trim().replace('#','');
+        const int = parseInt(m.length===3 ? m.split('').map(c=>c+c).join('') : m, 16);
+        return { r:(int>>16)&255, g:(int>>8)&255, b:int&255 };
+      }
+      const primaryRGB = hexToRgb(css.getPropertyValue('--primary') || '#0ea5e9');
+      const accentRGB  = hexToRgb(css.getPropertyValue('--accent')  || '#8b5cf6');
+      const lineAlpha = 0.24;
+      const dotAlpha = 0.9;
+      
+      // Config scaled with viewport size
+      const area = Math.max(1, (w*h));
+      const target = Math.max(60, Math.min(160, Math.floor(area / 24000))); // node count
+      const linkDist = Math.max(100, Math.min(220, Math.sqrt(Math.max(w,h)) * 11)); // px
+      
+      // Spatial hashing for O(n) neighbor search
+      const cell = Math.max(72, Math.min(200, linkDist*0.7));
+      const grid = new Map();
+      function key(x,y){ return ((x/cell)|0)+'|'+((y/cell)|0); }
+      
+      const nodes = [];
+      function addNode(x=Math.random()*w, y=Math.random()*h, burst=false){
+        const speed = burst ? 0.6 : 0.25;
+        const a = Math.random()*Math.PI*2;
+        const r = 1 + Math.random()*1.2;
+        nodes.push({
+          x, y,
+          t: Math.random()*Math.PI*2,
+          tw: 0.005 + Math.random()*0.01,
+          vx: Math.cos(a)*speed*(0.5+Math.random()),
+          vy: Math.sin(a)*speed*(0.5+Math.random()),
+          r
+        });
+      }
+      for (let i=0;i<target;i++) addNode();
+      
+      // Cursor "ghost" node
+      const mouse = { x: -1e6, y: -1e6, r: 2.2 };
+      window.addEventListener('pointermove', (e)=>{
+        mouse.x = e.clientX; mouse.y = e.clientY;
+      }, { passive: true });
+      window.addEventListener('pointerleave', ()=>{
+        mouse.x = -1e6; mouse.y = -1e6;
+      }, { passive: true });
+      
+      // Click to scatter new nodes
+      window.addEventListener('pointerdown', (e)=>{
+        const N = e.shiftKey ? 16 : 6;
+        for (let i=0;i<N;i++) addNode(e.clientX, e.clientY, true);
+      });
+      
+      let running = true;
+      document.addEventListener('visibilitychange', ()=>{
+        running = document.visibilityState === 'visible';
+        if (running) raf();
+      });
+      
+      function colorMix(t){
+        const r = Math.round(primaryRGB.r*(1-t)+accentRGB.r*t);
+        const g = Math.round(primaryRGB.g*(1-t)+accentRGB.g*t);
+        const b = Math.round(primaryRGB.b*(1-t)+accentRGB.b*t);
+        return {r,g,b};
+      }
+      
+      function draw(){
+        ctx.clearRect(0,0,w,h);
+        grid.clear();
+        
+        // Update and index nodes
+        for (const n of nodes){
+          n.x += n.vx;
+          n.t += n.tw;
+          n.y += n.vy;
+          if (n.x < -10 || n.x > w+10) n.vx *= -1, n.x = Math.max(-10, Math.min(w+10, n.x));
+          if (n.y < -10 || n.y > h+10) n.vy *= -1, n.y = Math.max(-10, Math.min(h+10, n.y));
+          const k = key(n.x, n.y);
+          if (!grid.has(k)) grid.set(k, []);
+          grid.get(k).push(n);
+        }
+        
+        // Draw lines via neighbors in adjacent cells
+        function forNeighbors(n, fn){
+          const gx = (n.x/cell)|0, gy = (n.y/cell)|0;
+          for (let ix=-1; ix<=1; ix++){
+            for (let iy=-1; iy<=1; iy++){
+              const arr = grid.get((gx+ix)+'|'+(gy+iy));
+              if (!arr) continue;
+              for (const m of arr) fn(m);
+            }
+          }
+        }
+        
+        // Lines
+        ctx.lineWidth = 1;
+        nodes.forEach((n, idx)=>{
+          forNeighbors(n, (m)=>{
+            if (m === n) return;
+            const dx = n.x - m.x, dy = n.y - m.y;
+            const d2 = dx*dx + dy*dy;
+            const d = Math.sqrt(d2);
+            if (d > linkDist) return;
+            const t = d/linkDist;
+            const {r,g,b} = colorMix(t);
+            ctx.strokeStyle = `rgba(${r},${g},${b},${(1-t)*lineAlpha})`;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.stroke();
+          });
+        });
+        
+        // Connect to mouse ghost node
+        if (mouse.x > -1e5){
+          forNeighbors(mouse, (m)=>{
+            const dx = mouse.x - m.x, dy = mouse.y - m.y;
+            const d = Math.hypot(dx, dy);
+            if (d > linkDist*0.8) return;
+            const t = d/(linkDist*0.8);
+            const {r,g,b} = colorMix(t*0.6);
+            ctx.strokeStyle = `rgba(${r},${g},${b},${(1-t)*0.25})`;
+            ctx.beginPath();
+            ctx.moveTo(mouse.x, mouse.y);
+            ctx.lineTo(m.x, m.y);
+            ctx.stroke();
+          });
+        }
+        
+        // Dots
+        for (const n of nodes){
+          const {r,g,b} = colorMix(0.35);
+          const tw = 0.7 + 0.3 * (0.5 + 0.5 * Math.sin(n.t));
+          ctx.fillStyle = `rgba(${r},${g},${b},${dotAlpha * tw})`;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+          ctx.fill();
+        }
+      }
+      
+      function raf(){
+        if (!running) return;
+        draw();
+        requestAnimationFrame(raf);
+      }
+      raf();
+    })();
+    </script>
+    
+
+<!-- === BOLD EFFECT SCRIPT: Aurora (no spotlight) === -->
+<script>(function(){
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) return;
+  function layoutBlobs(){
+    const w = window.innerWidth, h = window.innerHeight;
+    const blobs = Array.from(document.querySelectorAll('#aurora-bg .blob'));
+    blobs.forEach((b, i)=>{
+      const px = [ -0.25, 0.65, 0.08, -0.12, 0.25 ][i % 5];
+      const py = [ -0.12, -0.08, 0.58, 0.42, 0.12 ][i % 5];
+      b.style.left = (px * w + w*0.32) + 'px';
+      b.style.top  = (py * h + h*0.28) + 'px';
+    });
+  }
+  layoutBlobs();
+  window.addEventListener('resize', layoutBlobs, { passive: true });
+})();</script>
+
+
+<script>
+// === Robust mobile menu toggle + outside click close ===
+(function(){
+  // Replace/define toggleMenu globally
+  window.toggleMenu = function(){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var isOpen = nav.classList.toggle('active');
+    var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.toggle("menu-open", isOpen); }
+if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
+
+  // Close when clicking outside the nav menu or on a nav-link
+  document.addEventListener('click', function(e){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var insideMenu = e.target.closest && (e.target.closest('#navLinks') || e.target.closest('.mobile-menu-toggle'));
+    if (!insideMenu && nav.classList.contains('active')){
+      nav.classList.remove('active');
+      var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  }, { passive: true });
+
+  // Also close on ESC for accessibility
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      var nav = document.getElementById('navLinks');
+      var btn = document.querySelector('.mobile-menu-toggle');
+      if (nav && nav.classList.contains('active')){
+        nav.classList.remove('active');
+        var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+})();
+</script>
+
+
+<!-- === DROPDOWN FINALIZER JS (robust toggle + outside close) === -->
 <script>
 (function(){
-  function isJWST(img){
-    var t = ((img.getAttribute('src')||'') + ' ' + (img.getAttribute('data-src')||'') + ' ' + (img.getAttribute('alt')||'')).toLowerCase();
-    return t.includes('jwst') || t.includes('webb') || t.includes('james webb');
-  }
-  function patch(img){
-    try{
-      img.loading = 'eager';
-      img.decoding = 'async';
-      img.setAttribute('fetchpriority', 'high');
-      img.classList.add('jwst-img');
+  if (window.__dropdownFinalized) return; // prevent duplicates
+  window.__dropdownFinalized = true;
 
-      // If lazy library used, promote data-src to src
-      if (!img.getAttribute('src') && img.dataset && img.dataset.src){
-        img.src = img.dataset.src;
+  window.toggleMenu = function(){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var isOpen = nav.classList.toggle('active');
+    var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.toggle("menu-open", isOpen); }
+if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  };
+
+  // Close when tapping outside
+  document.addEventListener('click', function(e){
+    var nav = document.getElementById('navLinks');
+    var btn = document.querySelector('.mobile-menu-toggle');
+    if (!nav) return;
+    var inside = e.target.closest && (e.target.closest('#navLinks') || e.target.closest('.mobile-menu-toggle'));
+    if (!inside && nav.classList.contains('active')){
+      nav.classList.remove('active');
+      var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded','false');
+    }
+  }, { passive: true });
+
+  // Close on ESC
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      var nav = document.getElementById('navLinks');
+      var btn = document.querySelector('.mobile-menu-toggle');
+      if (nav && nav.classList.contains('active')){
+        nav.classList.remove('active');
+        var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+if (btn) btn.setAttribute('aria-expanded','false');
       }
-
-      // Force https to avoid mixed content in Chrome
-      if (img.src && img.src.startsWith('http://')){
-        img.src = img.src.replace('http://', 'https://');
-      }
-
-      // Reduce referrer/CORS headaches
-      img.referrerPolicy = 'no-referrer';
-      img.crossOrigin = 'anonymous';
-
-      // Retry with lowercase filename if the first load fails (server case-sensitivity)
-      img.addEventListener('error', function once(){
-        img.removeEventListener('error', once);
-        try{
-          var u = new URL(img.src);
-          var parts = u.pathname.split('/');
-          var file = parts.pop();
-          var lower = file.toLowerCase();
-          if (file !== lower){
-            u.pathname = parts.join('/') + '/' + lower;
-            img.src = u.toString();
-          }
-        }catch(e){}
-      }, { once: true });
-    }catch(e){}
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    var imgs = Array.from(document.images || []);
-    imgs.filter(isJWST).forEach(patch);
+    }
   });
+
+  // Ensure nav links close menu on click
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a.nav-link[data-section]');
+    var nav = document.getElementById('navLinks');
+    if (a && nav){
+      nav.classList.remove('active');
+      var navbar=document.getElementById("navbar"); if(navbar){ navbar.classList.remove("menu-open"); }
+var btn = document.querySelector('.mobile-menu-toggle');
+      if (btn) btn.setAttribute('aria-expanded','false');
+    }
+  }, { passive: false });
 })();
 </script>
 
