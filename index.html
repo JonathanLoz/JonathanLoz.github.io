@@ -92,9 +92,9 @@
             width: 100%;
             padding: 1rem 0;
             background: var(--glass);
-            backdrop-filter: blur(10px);
+            pointer-events: auto; backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
-            z-index: 2000;
+            z-index: 9999;
             transition: all 0.3s ease;
         }
 
@@ -1393,7 +1393,49 @@ nav,
   #aurora-bg, #cursor-spotlight{ display:none !important; }
 }
 
+
+/* #navLinks-clickable-patch: ensure taps go through on iOS/Android */
+.nav-links, .nav-links * { pointer-events: auto; }
+/* Mobile menu visibility should overlay content fully */
+@media (max-width: 768px){
+  .nav-links { position: fixed; top: 64px; right: 0; left: 0; z-index: 9999; }
+}
+
+#nodes-bg-canvas{ pointer-events: none !important; }
+
+/* === Mobile UX hardening for menu === */
+@media (max-width: 768px){
+  .mobile-menu-toggle{
+    display: block;
+    position: relative;
+    z-index: 10000;
+    font-size: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--light);
+  }
+  .nav-links{
+    display: none;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: var(--glass);
+    backdrop-filter: blur(12px) saturate(110%);
+    -webkit-backdrop-filter: blur(12px) saturate(110%);
+    padding: 0.75rem;
+    margin: 0;
+    border-top: 1px solid var(--glass-border);
+  }
+  .nav-links.active{ display: flex; }
+  .nav-link{
+    padding: 1rem 1.25rem;
+    border-radius: 0.75rem;
+  }
+  .nav-link:active{ background: rgba(255,255,255,0.06); }
+}
+
 </style>
+
 </head>
 <body>
 
@@ -1430,10 +1472,10 @@ nav,
             
             <ul class="nav-links" id="navLinks">
                 <li><a class="nav-link active" onclick="showSection('about')">About</a></li>
-                <li><a class="nav-link" href="#" data-section="cv" onclick="showSection('cv')">CV</a></li>
-                <li><a class="nav-link" href="#" data-section="projects" onclick="showSection('projects')">Projects</a></li>
-                <li><a class="nav-link" href="#" data-section="publications" onclick="showSection('publications')">Publications</a></li>
-                <li><a class="nav-link" href="#" data-section="teaching" onclick="showSection('teaching')">Teaching</a></li>
+                <li><a class="nav-link" href="#cv" data-section="cv" onclick="showSection('cv')">CV</a></li>
+                <li><a class="nav-link" href="#projects" data-section="projects" onclick="showSection('projects')">Projects</a></li>
+                <li><a class="nav-link" href="#publications" data-section="publications" onclick="showSection('publications')">Publications</a></li>
+                <li><a class="nav-link" href="#teaching" data-section="teaching" onclick="showSection('teaching')">Teaching</a></li>
             </ul>
 
             <div class="social-links">
@@ -1460,7 +1502,7 @@ nav,
                     <a href="#" class="location-link">Weinberg Institute, Austin, Texas</a>
                     
                     <p class="hero-description">
-                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University of Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
+                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University oF Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
                     </p>
                     
                     <p class="hero-description">
@@ -1987,6 +2029,36 @@ document.addEventListener('DOMContentLoaded', function(){
     link.addEventListener('click', handler, { passive: false });
     link.addEventListener('touchend', handler, { passive: false });
   });
+});
+
+
+// === Mobile-friendly nav: reliable tap handlers + hash routing ===
+document.addEventListener('DOMContentLoaded', function(){
+  // Delegated taps on the nav list (more reliable on mobile)
+  const navList = document.getElementById('navLinks');
+  if (navList){
+    const handler = function(e){
+      const a = e.target.closest && e.target.closest('a.nav-link[data-section]');
+      if (!a) return;
+      e.preventDefault();
+      const section = a.getAttribute('data-section');
+      if (section && typeof showSection === 'function'){ showSection(section); }
+      // Update hash so back button works too
+      if (section) history.pushState(null, '', '#' + section);
+      navList.classList.remove('active');
+      return false;
+    };
+    navList.addEventListener('click', handler, { passive: false });
+    navList.addEventListener('touchend', handler, { passive: false });
+  }
+
+  // Hash router: load correct section on page load or when hash changes
+  function routeFromHash(){
+    const h = (location.hash || '').replace(/^#/, '') || 'about';
+    if (typeof showSection === 'function') showSection(h);
+  }
+  window.addEventListener('hashchange', routeFromHash);
+  routeFromHash();
 });
 
 function toggleMenu() {
