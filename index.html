@@ -7,7 +7,7 @@
     <meta name="description" content="PhD student at UT Austin researching heavy-ion physics and quark-gluon plasma">
     
     <!-- Modern Font Stack -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
@@ -1211,6 +1211,102 @@
 @media (prefers-reduced-motion: reduce){
   #nodes-bg-canvas{ display: none; }
 }
+
+/* === Typography Upgrade (modern, elegant, sophisticated) === */
+:root {
+  --heading-font: 'Playfair Display', serif;
+  --ui-font: 'DM Sans', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --body-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+  --mono-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Base & body */
+body {
+  font-family: var(--body-font) !important;
+  line-height: 1.75 !important;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings: elegant, high-contrast serif */
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.project-title {
+  font-family: var(--heading-font) !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* UI & badges: modern geometric sans */
+nav, .nav-link, .project-badge,
+.cv-date, .teaching-badge, .news-date, .publication-badge {
+  font-family: var(--ui-font) !important;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Body copy & lists */
+p, li, .cv-description, .news-content,
+.hero-description, .publication-authors, .cv-title, .cv-subtitle, .cv-list {
+  font-family: var(--body-font) !important;
+  font-weight: 400;
+}
+
+/* Code / monospace */
+code, pre, kbd, samp {
+  font-family: var(--mono-font) !important;
+}
+
+/* Small refinements */
+.nav-brand { font-family: var(--heading-font) !important; font-weight: 700; letter-spacing: -0.01em; }
+.hero-subtitle { font-family: var(--body-font) !important; font-weight: 400; }
+
+
+/* === Minimal Typography Override (single-family: Manrope) === */
+:root {
+  --heading-font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ui-font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --body-font: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --mono-font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+body {
+  font-family: var(--body-font) !important;
+  line-height: 1.7 !important;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.project-title {
+  font-family: var(--heading-font) !important;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+nav, .nav-link, .project-badge,
+.cv-date, .teaching-badge, .news-date, .publication-badge {
+  font-family: var(--ui-font) !important;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: none !important; /* keep it minimal, avoid all-caps */
+}
+
+p, li, .cv-description, .news-content,
+.hero-description, .publication-authors, .cv-title, .cv-subtitle, .cv-list {
+  font-family: var(--body-font) !important;
+  font-weight: 400;
+}
+
+code, pre, kbd, samp { font-family: var(--mono-font) !important; }
+
+.nav-brand { font-family: var(--heading-font) !important; font-weight: 800; letter-spacing: -0.01em; }
+.hero-subtitle { font-family: var(--body-font) !important; font-weight: 400; }
+
 </style>
 </head>
 <body>
