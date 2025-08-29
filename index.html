@@ -94,7 +94,7 @@
             background: var(--glass);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
+            z-index: 2000;
             transition: all 0.3s ease;
         }
 
@@ -803,7 +803,7 @@
             background: var(--glass);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
+            z-index: 2000;
             transition: all 0.3s ease;
         }
 
@@ -1430,10 +1430,10 @@ nav,
             
             <ul class="nav-links" id="navLinks">
                 <li><a class="nav-link active" onclick="showSection('about')">About</a></li>
-                <li><a class="nav-link" onclick="showSection('cv')">CV</a></li>
-                <li><a class="nav-link" onclick="showSection('projects')">Projects</a></li>
-                <li><a class="nav-link" onclick="showSection('publications')">Publications</a></li>
-                <li><a class="nav-link" onclick="showSection('teaching')">Teaching</a></li>
+                <li><a class="nav-link" href="#" data-section="cv" onclick="showSection('cv')">CV</a></li>
+                <li><a class="nav-link" href="#" data-section="projects" onclick="showSection('projects')">Projects</a></li>
+                <li><a class="nav-link" href="#" data-section="publications" onclick="showSection('publications')">Publications</a></li>
+                <li><a class="nav-link" href="#" data-section="teaching" onclick="showSection('teaching')">Teaching</a></li>
             </ul>
 
             <div class="social-links">
@@ -1460,7 +1460,7 @@ nav,
                     <a href="#" class="location-link">Weinberg Institute, Austin, Texas</a>
                     
                     <p class="hero-description">
-                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University oF Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
+                        Hi! My name is Jonathan. I am a Ph.D student at <a href="https://ph.utexas.edu/" target="_blank"> the University of Texas at Austin</a>. I am interested in theoretical physics specially the study of topological and non-topological solitons, quantum systems, collider phenomenology, and effective field theory applications. I am also interested in the study of Heavy-flavor angular correlations to understand the properties of quark gluon plasma and colored backgrounds.
                     </p>
                     
                     <p class="hero-description">
@@ -1971,7 +1971,25 @@ a Salpeter IMF and constant star formation rate).
         }
 
         // Mobile menu toggle
-        function toggleMenu() {
+        
+// === Mobile-friendly nav: reliable tap handlers for iOS/Android ===
+document.addEventListener('DOMContentLoaded', function(){
+  const links = document.querySelectorAll('.nav-link[data-section]');
+  links.forEach(link => {
+    const section = link.getAttribute('data-section');
+    const handler = function(e){
+      if (e) e.preventDefault();
+      if (section && typeof showSection === 'function') { showSection(section); }
+      const navLinks = document.getElementById('navLinks');
+      if (navLinks) navLinks.classList.remove('active');
+      return false;
+    };
+    link.addEventListener('click', handler, { passive: false });
+    link.addEventListener('touchend', handler, { passive: false });
+  });
+});
+
+function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
         }
