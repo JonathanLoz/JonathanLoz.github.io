@@ -1,245 +1,269 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Academic CV - Jonathan Lozano
+% Academic CV - Jonathan Lozano-Mayo. Compile with xelatex (pdflatex also works, with substitute icons).
 % Based on the ModernCV template by Xavier Danaux
 % License: CC BY-NC-SA 3.0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%----------------------------------------------------------------------------------------
-%   PACKAGES AND DOCUMENT CONFIGURATION
-%----------------------------------------------------------------------------------------
+\documentclass[11pt,letterpaper,roman]{moderncv}
 
-\documentclass[11pt,a4paper,roman]{moderncv}
+\moderncvstyle{classic}
+\moderncvcolor{blue}
+\moderncvicons{awesome}
 
-\moderncvstyle[nosymbols]{classic}   % 'casual', 'classic', 'banking', 'oldstyle', 'fancy'
-\moderncvcolor{blue}      % 'blue', 'orange', 'green', 'red', 'purple', 'grey', 'black'
+\usepackage[left=2.2cm,right=2.2cm,top=1.7cm,bottom=2.0cm,footskip=0.9cm]{geometry}
+\setlength{\hintscolumnwidth}{2.45cm}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[osf,semibold]{libertinus}
+  \usepackage{libertinust1math}
+  \renewcommand*{\hintfont}{\LibertinusSerifTLF}
+  \providecommand{\aiInspire}{\faAtom}
+  \providecommand{\aiGoogleScholar}{\faGraduationCap}
+\else
+  \usepackage[osf,semibold]{libertinus}
+  \usepackage{academicons}
+  \renewcommand*{\hintfont}{\addfontfeatures{Numbers={Lining,Monospaced}}}
+\fi
+% palette shared with jonathanloz.github.io
+\definecolor{color0}{HTML}{1A1A1A}
+\definecolor{color1}{HTML}{8B4049}
+\definecolor{color2}{HTML}{6B6B6B}
 
-\usepackage[scale=0.84]{geometry}
-\setlength{\hintscolumnwidth}{2.3cm} % Width of the dates column
-\usepackage[T1]{fontenc}
-\usepackage{mathpazo} % Palatino text with matched math
-\linespread{1.05}     % Palatino benefits from slightly more leading
-\microtypesetup{expansion=false} % marvosym symbol font is not scalable
+% typography
+\ifPDFTeX
+  \renewcommand*{\namefont}{\fontsize{32}{34}\mdseries\upshape}
+  \renewcommand*{\sectionfont}{\Large\scshape}
+\else
+  \newfontfamily\cvdisplay{LibertinusSerifDisplay-Regular.otf}
+  \renewcommand*{\namefont}{\cvdisplay\fontsize{34}{36}\selectfont}
+  \renewcommand*{\sectionfont}{\Large\scshape\addfontfeatures{LetterSpace=4}}
+\fi
+\renewcommand*{\subsectionfont}{\large\itshape}
+\renewcommand*{\hintstyle}[1]{{\hintfont\textcolor{color2}{#1}}}
+\renewcommand*{\sldefault}{it}
+\linespread{1.04}
 
-% Restore the marvosym envelope/house icons in the header.
-% (\marvosymbol is provided by the letters collection loaded via [nosymbols];
-%  codes 66 and 205 are the marvosym collection's email and homepage glyphs.)
-\renewcommand*{\emailsymbol}{\marvosymbol{66}~}
-\renewcommand*{\homepagesymbol}{{\Large\marvosymbol{205}}~}
-
-% Tighten the spacing produced by \cventry / \cvitem
 \setlength{\parskip}{0pt}
 \renewcommand*{\quotefont}{\normalsize\normalfont}
+\ifPDFTeX\else\renewcommand*{\orcidsocialsymbol}{{\small\aiOrcid}~}\fi
 
-%----------------------------------------------------------------------------------------
-%   PERSONAL INFORMATION
-%----------------------------------------------------------------------------------------
+% footer: name, date, page x of y
+\nopagenumbers{}
+\AtEndDocument{\label{cvlastpage}}
+\AtBeginDocument{%
+  \fancypagestyle{plain}{%
+    \fancyhf{}\renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{0pt}%
+    \fancyfoot[L]{\footnotesize\color{color2}Jonathan Lozano-Mayo \textperiodcentered{} Curriculum Vitae \textperiodcentered{} Updated \today}%
+    \fancyfoot[R]{\footnotesize\color{color2}\thepage/\pageref{cvlastpage}}}%
+  \pagestyle{plain}}
+
+% keep headings with the material that follows
+\usepackage{needspace}
+\let\cvoldsection\section
+\renewcommand{\section}[1]{\needspace{5\baselineskip}\cvoldsection{#1}}
+\let\cvoldsubsection\subsection
+\renewcommand{\subsection}[1]{\needspace{2\baselineskip}\cvoldsubsection{#1}}
+
+% accents: small-caps tags and highlighted results in the accent colour
+\newcommand{\cvtag}[1]{\mbox{\color{color1}\textsc{\lowercase{#1}}}}
+\newcommand{\result}[1]{{\color{color1}\textbf{#1}}}
+\newcommand{\arxiv}[1]{\href{https://arxiv.org/abs/#1}{\textcolor{color1}{arXiv:#1}}}
+\newcommand{\doi}[2]{\href{https://doi.org/#1}{\textcolor{color1}{#2}}}
+\newcommand{\me}{\textbf{J.~Lozano-Mayo}}
 
 \firstname{Jonathan}
-\familyname{Lozano}
+\familyname{Lozano-Mayo}
 
 \title{PhD Candidate in Theoretical Physics}
 \address{Weinberg Institute for Theoretical Physics}{The University of Texas at Austin}{}
 \email{jonathanloz@utexas.edu}
 \homepage{jonathanloz.github.io}
-\extrainfo{ORCID: \href{https://orcid.org/0000-0002-9638-5173}{0000-0002-9638-5173}}
-
-%----------------------------------------------------------------------------------------
+\social[orcid]{0000-0002-9638-5173}
+\social[github]{JonathanLoz}
+\extrainfo{\aiInspire~\href{https://inspirehep.net/literature?q=a\%20Lozano-Mayo}{INSPIRE}%
+  \quad\aiGoogleScholar~\href{https://scholar.google.com/scholar?q=author\%3A\%22J+Lozano-Mayo\%22}{Google Scholar}}
 
 \begin{document}
 
 \makecvtitle
 
-%--------------------------------------------------------------------------------------
-%   EDUCATION
-%--------------------------------------------------------------------------------------
-
-\section{Education}
-
-\cventry{2023--present}{Ph.D.\ in Physics}{The University of Texas at Austin}{USA}{}{%
-Advisor: Dr.\ Antonios Alvertis. \newline
-GPA: 3.9/4.00. Research in condensed matter and many-particle physics.}
-
-\cventry{2016--2021}{B.Sc.\ in Physics}{National Autonomous University of Mexico (UNAM)}{Mexico City}{\textit{GPA: 9.39/10.0 --- High Honors}}{%
-Advisor: Dr.\ Manuel Torres Labansat. Coursework included two graduate-level
-courses in quantum field theory and a graduate course in differential geometry
-and topology for physicists.\newline
-\emph{Thesis:} Spontaneous symmetry breaking and extended field configurations
-in a scalar theory subject to a potential with two families of vacuum states.}
-
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
 %   RESEARCH INTERESTS
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
 
 \section{Research Interests}
 
-\cvitem{}{Condensed matter physics \quad$\cdot$\quad Many-particle physics \quad$\cdot$\quad Quantum phenomena
-\quad$\cdot$\quad Tensor networks for strongly correlated systems \quad$\cdot$\quad Topological and
-non-topological solitons \quad$\cdot$\quad Non-perturbative phenomena}
+\cvitem{}{Condensed matter physics \textperiodcentered{} Many-particle physics
+\textperiodcentered{} Quantum phenomena\newline
+Tensor networks for strongly correlated systems \textperiodcentered{}
+Non-perturbative phenomena\newline
+Topological and non-topological solitons}
 
-%--------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%   EDUCATION
+%----------------------------------------------------------------------------------------
+
+\section{Education}
+
+\cventry{2023--present}{Ph.D.\ in Physics}{The University of Texas at Austin}{Weinberg Institute for Theoretical Physics}{}{%
+Advised by Antonios Alvertis.}
+
+\cventry{2016--2021}{B.Sc.\ in Physics}{National Autonomous University of Mexico (UNAM)}{Faculty of Sciences}{}{%
+Advised by Manuel Torres Labansat.\newline
+\emph{Thesis:} Spontaneous symmetry breaking and extended field configurations
+in a scalar theory subject to a potential with two families of vacuum states.
+\cvtag{Honorific Mention}}
+
+%----------------------------------------------------------------------------------------
 %   PUBLICATIONS
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
 
 \section{Publications}
 
 \subsection{Refereed journal articles}
 
-\cvitem{2026}{\textbf{J. Lozano-Mayo}. Generalized virial identities: radial
-constraints for solitons, instantons, and bounces. \textit{J. High Energ.
-Phys.} \textbf{04} (2026) 058.
-\href{https://doi.org/10.1007/JHEP04(2026)058}{doi:10.1007/JHEP04(2026)058}}
+\cvitem{2026}{\me, \textit{Generalized virial identities: radial constraints for
+solitons, instantons, and bounces},
+\doi{10.1007/JHEP04(2026)058}{J.\ High Energ.\ Phys.\ \textbf{04} (2026) 058}
+[\arxiv{2512.23548}].}
 
-\cvitem{2026}{\textbf{J. Lozano-Mayo} and M. Torres-Labansat. Multi-kinks and
-composite oscillons in a commensurable and non degenerate double sine-Gordon
-model. \textit{J. High Energ. Phys.} \textbf{09} (2026) 218.
-\href{https://doi.org/10.1007/JHEP09(2026)218}{doi:10.1007/JHEP09(2026)218}}
+\cvitem{2026}{\me\ and M.~Torres-Labansat, \textit{Multi-kinks and composite
+oscillons in a commensurable and non-degenerate double sine-Gordon model},
+\doi{10.1007/JHEP09(2026)218}{J.\ High Energ.\ Phys.\ \textbf{09} (2026) 218}
+[\arxiv{2407.09682}].}
 
-\cvitem{2021}{\textbf{J. Lozano-Mayo} and M. Torres-Labansat. Kink solutions in
-a generalized scalar $\phi_G^4$ field model. \textit{J. Phys. Commun.}
-\textbf{5} (2021) 025004.
-\href{https://doi.org/10.1088/2399-6528/abdd83}{doi:10.1088/2399-6528/abdd83}}
+\cvitem{2021}{\me\ and M.~Torres-Labansat, \textit{Kink solutions in a
+generalized scalar\,\ $\phi_G^4$ field model},
+\doi{10.1088/2399-6528/abdd83}{J.\ Phys.\ Commun.\ \textbf{5} (2021) 025004}.}
 
-\subsection{Submitted}
+\subsection{Under review}
 
-\cvitem{2025}{J. J. Ziegler, K. Freese, \textbf{J. Lozano}, G. Montefalcone.
-Explaining the ``too massive'' high-redshift galaxies in JWST data: a numerical
-study of three effects and a simple relation. \textit{In revision}.}
+\cvitem{2025}{J.~J.~Ziegler, K.~Freese, \textbf{J.~Lozano}, G.~Montefalcone,
+\textit{Explaining the ``too massive'' high-redshift galaxies in JWST data:
+numerical study of three effects and a simple relation} [\arxiv{2507.21409}].
+In revision at MNRAS.}
 
-\subsection{Collaboration authorship}
+\subsection{Collaboration papers}
 
-\cvitem{2024--2025}{\textit{ALICE Collaboration}. Papers carrying my name under
-ALICE's collective authorship policy are not listed individually.}
+\cvitem{2024--2025}{Member of the ALICE Collaboration. Papers carrying my name
+under ALICE's collective authorship policy are not listed individually.}
 
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
 %   RESEARCH EXPERIENCE
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
 
 \section{Research Experience}
 
-\cventry{2026--present}{Exciton-polaron physics in the Holstein model}{Weinberg Institute, UT Austin}{}{Alvertis group}{%
-Computing exciton binding energies in strongly coupled electron-phonon systems
+\cventry{2026--present}{Excitons and phonons in strongly correlated materials}{UT Austin}{}{}{%
+\textit{With Antonios Alvertis.} Computing exciton binding energies in strongly coupled electron-phonon systems
 with tensor-network methods, in the regime where perturbative treatments of the
 coupling break down.}
 
-\cventry{2025--2026}{Generalized virial identities for solitons, instantons and bounces}{Weinberg Institute, UT Austin}{}{Independent}{%
+\cventry{2025--2026}{Generalized virial identities}{UT Austin}{}{\cvtag{Independent project}}{%
 Derived a one-parameter family of virial identities for $O(n)$-symmetric
-configurations that resolves Derrick's global constraint into core and tail
-contributions. Verified them analytically for the Fubini-Lipatov instanton, the
-BPS monopole and the BPST instanton, and established their residuals as an
-accuracy diagnostic for numerical solutions. Sole-authored, published in JHEP.}
+solitons, instantons and bounces that resolves Derrick's global constraint into
+core and tail contributions. Verified them analytically for the Fubini-Lipatov
+instanton, the BPS monopole and the BPST instanton, and established their
+residuals as an accuracy diagnostic for numerical solutions.}
 
-\cventry{2025}{Charm production across color environments}{ALICE Collaboration, UT Austin}{}{Markert group}{%
-Measured $h$--$D^0$ azimuthal correlations in ALICE Run-3 Pb--Pb data to probe
-charm production in different color environments, and contributed ITS2
-performance studies as collaboration service work.}
+\cventry{2024--2025}{Charm production across color environments}{ALICE Collaboration, UT Austin}{}{}{%
+\textit{With Christina Markert.} Measured $h$--$D^0$ azimuthal correlations in ALICE Run-3 Pb--Pb data to probe
+charm production in different color environments, and contributed performance
+studies of the upgraded Inner Tracking System (ITS2) as collaboration service work.}
 
-\cventry{2024}{High-redshift galaxy masses and top-heavy IMFs}{Weinberg Institute, UT Austin}{}{Freese group}{%
-Modeled high-redshift galaxy spectral energy distributions with P\'EGASE to
-determine where JWST observations remain consistent with $\Lambda$CDM.}
+\cventry{2024}{High-redshift galaxies and top-heavy initial mass functions}{UT Austin}{}{}{%
+\textit{With Katherine Freese.} Modeled high-redshift galaxy spectral energy distributions with the population
+synthesis code P\'EGASE to determine where JWST observations remain consistent
+with $\Lambda$CDM. \cvtag{Under review}}
 
-\cventry{2020--2022}{Solitons in scalar field theories with non-degenerate vacua}{Institute of Physics, UNAM}{}{}{%
-Established the existence of static $n$-kink structures in deformed potentials
+\cventry{2020--2022}{Solitons in scalar field theories with non-degenerate vacua}{UNAM}{}{}{%
+\textit{With Manuel Torres Labansat.} Established the existence of static $n$-kink structures in deformed potentials
 by asymptotic analysis, characterized the inter-kink binding forces
 numerically, and derived an analytical relation for the multi-kink energy.
 Renormalized the one-loop quantum mass correction of kinks in a generalized
-$\phi^4$ potential. Basis of two refereed papers.}
+$\phi^4$ potential. \cvtag{Two refereed papers}}
 
-%--------------------------------------------------------------------------------------
-%   AWARDS \& DISTINCTIONS
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%   AWARDS
+%----------------------------------------------------------------------------------------
 
 \section{Awards \& Distinctions}
 
-\cvitem{2024}{\textbf{Biedenharn Endowment for Excellence} --- Department of Physics, UT Austin.}
-\cvitem{2022}{\textbf{DPG/IAPS Travel Grant} --- awarded by the German Physical Society and the International Association of Physics Students to attend the PLANCKS international final at LMU Munich.}
-\cvitem{2022}{\textbf{Winner, Mexican Tournament of Physics (TMF)} --- placed 1st of 30 teams in the \emph{Torneo Mexicano de F\'isica}, a theoretical physics competition for bachelor's and master's students that serves as the Mexican PLANCKS preliminary.}
-\cvitem{2021}{\textbf{Juan Manuel Lozano Mej\'ia Diploma}, UNAM Institute of Physics --- institute-wide distinction for the most outstanding undergraduate thesis research in physics.}
-\cvitem{2021}{\textbf{Excellence Cluster Fellowship} --- PRISMA, Johannes Gutenberg University Mainz.}
-\cvitem{2021}{\textbf{PLANCKS 2021 (Porto): 7th of 50 teams} --- international final of the theoretical physics competition, in Mexico's first appearance.}
-\cvitem{2021}{\textbf{Winner, Mexican Tournament of Physics (TMF)} --- placed 1st nationally in the PLANCKS preliminary, earning a place on the first Mexican team to attend PLANCKS.}
-\cvitem{2021}{\textbf{Honorific Mention}, B.Sc.\ thesis defense (UNAM) --- highest distinction a thesis committee can award.}
+\cvitem{2024}{\textbf{Biedenharn Endowment for Excellence}, Department of Physics, UT Austin.}
+\cvitem{2022}{\textbf{Travel Grant}, German Physical Society (DPG) and International Association of Physics Students (IAPS), to compete in the PLANCKS international final at LMU Munich.}
+\cvitem{2021--2022}{\textbf{Two-time Winner, Mexican Tournament of Physics} (\emph{Torneo Mexicano de F\'isica}), the national theoretical physics competition for bachelor's and master's students that serves as the Mexican PLANCKS preliminary. \result{1st of 30 teams} in 2022; the 2021 win placed me on the first Mexican team to compete at PLANCKS.}
+\cvitem{2021}{\textbf{PLANCKS International Final, Porto}: \result{7th of 50 teams} in Mexico's first appearance at the international theoretical physics competition.}
+\cvitem{2021}{\textbf{Juan Manuel Lozano Mej\'ia Diploma}, UNAM Institute of Physics: institute-wide distinction for the most outstanding undergraduate thesis research in physics.}
+\cvitem{2021}{\textbf{PRISMA Cluster of Excellence Fellowship}, Johannes Gutenberg University Mainz.}
+\cvitem{2021}{\textbf{Honorific Mention}, B.Sc.\ thesis defense, UNAM: the highest distinction a thesis committee can award.}
 \cvitem{2019}{\textbf{Research Assistantship}, UNAM Institute of Physics.}
-\cvitem{2017--2018}{\textbf{Summer research and school scholarships} --- Mexican Academy of Sciences (XXVIII Scientific Research Summer, 2018), ICF-UNAM (VII Experimental Physics School, 2018) and IF-UNAM (XXV Physics School, 2017).}
+\cvitem{2017--2018}{\textbf{Summer research and school scholarships}: Mexican Academy of Sciences Research Summer (2018); UNAM Experimental Physics School (2018); UNAM Physics School (2017).}
 
-%--------------------------------------------------------------------------------------
-%   CONFERENCE PRESENTATIONS
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%   PRESENTATIONS
+%----------------------------------------------------------------------------------------
 
-\section{Conference Presentations}
+\section{Presentations}
 
-\cvitem{2025}{\textbf{J. L. Mayo}. \emph{$h$--$D^0$ angular correlations and
-$\Delta$ROF performance studies at ITS2}. ALICE-USA Meeting.}
+\subsection{Talks at UT Austin}
 
-\cvitem{2021}{\textbf{J. L. Mayo}. \emph{Multi-solitones en teor\'ias escalares
-de campo con vac\'ios no-degenerados: el modelo doble de sine-Gordon}. LXVI
-National Physics Congress, Mexican Physical Society.}
+\cvitem{Apr 2026}{\textit{Exploration of electron-phonon interactions in strongly
+correlated materials}. Qualifying examination, Department of Physics.}
 
-%--------------------------------------------------------------------------------------
-%   TEACHING \& ACADEMIC SERVICE
-%--------------------------------------------------------------------------------------
+\subsection{Contributed talks}
 
-\section{Teaching \& Academic Service}
+\cvitem{2025}{\textit{$h$--$D^0$ angular correlations and $\Delta$ROF performance
+studies at ITS2}. ALICE-USA Collaboration Meeting.}
 
-\cventry{2026}{Teaching Assistant --- Graduate Quantum Mechanics}{UT Austin}{}{}{%
-Mentored students and graded assignments for a graduate course on Quantum Mechanics.}
-\cventry{2025}{Lecturer --- Quantum Field Theory I}{ICTP (International Centre for Theoretical Physics)}{}{}{%
-Delivered an introductory quantum field theory course as part of the
-International Centre for Theoretical Physics outreach initiative.}
+\cvitem{2021}{\textit{Multi-solitones en teor\'ias escalares de campo con vac\'ios
+no-degenerados: el modelo doble de sine-Gordon}. LXVI National Physics Congress,
+Mexican Physical Society.}
 
-\cventry{2024}{Teaching Assistant --- Advanced Particle Physics}{ICTP}{}{}{%
-Led problem-set discussions and graded assignments for a graduate course on
-advanced topics in quantum field theory.}
-\cventry{2025}{Teaching Assistant --- Waves and Optics}{UT Austin}{}{}{%
-Held weekly discussion sections and graded coursework spanning wave phenomena, optics, and electromagnetism.}
-\cventry{2024--2025}{Teaching Assistant --- Modern Physics}{UT Austin}{}{}{%
-Led weekly discussion sections and graded coursework spanning statistical
-mechanics, quantum mechanics, and special relativity.}
+%----------------------------------------------------------------------------------------
+%   TEACHING
+%----------------------------------------------------------------------------------------
 
-\cventry{2023}{Teaching Assistant --- Electromagnetism Laboratory (PHY 105N)}{UT Austin}{}{}{%
-Led two weekly laboratory sections and supported the experimental setups.}
+\section{Teaching}
 
-\cventry{2022}{Teaching Assistant --- Thermodynamics}{UNAM}{}{}{%
-Held problem-solving sessions and created and graded homework and exams.}
+\cventry{2023--2026}{Teaching Assistant}{The University of Texas at Austin}{}{}{%
+Graduate Quantum Mechanics (2026); undergraduate Waves and Optics (2025), Modern
+Physics (2024--2025) and Electromagnetism Laboratory, PHY 105N (2023). Led
+discussion and laboratory sections, gave short pre-lab lectures, graded coursework.}
 
-\cventry{2020}{Teaching Assistant --- Nuclear and Subnuclear Physics}{UNAM}{}{}{%
-Mentored students and graded homework and exams for a course taught by Prof.\
-Manuel Torres Labansat.}
+\cventry{2025}{Lecturer, Quantum Field Theory I}{ICTP Physics Without Frontiers}{}{}{%
+Introductory quantum field theory course for the ICTP initiative in Latin America.}
 
-\cventry{2022}{Referee}{J.\ Phys.\ G: Nuclear and Particle Physics}{}{}{%
-Reviewed submitted manuscripts.}
+\cventry{2024}{Teaching Assistant, Advanced Particle Physics}{ICTP Physics Without Frontiers}{}{}{%
+Graduate course on advanced quantum field theory; led problem-set discussions.}
 
-\cventry{2017}{Volunteer Instructor}{UNAM School of Humanities and Sciences}{}{}{%
-Taught physics and mathematics in an undergraduate preparation course.}
+\cventry{2020--2022}{Teaching Assistant}{UNAM, Faculty of Sciences}{}{}{%
+Undergraduate Thermodynamics (2022) and Nuclear and Subnuclear Physics (2020).
+Ran problem-solving sessions; wrote and graded homework and exams.}
 
-%--------------------------------------------------------------------------------------
-%   TECHNICAL SKILLS
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%   SERVICE AND OUTREACH
+%----------------------------------------------------------------------------------------
 
-\section{Technical Skills}
+\section{Service \& Outreach}
 
-\cvitem{Programming}{Julia, Python, C++, Mathematica, \LaTeX, HTML}
-\cvitem{Numerical methods}{Tensor networks (DMRG), exact diagonalization, finite-difference PDE solvers}
-\cvitem{Scientific tools}{ROOT/O$^2$ (ALICE framework), QtiPlot, Origin, Tracker, ImageJ}
+\cvitem{2022}{Referee, \textit{Journal of Physics G: Nuclear and Particle Physics}.}
+\cvitem{2017}{Volunteer instructor in physics and mathematics, UNAM university preparation course.}
 
-%--------------------------------------------------------------------------------------
-%   ADDITIONAL TRAINING
-%--------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%   SKILLS
+%----------------------------------------------------------------------------------------
 
-\section{Additional Training}
+\section{Skills, Training \& Languages}
 
-\cvitem{2021--2025}{Summer School on CMB Data Analysis (UT Austin, 2025);
-Modeling and Tools for Data Analysis in Science (UANL, 2022); Bad Honnef
-Physics School on Methods of Effective Field Theory and Lattice Field Theory
-(DPG, 2021); VII Mexican School on String Theory and Supersymmetry and Mexican
-Astro-Particle School (University of Guanajuato, 2021).}
-
-%--------------------------------------------------------------------------------------
-%   LANGUAGES
-%--------------------------------------------------------------------------------------
-
-\section{Languages}
-
-\cvitem{}{\textbf{Spanish} (native) \quad$\cdot$\quad \textbf{English} (C1)
-\quad$\cdot$\quad \textbf{German} (A2) \quad$\cdot$\quad \textbf{French} (A2)}
+\cvitem{Numerical}{Tensor networks (DMRG, TDVP), exact diagonalization,
+finite-difference PDE solvers}
+\cvitem{Programming}{Julia, Python, C++, Mathematica, ROOT/O$^2$ (ALICE), \LaTeX}
+\cvitem{Schools}{CMB Data Analysis (UT Austin, 2025); Modeling and Tools for Data
+Analysis in Science (UANL, 2022); Bad Honnef Physics School on Effective and Lattice
+Field Theory (DPG, 2021); Mexican Schools on String Theory and Supersymmetry and on
+Astro-Particle Physics (Guanajuato, 2021)}
+\cvitem{Languages}{Spanish (native), English (C1), German (A2), French (A2)}
 
 \end{document}
