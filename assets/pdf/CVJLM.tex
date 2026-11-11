@@ -6,8 +6,14 @@
 
 \documentclass[11pt,letterpaper,roman]{moderncv}
 
-\moderncvstyle{classic}
 \moderncvcolor{blue}
+% palette shared with jonathanloz.github.io
+\definecolor{color0}{HTML}{1A1A1A}
+\definecolor{color1}{HTML}{8B4049}
+\definecolor{color2}{HTML}{6B6B6B}
+\moderncvstyle{classic}
+\colorlet{firstnamecolor}{color0}
+\colorlet{lastnamecolor}{color0}
 \moderncvicons{awesome}
 
 \usepackage[left=2.2cm,right=2.2cm,top=1.7cm,bottom=2.0cm,footskip=0.9cm]{geometry}
@@ -21,22 +27,20 @@
   \providecommand{\aiInspire}{\faAtom}
   \providecommand{\aiGoogleScholar}{\faGraduationCap}
 \else
-  \usepackage[osf,semibold]{libertinus}
+  \usepackage[osf]{OldStandard}
+  \usepackage{unicode-math}
+  \setmathfont{OldStandard-Math.otf}
   \usepackage{academicons}
   \renewcommand*{\hintfont}{\addfontfeatures{Numbers={Lining,Monospaced}}}
 \fi
-% palette shared with jonathanloz.github.io
-\definecolor{color0}{HTML}{1A1A1A}
-\definecolor{color1}{HTML}{8B4049}
-\definecolor{color2}{HTML}{6B6B6B}
 
 % typography
 \ifPDFTeX
   \renewcommand*{\namefont}{\fontsize{32}{34}\mdseries\upshape}
   \renewcommand*{\sectionfont}{\Large\scshape}
 \else
-  \newfontfamily\cvdisplay{LibertinusSerifDisplay-Regular.otf}
-  \renewcommand*{\namefont}{\cvdisplay\fontsize{34}{36}\selectfont}
+  \newfontfamily\cvdisplay{OldStandard-Regular.otf}
+  \renewcommand*{\namefont}{\cvdisplay\fontsize{29}{31}\selectfont}
   \renewcommand*{\sectionfont}{\Large\scshape\addfontfeatures{LetterSpace=4}}
 \fi
 \renewcommand*{\subsectionfont}{\large\itshape}
@@ -200,7 +204,7 @@ $\phi^4$ potential. \cvtag{Two refereed papers}}
 
 \cvitem{2022}{\textbf{Travel Grant}, German Physical Society (DPG) and International Association of Physics Students (IAPS), to compete in the \href{https://iopscience.iop.org/article/10.1088/0143-0807/37/1/014002}{\textcolor{color1}{PLANCKS}} international final at LMU Munich.}
 \cvitem{2021--2022}{\textbf{Two-time Winner, Mexican Tournament of Physics} (\emph{Torneo Mexicano de F\'isica}), the national theoretical physics competition for bachelor's and master's students that serves as the Mexican \href{https://iopscience.iop.org/article/10.1088/0143-0807/37/1/014002}{\textcolor{color1}{PLANCKS}} preliminary. \result{1st of 30 teams} in 2022; the 2021 win placed me on the first Mexican team to compete at PLANCKS.}
-\cvitem{2021}{\textbf{Mainz Physics Academy, PRISMA+ Excellence Track Fellowship}, Johannes Gutenberg University Mainz: two-year M.Sc.\ scholarship (declined).}
+\cvitem{2021}{\textbf{Mainz Physics Academy, PRISMA\textsuperscript{+} Excellence Track Fellowship}, Johannes Gutenberg University Mainz: two-year M.Sc.\ scholarship (declined).}
 \cvitem{2021}{\textbf{\href{https://iopscience.iop.org/article/10.1088/0143-0807/37/1/014002}{\textcolor{color1}{PLANCKS}} International Final, Porto}: \result{7th of 50 teams} in Mexico's first appearance at the international theoretical physics competition.}
 \cvitem{2021}{\textbf{Juan Manuel Lozano Mej\'ia Diploma}, UNAM Institute of Physics: institute-wide distinction for the most outstanding undergraduate thesis research in physics.}
 \cvitem{2021}{\textbf{Honorific Mention}, B.Sc.\ thesis defense, UNAM: the highest distinction a thesis committee can award.}
