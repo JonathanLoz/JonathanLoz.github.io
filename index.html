@@ -1182,11 +1182,54 @@
                 }
             }
 
-            .reading-month {
+            .reading-year > summary,
+            .reading-month > summary {
+                list-style: none;
+                cursor: pointer;
+                display: flex;
+                align-items: baseline;
+                gap: 0.75rem;
+                user-select: none;
+            }
+            .reading-year > summary::-webkit-details-marker,
+            .reading-month > summary::-webkit-details-marker {
+                display: none;
+            }
+            .reading-year > summary::before,
+            .reading-month > summary::before {
+                content: "▸";
+                font-size: 0.7em;
+                color: var(--accent);
+                transition: transform 0.2s;
+                display: inline-block;
+            }
+            .reading-year[open] > summary::before,
+            .reading-month[open] > summary::before {
+                transform: rotate(90deg);
+            }
+            .reading-year > summary {
+                font-family: var(--font-serif);
+                font-size: 2rem;
+                font-weight: 600;
+                color: var(--accent);
+                margin-bottom: 0.5rem;
+            }
+            .reading-year + .reading-year {
+                margin-top: 2rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--border);
+            }
+            .reading-month > summary {
                 font-family: var(--font-serif);
                 font-size: 1.3rem;
                 font-weight: 600;
-                margin: 2rem 0 0.5rem;
+                margin: 1.25rem 0 0.5rem;
+            }
+            .reading-count {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                font-weight: 400;
+                color: var(--text-muted);
             }
             .reading-day {
                 display: flex;
@@ -1231,6 +1274,7 @@
                 color: var(--text-muted);
                 font-size: 0.85rem;
                 margin-left: 0.4rem;
+                white-space: nowrap;
             }
             .reading-empty {
                 color: var(--text-muted);
@@ -2310,9 +2354,11 @@
                 <h1 class="section-title">Readings</h1>
                 <p class="section-note">What I have been reading, day by day</p>
 
-                <!-- Newest first: h2.publication-year (year) > h3.reading-month (month) > div.reading-day (day) -->
-                <h2 class="publication-year">2026</h2>
-                <h3 class="reading-month">November</h3>
+                <!-- Newest first: details.reading-year > details.reading-month > div.reading-day; keep "open" only on the latest year and month -->
+                <details class="reading-year" open>
+                    <summary>2026</summary>
+                <details class="reading-month" open>
+                    <summary>November<span class="reading-count"></span></summary>
                 <div class="reading-day">
                     <span class="reading-date">12 Nov</span>
                     <ul class="reading-list">
@@ -2320,6 +2366,8 @@
                         <li><a href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.63.63" target="_blank">Analytical properties of polaron systems or: Do polaronic phase transitions exist or not?</a><span class="reading-source">Rev. Mod. Phys. (1991)</span></li>
                     </ul>
                 </div>
+                </details>
+                </details>
             </div>
         </section>
 
@@ -2741,6 +2789,12 @@
                 window.scrollTo({ top: 0, behavior: "smooth" });
                 setTimeout(observeElements, 100);
             }
+
+            document.querySelectorAll(".reading-month").forEach((m) => {
+                const n = m.querySelectorAll(".reading-list li").length;
+                const c = m.querySelector(".reading-count");
+                if (c) c.textContent = n + (n === 1 ? " reading" : " readings");
+            });
 
             function toggleMenu() {
                 document.getElementById("navLinks").classList.toggle("active");
