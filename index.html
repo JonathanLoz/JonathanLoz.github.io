@@ -261,8 +261,18 @@
 
             .nav-links {
                 display: flex;
-                gap: 2.5rem;
+                gap: 2rem;
                 list-style: none;
+                margin: 0 1.5rem;
+            }
+            .nav-brand {
+                white-space: nowrap;
+            }
+            @media (max-width: 1100px) {
+                .nav-links {
+                    gap: 1.25rem;
+                    margin: 0 1rem;
+                }
             }
 
             .nav-link {
@@ -1171,6 +1181,67 @@
                     display: none;
                 }
             }
+
+            .reading-month {
+                font-family: var(--font-serif);
+                font-size: 1.3rem;
+                font-weight: 600;
+                margin: 2rem 0 0.5rem;
+            }
+            .reading-day {
+                display: flex;
+                gap: 1.5rem;
+                align-items: baseline;
+                padding: 1rem 0.5rem;
+                margin: 0 -0.5rem;
+                border-bottom: 1px solid var(--border-light);
+                border-radius: 4px;
+                transition: all 0.3s var(--ease-spring);
+            }
+            .reading-day:hover {
+                background: var(--accent-subtle);
+            }
+            .reading-date {
+                font-family: var(--font-mono);
+                font-size: 0.8rem;
+                color: var(--accent);
+                white-space: nowrap;
+                min-width: 3.5rem;
+            }
+            .reading-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                flex: 1;
+            }
+            .reading-list li + li {
+                margin-top: 0.5rem;
+            }
+            .reading-list a {
+                color: var(--text-primary);
+                text-decoration: none;
+                border-bottom: 1px solid var(--border);
+                transition: color 0.2s, border-color 0.2s;
+            }
+            .reading-list a:hover {
+                color: var(--accent);
+                border-color: var(--accent);
+            }
+            .reading-source {
+                color: var(--text-muted);
+                font-size: 0.85rem;
+                margin-left: 0.4rem;
+            }
+            .reading-empty {
+                color: var(--text-muted);
+                font-style: italic;
+            }
+            @media (max-width: 600px) {
+                .reading-day {
+                    flex-direction: column;
+                    gap: 0.4rem;
+                }
+            }
         </style>
     </head>
     <body>
@@ -1217,6 +1288,7 @@
                     <li><a class="nav-link" onclick="showSection('projects')">Research</a></li>
                     <li><a class="nav-link" onclick="showSection('publications')">Publications</a></li>
                     <li><a class="nav-link" onclick="showSection('teaching')">Teaching</a></li>
+                    <li><a class="nav-link" onclick="showSection('readings')">Readings</a></li>
                 </ul>
                 <div class="nav-right">
                     <div class="social-links">
@@ -2229,6 +2301,24 @@
                         </p>
                         <p>Mentored groups of students, graded homeworks and exams.</p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="readings" class="section">
+            <div class="section-container">
+                <h1 class="section-title">Readings</h1>
+                <p class="section-note">What I have been reading, day by day</p>
+
+                <!-- Newest first: h2.publication-year (year) > h3.reading-month (month) > div.reading-day (day) -->
+                <h2 class="publication-year">2026</h2>
+                <h3 class="reading-month">November</h3>
+                <div class="reading-day">
+                    <span class="reading-date">12 Nov</span>
+                    <ul class="reading-list">
+                        <li><a href="https://pubs.aip.org/aip/jmp/article/27/1/185/228476/Continued-fractions-and-Rayleigh-Schrodinger" target="_blank">Continued fractions and Rayleigh–Schrödinger perturbation theory at large order</a><span class="reading-source">J. Math. Phys. (1986)</span></li>
+                        <li><a href="https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.63.63" target="_blank">Analytical properties of polaron systems or: Do polaronic phase transitions exist or not?</a><span class="reading-source">Rev. Mod. Phys. (1991)</span></li>
+                    </ul>
                 </div>
             </div>
         </section>
