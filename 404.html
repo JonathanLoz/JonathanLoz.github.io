@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>404 — Jonathan Lozano-Mayo</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+            rel="stylesheet" />
+        <style>
+            :root {
+                --bg: #fafaf7;
+                --ink: #141414;
+                --muted: #6b6b6b;
+                --accent: #8b4049;
+                --rule: #dedcd5;
+            }
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --bg: #0e0e0e;
+                    --ink: #ececea;
+                    --muted: #85857f;
+                    --accent: #d4a5aa;
+                    --rule: #2a2a28;
+                }
+            }
+            * {
+                margin: 0;
+                box-sizing: border-box;
+            }
+            body {
+                min-height: 100vh;
+                display: grid;
+                place-items: center;
+                background: var(--bg);
+                color: var(--ink);
+                font-family: "Jost", "Futura", sans-serif;
+                padding: 2rem;
+            }
+            main {
+                max-width: 34rem;
+            }
+            .code {
+                font-family: "IBM Plex Mono", monospace;
+                font-size: 0.75rem;
+                letter-spacing: 0.14em;
+                color: var(--accent);
+            }
+            h1 {
+                font-weight: 400;
+                font-size: 2.4rem;
+                letter-spacing: -0.02em;
+                line-height: 1.15;
+                margin: 1rem 0 1.25rem;
+            }
+            p {
+                color: var(--muted);
+                line-height: 1.7;
+            }
+            svg {
+                display: block;
+                width: 100%;
+                height: 70px;
+                margin: 2rem 0;
+            }
+            svg path {
+                fill: none;
+                stroke: var(--rule);
+                stroke-width: 1.2;
+            }
+            svg path.psi {
+                stroke: var(--accent);
+            }
+            a {
+                font-family: "IBM Plex Mono", monospace;
+                font-size: 0.75rem;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--ink);
+                text-decoration: none;
+            }
+            a:hover {
+                color: var(--accent);
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <div class="code">ERROR 404</div>
+            <h1>This page tunnelled through the barrier.</h1>
+            <p>Whatever was here has a small amplitude on this side. The rest of the site is still bound.</p>
+            <svg viewBox="0 0 600 70" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 60 H260 V8 H340 V60 H600" />
+                <path class="psi" id="psi" d="" />
+            </svg>
+            <a href="/">← Back to the site</a>
+        </main>
+        <script>
+            // a wave packet hitting a square barrier: oscillating on the left, decaying inside, small on the right
+            const d = [], k = 1 / 9, kappa = 1 / 45, A = 18, T = Math.exp(-80 * kappa);
+            for (let i = 0; i <= 600; i++) {
+                let y;
+                if (i < 260) y = A * Math.cos(k * (i - 260));
+                else if (i <= 340) y = A * Math.exp(-kappa * (i - 260));
+                else y = A * T * Math.cos(k * (i - 340));
+                d.push((i ? "L" : "M") + i + " " + (34 - y).toFixed(2));
+            }
+            document.getElementById("psi").setAttribute("d", d.join(""));
+        </script>
+    </body>
+</html>

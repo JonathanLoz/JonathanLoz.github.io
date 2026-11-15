@@ -11,7 +11,7 @@
         <meta property="og:description" content="Ph.D. candidate in theoretical physics at UT Austin, working on tensor networks for strongly correlated materials and on solitons and non-perturbative field theory." />
         <meta property="og:image" content="https://jonathanloz.github.io/assets/img/prof_pic.jpg" />
         <meta name="twitter:card" content="summary" />
-        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%238b4049'/%3E%3Cpath d='M4 25 C 10 25, 10 16, 16 16 C 22 16, 22 7, 28 7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%238b4049'/%3E%3Cpath d='M23.4 16.0L24.5 17.1L25.4 18.2L26.0 19.2L26.4 20.3L26.5 21.2L26.4 22.2L26.0 23.0L25.4 23.8L24.5 24.5L23.4 25.1L22.2 25.6L20.8 26.0L19.2 26.3L17.6 26.4L16.0 26.5L14.4 26.4L12.8 26.3L11.2 26.0L9.8 25.6L8.6 25.1L7.5 24.5L6.6 23.8L6.0 23.0L5.6 22.2L5.5 21.2L5.6 20.3L6.0 19.2L6.6 18.2L7.5 17.1L8.6 16.0L9.8 14.9L11.2 13.8L12.8 12.8L14.4 11.7L16.0 10.8L17.6 9.8L19.2 9.0L20.8 8.2L22.2 7.5L23.4 6.9L24.5 6.4L25.4 6.0L26.0 5.7L26.4 5.6L26.5 5.5L26.4 5.6L26.0 5.7L25.4 6.0L24.5 6.4L23.4 6.9L22.2 7.5L20.8 8.2L19.2 9.0L17.6 9.8L16.0 10.7L14.4 11.7L12.8 12.8L11.2 13.8L9.8 14.9L8.6 16.0L7.5 17.1L6.6 18.2L6.0 19.2L5.6 20.3L5.5 21.2L5.6 22.2L6.0 23.0L6.6 23.8L7.5 24.5L8.6 25.1L9.8 25.6L11.2 26.0L12.8 26.3L14.4 26.4L16.0 26.5L17.6 26.4L19.2 26.3L20.8 26.0L22.2 25.6L23.4 25.1L24.5 24.5L25.4 23.8L26.0 23.0L26.4 22.2L26.5 21.2L26.4 20.3L26.0 19.2L25.4 18.2L24.5 17.1L23.4 16.0L22.2 14.9L20.8 13.8L19.2 12.8L17.6 11.7L16.0 10.8L14.4 9.8L12.8 9.0L11.2 8.2L9.8 7.5L8.6 6.9L7.5 6.4L6.6 6.0L6.0 5.7L5.6 5.6L5.5 5.5L5.6 5.6L6.0 5.7L6.6 6.0L7.5 6.4L8.6 6.9L9.8 7.5L11.2 8.2L12.8 9.0L14.4 9.8L16.0 10.8L17.6 11.7L19.2 12.8L20.8 13.8L22.2 14.9L23.4 16.0Z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -84,8 +84,8 @@
             }
 
             ::selection {
-                background: var(--accent);
-                color: white;
+                background: color-mix(in srgb, var(--accent) 22%, transparent);
+                color: inherit;
             }
 
             #tracks-canvas {
@@ -1415,15 +1415,6 @@
                 align-items: center;
                 gap: 0.6rem;
             }
-            .nav-brand::before {
-                content: "";
-                width: 22px;
-                height: 22px;
-                flex: none;
-                background: var(--accent);
-                -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 27 H7 C 11 27, 11 16, 15 16 H17 C 21 16, 21 5, 25 5 H30' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
-                mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 27 H7 C 11 27, 11 16, 15 16 H17 C 21 16, 21 5, 25 5 H30' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
-            }
             .nav-link {
                 font-size: 0.92rem;
                 font-weight: 400;
@@ -1846,6 +1837,94 @@
                     font-size: 2.6rem;
                 }
             }
+            /* ===== Subtle physics details ===== */
+            .brand-mark {
+                width: 20px;
+                height: 20px;
+                flex: none;
+                overflow: visible;
+            }
+            .brand-mark path {
+                fill: none;
+                stroke: var(--accent);
+                stroke-width: 1.3;
+                stroke-linejoin: round;
+            }
+            .portrait-label {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+                color: var(--text-muted);
+                margin-top: 0.75rem;
+            }
+            .project-figure img,
+            .project-figure video {
+                cursor: crosshair;
+            }
+            .coords-display {
+                white-space: pre;
+            }
+            .fig-label {
+                display: block;
+                font-family: var(--font-mono);
+                font-size: 0.66rem;
+                font-weight: 500;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 0.3rem;
+            }
+            /* ===== Subtle details, second set ===== */
+            .spectrum {
+                position: relative;
+                width: 220px;
+                height: 7px;
+                margin: 0 auto 1.6rem;
+                border-bottom: 1px solid var(--border-light);
+            }
+            .spectrum i {
+                position: absolute;
+                bottom: 0;
+                width: 1px;
+                height: 7px;
+                opacity: 0.75;
+            }
+            .colophon {
+                font-family: var(--font-mono);
+                font-size: 0.66rem;
+                letter-spacing: 0.06em;
+                color: var(--text-muted);
+                margin-top: 0.9rem;
+                opacity: 0.8;
+            }
+            .ripple {
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                margin: -4px 0 0 -4px;
+                border-radius: 50%;
+                border: 1px solid var(--accent);
+                pointer-events: none;
+                z-index: 2;
+                animation: ripple 1.1s var(--ease-out-expo) forwards;
+            }
+            .ripple + .ripple {
+                animation-delay: 0.12s;
+            }
+            @keyframes ripple {
+                from {
+                    width: 8px;
+                    height: 8px;
+                    margin: -4px 0 0 -4px;
+                    opacity: 0.4;
+                }
+                to {
+                    width: 84px;
+                    height: 84px;
+                    margin: -42px 0 0 -42px;
+                    opacity: 0;
+                }
+            }
         </style>
     </head>
     <body>
@@ -1880,11 +1959,11 @@
             </div>
         </div>
 
-        <div class="coords-display" id="coordsDisplay">x: 0 | y: 0</div>
+        <div class="coords-display" id="coordsDisplay">x 0000  y 0000</div>
 
         <nav id="navbar">
             <div class="nav-container">
-                <a class="nav-brand" onclick="showSection('about')">Jonathan Lozano-Mayo</a>
+                <a class="nav-brand" onclick="showSection('about')"><svg class="brand-mark" viewBox="0 0 20 20" aria-hidden="true"><path id="brandMark" d="" /></svg>Jonathan Lozano-Mayo</a>
                 <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
                 <ul class="nav-links" id="navLinks">
                     <li><a class="nav-link active" onclick="showSection('about')">About</a></li>
@@ -2005,6 +2084,7 @@
                     </div>
                     <div class="profile-wrapper">
                         <img src="/assets/img/prof_pic.jpg" alt="Jonathan Lozano-Mayo" class="profile-img" />
+                        <p class="portrait-label"><span class="fig-label">Fig. 0</span>The author.</p>
                     </div>
                 </div>
             </div>
@@ -2364,7 +2444,7 @@
                             <figure class="project-figure">
                                 <img src="/assets/img/charge_gap_scaling.png" alt="Charge gap finite-size scaling" />
                                 <figcaption>
-                                    Fig. 1 — Finite-size scaling of the charge gap \(\Delta_c/t\) at \(U = 4t\) for
+                                    <span class="fig-label">Fig. 1</span>Finite-size scaling of the charge gap \(\Delta_c/t\) at \(U = 4t\) for
                                     several \(V/t\), extrapolated to \(1/L \to 0\). Crosses are reference values from
                                     Ejima et al. Preliminary.
                                 </figcaption>
@@ -2425,7 +2505,7 @@
                                     src="/assets/img/soliton_figure_latte.png"
                                     alt="Multi-kink unbinding as quantum fluctuations grow" />
                                 <figcaption>
-                                    Fig. 2 — Sketch of the multi-kink as quantum fluctuations grow. The string of false
+                                    <span class="fig-label">Fig. 2</span>Sketch of the multi-kink as quantum fluctuations grow. The string of false
                                     vacuum between the two halves gets longer, and past the critical point the halves
                                     are no longer bound.
                                 </figcaption>
@@ -2472,7 +2552,7 @@
                         <div class="project-figures">
                             <figure class="project-figure">
                                 <video src="/assets/img/virial.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Virial relations"></video>
-                                <figcaption>Fig. 3 — Relative error in the virial relations as a diagnostic tool for numerical solutions. Large alpha values are sensitive to tail errors, while small alpha values are sensitive to the core.</figcaption>
+                                <figcaption><span class="fig-label">Fig. 3</span>Relative error in the virial relations as a diagnostic tool for numerical solutions. Large alpha values are sensitive to tail errors, while small alpha values are sensitive to the core.</figcaption>
                             </figure>
                         </div>
                     </div>
@@ -2514,7 +2594,7 @@
                             <figure class="project-figure">
                                 <video src="/assets/img/Kinkdens3.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Multikink collision"></video>
                                 <figcaption>
-                                    Fig. 4 — Energy density of multikink collision. Simulated in Julia with finite
+                                    <span class="fig-label">Fig. 4</span>Energy density of multikink collision. Simulated in Julia with finite
                                     differences and non-reflective boundary conditions.
                                 </figcaption>
                             </figure>
@@ -2565,7 +2645,7 @@
                             <figure class="project-figure">
                                 <img src="/assets/img/solitonABC.png" alt="Kink solutions" />
                                 <figcaption>
-                                    Fig. 5 — Comparison of exact kink solution (dotted) with multikink ansatz (dashed).
+                                    <span class="fig-label">Fig. 5</span>Comparison of exact kink solution (dotted) with multikink ansatz (dashed).
                                 </figcaption>
                             </figure>
                         </div>
@@ -2608,7 +2688,7 @@
                             <figure class="project-figure">
                                 <img class="pdf-as-img" data-pdf="/assets/img/betaRatio.pdf" alt="IMF analysis" />
                                 <figcaption>
-                                    Fig. 6 — Star formation efficiency ratio \(\epsilon/\epsilon_{\rm fid}\) vs. galaxy
+                                    <span class="fig-label">Fig. 6</span>Star formation efficiency ratio \(\epsilon/\epsilon_{\rm fid}\) vs. galaxy
                                     age for various top-heavy IMFs.
                                 </figcaption>
                             </figure>
@@ -2652,12 +2732,12 @@
                         <div class="project-figures">
                             <figure class="project-figure">
                                 <img src="/assets/img/hd0A.png" alt="Angular correlations" />
-                                <figcaption>Fig. 7 — Differential yield vs. \(\Delta\phi\).</figcaption>
+                                <figcaption><span class="fig-label">Fig. 7</span>Differential yield vs. \(\Delta\phi\).</figcaption>
                             </figure>
                             <figure class="project-figure">
                                 <img src="/assets/img/hd0.png" alt="D0 invariant mass" />
                                 <figcaption>
-                                    Fig. 8 — \(D^0\) invariant mass, Run 3 pp at \(\sqrt{s} = 13.6\) TeV.
+                                    <span class="fig-label">Fig. 8</span>\(D^0\) invariant mass, Run 3 pp at \(\sqrt{s} = 13.6\) TeV.
                                 </figcaption>
                             </figure>
                         </div>
@@ -2703,7 +2783,7 @@
                         <div class="project-figures">
                             <figure class="project-figure">
                                 <img src="/assets/img/vdmeme.png" alt="Vacuum decay potential" />
-                                <figcaption>Fig. 9 — Potential with metastable and stable vacuum.</figcaption>
+                                <figcaption><span class="fig-label">Fig. 9</span>Potential with metastable and stable vacuum.</figcaption>
                             </figure>
                         </div>
                     </div>
@@ -2740,7 +2820,7 @@
                             <figure class="project-figure">
                                 <img src="/assets/img/Maxwells-Equations-close-up.jpeg" alt="Maxwell's equations" />
                                 <figcaption>
-                                    Fig. 10 — Maxwell's equations. Credit:
+                                    <span class="fig-label">Fig. 10</span>Maxwell's equations. Credit:
                                     <a
                                         href="https://publish.illinois.edu/flowing-from-quantum-to-cosmic/the-equations/"
                                         target="_blank"
@@ -3027,8 +3107,10 @@
         </section>
 
         <footer>
+            <div class="spectrum" id="spectrum" aria-hidden="true"></div>
             <p>© 2026 Jonathan Lozano-Mayo · <a href="mailto:jonathanloz@utexas.edu">jonathanloz@utexas.edu</a></p>
             <p class="footer-hint">↑↑↓↓←→←→BA</p>
+            <p class="colophon">Set in Jost and IBM Plex Mono. Behind the text, positrons cross a lead plate in a cloud chamber, after Anderson (1932).</p>
         </footer>
 
         <script>
@@ -3147,7 +3229,7 @@
                             const trailPos = i / this.trail.length;
 
                             // Combined alpha
-                            const alpha = 0.25 * dissipation * (0.4 + 0.6 * trailPos);
+                            const alpha = 0.14 * dissipation * (0.4 + 0.6 * trailPos);
 
                             if (alpha < 0.01) continue;
 
@@ -3425,7 +3507,16 @@
 
             // Mouse coordinates
             document.addEventListener("mousemove", (e) => {
-                document.getElementById("coordsDisplay").textContent = `x: ${e.clientX} | y: ${e.clientY}`;
+                const out = document.getElementById("coordsDisplay");
+                const fig = e.target.closest(".project-figure img, .project-figure video");
+                if (fig) {
+                    const r = fig.getBoundingClientRect();
+                    const fx = ((e.clientX - r.left) / r.width).toFixed(2);
+                    const fy = (1 - (e.clientY - r.top) / r.height).toFixed(2);
+                    out.textContent = `fig  x ${fx}  y ${fy}`;
+                } else {
+                    out.textContent = `x ${String(e.clientX).padStart(4, "0")}  y ${String(e.clientY).padStart(4, "0")}`;
+                }
             });
 
             // Navigation
@@ -3536,6 +3627,71 @@
                     });
                 });
             })();
+        </script>
+        <script>
+            // brand mark: a 3:2 Lissajous figure whose phase drifts slowly
+            (function () {
+                const path = document.getElementById("brandMark");
+                if (!path) return;
+                const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                const brand = document.querySelector(".nav-brand");
+                let rate = 1, target = 1, phase = 0, last = 0;
+                brand.addEventListener("mouseenter", () => (target = 10));
+                brand.addEventListener("mouseleave", () => (target = 1));
+                function draw(t) {
+                    rate += (target - rate) * 0.04;
+                    phase += ((t - last) / 40000) * 2 * Math.PI * rate;
+                    last = t;
+                    const phi = Math.PI / 4 + phase;
+                    let d = "";
+                    for (let i = 0; i <= 200; i++) {
+                        const s = (i / 200) * 2 * Math.PI;
+                        const x = 10 + 9 * Math.sin(3 * s + phi);
+                        const y = 10 + 9 * Math.sin(2 * s);
+                        d += (i ? "L" : "M") + x.toFixed(2) + " " + y.toFixed(2);
+                    }
+                    path.setAttribute("d", d);
+                    if (!still) requestAnimationFrame(draw);
+                }
+                draw(0);
+            })();
+        </script>
+        <script>
+            // Balmer lines of hydrogen, placed by wavelength across 380-700 nm
+            (function () {
+                const band = document.getElementById("spectrum");
+                if (!band) return;
+                const lines = [
+                    [410.2, "#7a2bff", "Hδ"],
+                    [434.0, "#3d4dff", "Hγ"],
+                    [486.1, "#00b7e8", "Hβ"],
+                    [656.3, "#ff3b1f", "Hα"],
+                ];
+                for (const [nm, c, name] of lines) {
+                    const i = document.createElement("i");
+                    i.style.left = ((nm - 380) / 320) * 100 + "%";
+                    i.style.background = c;
+                    i.title = name + "  " + nm + " nm";
+                    band.appendChild(i);
+                }
+            })();
+
+            // a click on empty space sends out two faint wavefronts
+            (function () {
+                if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+                document.addEventListener("click", (e) => {
+                    if (e.target.closest("a, button, summary, input, video, .tarot-overlay")) return;
+                    for (let k = 0; k < 2; k++) {
+                        const r = document.createElement("div");
+                        r.className = "ripple";
+                        r.style.left = e.clientX + "px";
+                        r.style.top = e.clientY + "px";
+                        document.body.appendChild(r);
+                        setTimeout(() => r.remove(), 1400);
+                    }
+                });
+            })();
+
         </script>
     </body>
 </html>
