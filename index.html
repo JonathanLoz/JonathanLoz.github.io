@@ -4,14 +4,19 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Jonathan Lozano-Mayo — Theoretical Physics</title>
-        <meta
-            name="description"
-            content="PhD student at UT Austin researching topological solitons, gauge theory, and heavy-ion physics" />
+        <meta name="description" content="Ph.D. candidate in theoretical physics at UT Austin, working on tensor networks for strongly correlated materials and on solitons and non-perturbative field theory." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://jonathanloz.github.io/" />
+        <meta property="og:title" content="Jonathan Lozano-Mayo — Theoretical Physics" />
+        <meta property="og:description" content="Ph.D. candidate in theoretical physics at UT Austin, working on tensor networks for strongly correlated materials and on solitons and non-perturbative field theory." />
+        <meta property="og:image" content="https://jonathanloz.github.io/assets/img/prof_pic.jpg" />
+        <meta name="twitter:card" content="summary" />
+        <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%238b4049'/%3E%3Cpath d='M4 25 C 10 25, 10 16, 16 16 C 22 16, 22 7, 28 7' fill='none' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
             rel="stylesheet" />
 
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -414,7 +419,7 @@
             }
 
             .section-container {
-                max-width: 900px;
+                max-width: 1100px;
                 margin: 0 auto;
                 padding: 3rem 2rem 5rem;
             }
@@ -425,7 +430,7 @@
                 margin-bottom: 3rem;
             }
             .section-note {
-                text-align: center;
+                text-align: left;
                 color: var(--text-muted);
                 font-size: 0.95rem;
                 margin-top: -2rem;
@@ -440,7 +445,7 @@
                 padding: 2rem;
             }
             .hero-container {
-                max-width: 1100px;
+                max-width: calc(1100px - 4rem);
                 margin: 0 auto;
                 display: grid;
                 grid-template-columns: 1fr 320px;
@@ -490,6 +495,7 @@
                 color: var(--text-secondary);
                 margin-bottom: 1.5rem;
                 text-align: justify;
+                hyphens: auto;
                 opacity: 0;
                 animation: revealUp 0.8s var(--ease-out-expo) 0.3s forwards;
             }
@@ -563,6 +569,15 @@
             }
             .news-content {
                 color: var(--text-secondary);
+            }
+            .news-content a {
+                color: var(--accent);
+                text-decoration: none;
+                border-bottom: 1px solid var(--border);
+                transition: border-color 0.2s;
+            }
+            .news-content a:hover {
+                border-color: var(--accent);
             }
             .news-content em {
                 font-style: italic;
@@ -775,6 +790,24 @@
             .project-header {
                 margin-bottom: 2rem;
             }
+            .project-group {
+                font-family: var(--font-mono);
+                font-size: 0.8rem;
+                font-weight: 500;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--accent);
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin: 0 0 2.5rem;
+            }
+            .project-group::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: var(--border);
+            }
             .project-number {
                 font-family: var(--font-mono);
                 font-size: 0.75rem;
@@ -812,6 +845,7 @@
             .project-text {
                 color: var(--text-secondary);
                 text-align: justify;
+                hyphens: auto;
             }
             .project-text p {
                 margin-bottom: 1rem;
@@ -836,7 +870,8 @@
                 transform: translateY(-6px) scale(1.01);
                 box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
             }
-            .project-figure img {
+            .project-figure img,
+            .project-figure video {
                 width: 100%;
                 height: auto;
                 display: block;
@@ -880,8 +915,8 @@
                 font-size: 2rem;
                 font-weight: 600;
                 color: var(--accent);
-                margin: 3rem 0 1.5rem;
-                padding-top: 2rem;
+                margin: 2rem 0 0.5rem;
+                padding-top: 1.5rem;
                 border-top: 1px solid var(--border);
             }
             .publication-year:first-of-type {
@@ -918,6 +953,12 @@
             .publication-authors a {
                 color: var(--text-muted);
                 text-decoration: none;
+            }
+            .publication-venue {
+                font-style: italic;
+                color: var(--text-muted);
+                font-size: 0.9rem;
+                margin: -0.6rem 0 1rem;
             }
             .publication-links {
                 display: flex;
@@ -978,6 +1019,7 @@
                 font-size: 0.95rem;
                 line-height: 1.7;
                 text-align: justify;
+                hyphens: auto;
             }
             .abstract-content.show {
                 max-height: 600px;
@@ -997,10 +1039,16 @@
             .teaching-institution:first-of-type {
                 margin-top: 0;
             }
+            .teaching-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.75rem 2.5rem;
+                align-items: start;
+            }
             .teaching-card {
                 padding: 1.25rem 0 1.25rem 1.25rem;
                 border-left: 2px solid var(--border-light);
-                margin-bottom: 0.5rem;
+                margin-bottom: 0;
                 transition: all 0.3s var(--ease-spring);
             }
             .teaching-card:hover {
@@ -1295,6 +1343,509 @@
                     gap: 0.4rem;
                 }
             }
+            .section-container > * {
+                max-width: 860px;
+            }
+            #projects .section-container > *,
+            .section-container > .teaching-grid {
+                max-width: none;
+            }
+            @media (max-width: 768px) {
+                .teaching-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            @media (max-width: 600px) {
+                .hero-description,
+                .project-text,
+                .abstract-content {
+                    text-align: left;
+                }
+            }
+            /* ===== Minimal design layer ===== */
+            :root {
+                --bg-primary: #fafaf7;
+                --bg-secondary: #f2f1ec;
+                --bg-card: #fafaf7;
+                --text-primary: #141414;
+                --text-secondary: #3d3d3d;
+                --text-muted: #6b6b6b;
+                --border: #dedcd5;
+                --border-light: #e9e7e1;
+                --font-serif: "Jost", "Futura", "Avenir Next", sans-serif;
+                --font-sans: "Jost", "Futura", "Avenir Next", sans-serif;
+                --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+                --label: 9.5rem;
+            }
+            [data-theme="dark"] {
+                --bg-primary: #0e0e0e;
+                --bg-secondary: #161616;
+                --bg-card: #0e0e0e;
+                --text-primary: #ececea;
+                --text-secondary: #bdbdb8;
+                --text-muted: #85857f;
+                --border: #2a2a28;
+                --border-light: #1f1f1d;
+            }
+            body {
+                font-size: 17px;
+                line-height: 1.7;
+                letter-spacing: 0.005em;
+            }
+
+            /* flush-left, ragged-right text throughout */
+            .hero-description,
+            .project-text,
+            .abstract-content {
+                text-align: left;
+                hyphens: manual;
+            }
+
+            /* navigation */
+            nav,
+            [data-theme="dark"] nav {
+                background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+                border-bottom: 1px solid var(--border-light);
+            }
+            .nav-brand {
+                font-weight: 500;
+                font-size: 1.05rem;
+                letter-spacing: 0.01em;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            .nav-brand::before {
+                content: "";
+                width: 22px;
+                height: 22px;
+                flex: none;
+                background: var(--accent);
+                -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 27 H7 C 11 27, 11 16, 15 16 H17 C 21 16, 21 5, 25 5 H30' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+                mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 27 H7 C 11 27, 11 16, 15 16 H17 C 21 16, 21 5, 25 5 H30' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+            }
+            .nav-link {
+                font-size: 0.92rem;
+                font-weight: 400;
+                letter-spacing: 0.02em;
+            }
+            .nav-link::after {
+                width: 5px !important;
+                height: 5px;
+                border-radius: 50%;
+                left: calc(50% - 2.5px);
+                bottom: -10px;
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            .nav-link:hover::after,
+            .nav-link.active::after {
+                opacity: 1;
+            }
+            .social-link,
+            .theme-toggle {
+                border: none !important;
+                background: none !important;
+                box-shadow: none !important;
+                transform: none !important;
+                width: 30px !important;
+                height: 30px !important;
+                color: var(--text-muted);
+            }
+            .social-link:hover,
+            .theme-toggle:hover {
+                color: var(--accent);
+            }
+
+            /* section headings */
+            .section-title {
+                font-weight: 400;
+                font-size: 2.6rem;
+                letter-spacing: -0.02em;
+                line-height: 1.1;
+                margin-bottom: 3.5rem;
+            }
+            .section-note {
+                font-style: normal;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                margin-top: -2.75rem;
+                margin-bottom: 3.5rem;
+            }
+
+            /* hero */
+            .hero-content h1 {
+                font-weight: 500;
+                font-size: 3.6rem;
+                letter-spacing: -0.03em;
+                line-height: 1.02;
+                margin-bottom: 1rem;
+            }
+            .hero-affiliation {
+                font-size: 1rem;
+                letter-spacing: 0.01em;
+                line-height: 1.6;
+            }
+            .hero-affiliation a {
+                border-bottom: none !important;
+            }
+            .profile-img,
+            .profile-img:hover {
+                border-radius: 0;
+                box-shadow: none;
+                transform: none;
+            }
+
+            /* label column: dates, years, numbers sit in a fixed left column */
+            .news-title,
+            .project-group {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--accent);
+            }
+            .news-section {
+                border-top: none;
+            }
+            .news-item,
+            .reading-day {
+                display: grid;
+                grid-template-columns: var(--label) 1fr;
+                gap: 0 1.5rem;
+                padding: 1.1rem 0;
+                margin: 0;
+                border-radius: 0;
+                border-bottom: none;
+                border-top: 1px solid var(--border-light);
+                transform: none !important;
+                background: none !important;
+            }
+            .news-date,
+            .reading-date {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                letter-spacing: 0.06em;
+                color: var(--text-muted);
+                padding-top: 0.2rem;
+            }
+            .news-content em,
+            .publication-authors em {
+                font-style: normal;
+                font-weight: 500;
+            }
+
+            /* badges become quiet labels led by a dot */
+            .project-badge,
+            .publication-status {
+                background: none;
+                border: none;
+                color: var(--accent);
+                padding: 0;
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                font-weight: 500;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                border-radius: 0;
+                margin-left: 1rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                vertical-align: 0.35em;
+            }
+            .publication-status {
+                margin-left: 0;
+                vertical-align: baseline;
+            }
+            .project-badge::before,
+            .publication-status::before {
+                content: "";
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: currentColor;
+            }
+
+            /* buttons become text links */
+            .publication-badge,
+            .abstract-btn,
+            .pdf-download {
+                background: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                transform: none !important;
+                color: var(--text-primary) !important;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+            .publication-badge::after {
+                content: " ↗";
+                color: var(--accent);
+            }
+            .abstract-btn::after {
+                content: " +";
+                color: var(--accent);
+            }
+            .publication-badge:hover,
+            .abstract-btn:hover,
+            .pdf-download:hover {
+                color: var(--accent) !important;
+            }
+            .publication-links {
+                gap: 1.75rem;
+                align-items: center;
+            }
+            .details-toggle {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--text-primary);
+            }
+            .details-toggle:hover {
+                color: var(--accent);
+            }
+            .abstract-content {
+                background: none;
+                border-left: 1px solid var(--accent);
+                border-radius: 0;
+            }
+
+            /* research */
+            .project {
+                border-bottom: 1px solid var(--border-light);
+            }
+            .project-number {
+                font-size: 0.75rem;
+                opacity: 1;
+                color: var(--text-muted);
+            }
+            .project-title {
+                font-weight: 500;
+                font-size: 1.65rem;
+                letter-spacing: -0.015em;
+            }
+            .project-figure {
+                background: none;
+                border-radius: 0;
+                box-shadow: none;
+                transform: none !important;
+            }
+            .project-figure:hover {
+                box-shadow: none;
+            }
+            .project-figure figcaption {
+                background: none;
+                border-top: none;
+                padding: 0.9rem 0 0;
+                font-size: 0.82rem;
+                line-height: 1.6;
+            }
+            .project-tags {
+                gap: 0 !important;
+            }
+            .tag {
+                background: none;
+                border: none;
+                padding: 0;
+                border-radius: 0;
+                font-size: 0.68rem;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+            }
+            .tag:hover {
+                background: none;
+                color: var(--text-muted);
+                transform: none;
+            }
+            .tag:not(:last-child)::after {
+                content: "/";
+                margin: 0 0.6rem;
+                color: var(--border);
+            }
+
+            /* publications: year in the label column */
+            #publications .section-container {
+                display: grid;
+                grid-template-columns: var(--label) minmax(0, 1fr);
+                column-gap: 1.5rem;
+                align-items: start;
+            }
+            #publications .section-title {
+                grid-column: 1 / -1;
+            }
+            #publications .section-container > * {
+                max-width: none;
+            }
+            .publication-year {
+                grid-column: 1;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.12em;
+                color: var(--text-muted);
+                margin: 0;
+                padding: 1.6rem 0 0;
+                border-top: 1px solid var(--border-light);
+            }
+            .publication-year:first-of-type {
+                padding-top: 1.6rem;
+            }
+            .publication-item {
+                grid-column: 2;
+                padding: 1.5rem 0;
+                margin: 0;
+                border-radius: 0;
+                border-bottom: none;
+                border-top: 1px solid var(--border-light);
+                background: none !important;
+                transform: none !important;
+                max-width: 760px;
+            }
+            .publication-title {
+                font-weight: 500;
+                font-size: 1.1rem;
+                line-height: 1.45;
+            }
+
+            /* teaching: institution in the label column */
+            #teaching .section-container {
+                display: grid;
+                grid-template-columns: var(--label) minmax(0, 1fr);
+                column-gap: 1.5rem;
+                align-items: start;
+            }
+            #teaching .section-title,
+            #teaching .section-note {
+                grid-column: 1 / -1;
+            }
+            .teaching-institution {
+                grid-column: 1;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                border-bottom: none;
+                padding: 1.6rem 0 0;
+                margin: 0;
+                line-height: 1.6;
+                display: block;
+                border-top: 1px solid var(--border-light);
+            }
+            .teaching-grid {
+                grid-column: 2;
+                border-top: 1px solid var(--border-light);
+                padding: 0.4rem 0 2rem;
+                gap: 0 2.5rem;
+            }
+            .teaching-card {
+                border-left: none;
+                padding: 1.2rem 0 0.4rem;
+            }
+            .teaching-card:hover {
+                background: none;
+                transform: none;
+                padding: 1.2rem 0 0.4rem;
+                margin-left: 0;
+            }
+            .teaching-badge {
+                font-family: var(--font-mono);
+                color: var(--text-muted);
+            }
+            .teaching-title {
+                font-weight: 500;
+            }
+
+            /* curriculum vitae */
+            .cv-card h3 {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--accent);
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .cv-item {
+                border-left: none;
+                padding-left: 0;
+            }
+            .cv-item:hover,
+            .cv-list li:hover {
+                transform: none;
+                background: none;
+            }
+
+            /* readings */
+            .reading-year > summary {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                font-weight: 500;
+                letter-spacing: 0.12em;
+                color: var(--text-muted);
+            }
+            .reading-month > summary {
+                font-weight: 500;
+                font-size: 1.25rem;
+            }
+            .reading-year + .reading-year {
+                border-top: none;
+            }
+            .reading-list a {
+                border-bottom: none;
+            }
+            .reading-list a:hover {
+                color: var(--accent);
+            }
+
+            /* quiet chrome */
+            footer {
+                background: none;
+                border-top: 1px solid var(--border-light);
+                font-size: 0.8rem;
+            }
+            .coords-display {
+                background: none;
+                border: none;
+                padding: 0;
+            }
+
+            @media (max-width: 768px) {
+                :root {
+                    --label: 1fr;
+                }
+                #publications .section-container,
+                #teaching .section-container {
+                    display: block;
+                }
+                .news-item,
+                .reading-day {
+                    grid-template-columns: 1fr;
+                    row-gap: 0.3rem;
+                }
+                .publication-year,
+                .teaching-institution {
+                    border-top: none;
+                    padding-top: 2rem;
+                    color: var(--accent);
+                }
+                .hero-content h1 {
+                    font-size: 2.6rem;
+                }
+            }
         </style>
     </head>
     <body>
@@ -1519,7 +2070,7 @@
                         </tr>
                         <tr>
                             <td>languages</td>
-                            <td>Spanish (Native), English (Fluent), German (A2), French (A2)</td>
+                            <td>Spanish (Native), English (C1), German (A2), French (A2)</td>
                         </tr>
                     </table>
                 </div>
@@ -1541,7 +2092,7 @@
                         <div class="cv-subtitle">University of Texas at Austin</div>
                         <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
                         <div class="details-content">
-                            <p>Advised by Prof. Antonios Alvertis</p>
+                            <p>Advised by Antonios Alvertis</p>
                             <p>GPA: 3.9/4.00</p>
                             <p>Research in condensed matter and many-particle physics.</p>
                         </div>
@@ -1555,7 +2106,7 @@
                             <p>
                                 Advised by
                                 <a href="https://www.fisica.unam.mx/es/personal.php?id=63" target="_blank"
-                                    >Prof. Manuel Torres Labansat</a
+                                    >Manuel Torres Labansat</a
                                 >
                             </p>
                             <p>GPA: 9.39/10.0, High Honors</p>
@@ -1727,7 +2278,7 @@
                     <h3>Technical Skills</h3>
                     <ul class="cv-list">
                         <li>Python, Julia, Mathematica, C++</li>
-                        <li>Tensor network methods (DMRG) for strongly correlated systems</li>
+                        <li>Tensor networks (DMRG, TDVP) for strongly correlated systems</li>
                         <li>ALICE O² analysis framework</li>
                         <li>Pégase population synthesis</li>
                         <li>Numerical PDE solvers, finite differences</li>
@@ -1767,9 +2318,11 @@
             <div class="section-container">
                 <h1 class="section-title">Research Projects</h1>
 
+                <h2 class="project-group">Current research</h2>
+
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 01</span>
+                        <span class="project-number">01</span>
                         <h2 class="project-title">
                             Excitons and Phonons in Strongly Correlated Materials<span class="project-badge"
                                 >In progress</span
@@ -1822,7 +2375,7 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 02</span>
+                        <span class="project-number">02</span>
                         <h2 class="project-title">
                             Quantum Vacuum Inversion<span class="project-badge">Accepted · JHEP</span>
                         </h2>
@@ -1883,7 +2436,7 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 03</span>
+                        <span class="project-number">03</span>
                         <h2 class="project-title">
                             Generalized Virial Relations<span class="project-badge">JHEP</span>
                         </h2>
@@ -1918,16 +2471,18 @@
                         </div>
                         <div class="project-figures">
                             <figure class="project-figure">
-                                <img src="/assets/img/virial.gif" alt="Virial relations" />
-                                <figcaption>Fig. 3 — Relative error in the virial relations as a diagnostic tool for numerical solutions. Large alpha values are sensible to tail errors, while small alpha values are sensible to the core.</figcaption>
+                                <video src="/assets/img/virial.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Virial relations"></video>
+                                <figcaption>Fig. 3 — Relative error in the virial relations as a diagnostic tool for numerical solutions. Large alpha values are sensitive to tail errors, while small alpha values are sensitive to the core.</figcaption>
                             </figure>
                         </div>
                     </div>
                 </article>
 
+                <h2 class="project-group">Earlier work</h2>
+
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 04</span>
+                        <span class="project-number">04</span>
                         <h2 class="project-title">Static Multikinks<span class="project-badge">JHEP</span></h2>
                     </header>
                     <div class="project-content">
@@ -1939,7 +2494,7 @@
                             <button class="details-toggle" onclick="toggleDetails(this)">Read more</button>
                             <div class="details-content">
                                 <p>
-                                    I worked with Prof. Manuel Torres Labansat studying the properties of topological
+                                    I worked with Manuel Torres Labansat studying the properties of topological
                                     solitons in potentials that have many local minima trapped between two global
                                     minima.
                                 </p>
@@ -1957,7 +2512,7 @@
                         </div>
                         <div class="project-figures">
                             <figure class="project-figure">
-                                <img src="/assets/img/Kinkdens3.gif" alt="Multikink collision" />
+                                <video src="/assets/img/Kinkdens3.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Multikink collision"></video>
                                 <figcaption>
                                     Fig. 4 — Energy density of multikink collision. Simulated in Julia with finite
                                     differences and non-reflective boundary conditions.
@@ -1969,9 +2524,9 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 05</span>
+                        <span class="project-number">05</span>
                         <h2 class="project-title">
-                            One-Loop Mass Renormalization of Kink Solutions<span class="project-badge">JPhysComm</span>
+                            One-Loop Mass Renormalization of Kink Solutions<span class="project-badge">J. Phys. Commun.</span>
                         </h2>
                     </header>
                     <div class="project-content">
@@ -2019,15 +2574,15 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 06</span>
+                        <span class="project-number">06</span>
                         <h2 class="project-title">
-                            JWST "Too Massive" Galaxies<span class="project-badge">arXiv</span>
+                            JWST "Too Massive" Galaxies<span class="project-badge">In revision · MNRAS</span>
                         </h2>
                     </header>
                     <div class="project-content">
                         <div class="project-text">
                             <p>
-                                With Prof. Katherine Freese, studied alternative explanations for JWST high-redshift
+                                With Katherine Freese, studied alternative explanations for JWST high-redshift
                                 galaxy observations that appear "too massive."
                             </p>
                             <button class="details-toggle" onclick="toggleDetails(this)">Read more</button>
@@ -2063,9 +2618,9 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 07</span>
+                        <span class="project-number">07</span>
                         <h2 class="project-title">
-                            \(h\text{-}D^0\) Angular Correlations<span class="project-badge">Research</span>
+                            \(h\text{-}D^0\) Angular Correlations<span class="project-badge">ALICE</span>
                         </h2>
                     </header>
                     <div class="project-content">
@@ -2111,9 +2666,9 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 08</span>
+                        <span class="project-number">08</span>
                         <h2 class="project-title">
-                            Fate of the False Vacuum<span class="project-badge">Research</span>
+                            Fate of the False Vacuum<span class="project-badge">Notes</span>
                         </h2>
                     </header>
                     <div class="project-content">
@@ -2156,8 +2711,8 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">// 09</span>
-                        <h2 class="project-title">Photon Wave Function<span class="project-badge">Research</span></h2>
+                        <span class="project-number">09</span>
+                        <h2 class="project-title">Photon Wave Function<span class="project-badge">Notes</span></h2>
                     </header>
                     <div class="project-content">
                         <div class="project-text">
@@ -2210,6 +2765,7 @@
                         Model
                     </div>
                     <div class="publication-authors"><em>Jonathan Lozano-Mayo</em></div>
+                    <div class="publication-venue">arXiv:2609.24861</div>
                     <div class="publication-links">
                         <span class="publication-status">Accepted in JHEP</span>
                         <a href="https://arxiv.org/abs/2609.24861" target="_blank" class="publication-badge">arXiv</a>
@@ -2230,12 +2786,13 @@
 
                 <div class="publication-item">
                     <div class="publication-title">
-                        Generalized Virial Relations: Radial Constraints for Solitons, Instantons and Bounces
+                        Generalized Virial Identities: Radial Constraints for Solitons, Instantons, and Bounces
                     </div>
                     <div class="publication-authors"><em>Jonathan Lozano-Mayo</em></div>
+                    <div class="publication-venue">J. High Energ. Phys. 04 (2026) 058</div>
                     <div class="publication-links">
                         <a href="https://link.springer.com/article/10.1007/JHEP04(2026)058" target="_blank" class="publication-badge">JHEP</a>
-                        <a href="https://link.springer.com/article/10.1007/JHEP04(2026)058" target="_blank" class="publication-badge">PDF</a>
+                        <a href="https://arxiv.org/abs/2512.23548" target="_blank" class="publication-badge">arXiv</a>
                         <button class="abstract-btn" onclick="toggleAbstract(this)">Abstract</button>
                     </div>
                     <div class="abstract-content">
@@ -2259,9 +2816,10 @@
                             >Manuel Torres Labansat</a
                         >
                     </div>
+                    <div class="publication-venue">J. High Energ. Phys. 09 (2026) 218</div>
                     <div class="publication-links">
                         <a href="https://link.springer.com/article/10.1007/JHEP09(2026)218" target="_blank" class="publication-badge">JHEP</a>
-                        <a href="https://link.springer.com/article/10.1007/JHEP09(2026)218" target="_blank" class="publication-badge">PDF</a>
+                        <a href="https://arxiv.org/abs/2407.09682" target="_blank" class="publication-badge">arXiv</a>
                         <button class="abstract-btn" onclick="toggleAbstract(this)">Abstract</button>
                     </div>
                     <div class="abstract-content">
@@ -2282,8 +2840,11 @@
                         Explaining the "Too Massive" High-Redshift Galaxies in JWST Data: Numerical Study of Three
                         Effects and a Simple Relation
                     </div>
-                    <div class="publication-authors">JJ Ziegler, K Freese, <em>J. Lozano</em>, G Montefalcone</div>
+                    <div class="publication-authors">J. J. Ziegler, K. Freese, <em>J. Lozano</em>, G. Montefalcone</div>
+                    <div class="publication-venue">arXiv:2507.21409</div>
                     <div class="publication-links">
+                        <span class="publication-status">In revision · MNRAS</span>
+                        <a href="https://arxiv.org/abs/2507.21409" target="_blank" class="publication-badge">arXiv</a>
                         <a href="https://arxiv.org/pdf/2507.21409" target="_blank" class="publication-badge">PDF</a>
                         <button class="abstract-btn" onclick="toggleAbstract(this)">Abstract</button>
                     </div>
@@ -2304,16 +2865,10 @@
                             >Manuel Torres Labansat</a
                         >
                     </div>
+                    <div class="publication-venue">J. Phys. Commun. 5 (2021) 025004</div>
                     <div class="publication-links">
-                        <a href="https://iopscience.iop.org/journal/2399-6528" target="_blank" class="publication-badge"
-                            >J. Phys. Commun.</a
-                        >
-                        <a
-                            href="https://iopscience.iop.org/article/10.1088/2399-6528/abdd83/pdf"
-                            target="_blank"
-                            class="publication-badge"
-                            >PDF</a
-                        >
+                        <a href="https://doi.org/10.1088/2399-6528/abdd83" target="_blank" class="publication-badge">J. Phys. Commun.</a>
+                        <a href="https://arxiv.org/abs/2101.05955" target="_blank" class="publication-badge">arXiv</a>
                         <button class="abstract-btn" onclick="toggleAbstract(this)">Abstract</button>
                     </div>
                     <div class="abstract-content">
@@ -2334,105 +2889,109 @@
                 <p class="section-note">Classes, workshops, and teaching material</p>
 
                 <h2 class="teaching-institution">International Centre for Theoretical Physics</h2>
-
-                <div class="teaching-card">
-                    <span class="teaching-badge">ICTP-PWF</span>
-                    <div class="teaching-title">Quantum Field Theory I</div>
-                    <div class="teaching-subtitle">Physics Without Frontiers Initiative</div>
-                    <div class="teaching-date">Fall 2025: Lecturer</div>
-                    <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
-                    <div class="details-content">
-                        <p>
-                            Introduction to quantum field theory for students in the Physics LATAM initiative of the
-                            ICTP.
-                        </p>
+                <div class="teaching-grid">
+                    <div class="teaching-card">
+                        <span class="teaching-badge">ICTP-PWF</span>
+                        <div class="teaching-title">Quantum Field Theory I</div>
+                        <div class="teaching-subtitle">Physics Without Frontiers Initiative</div>
+                        <div class="teaching-date">Fall 2025: Lecturer</div>
+                        <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
+                        <div class="details-content">
+                            <p>
+                                Introduction to quantum field theory for students in the Physics LATAM initiative of the
+                                ICTP.
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="teaching-card">
-                    <span class="teaching-badge">ICTP-PWF</span>
-                    <div class="teaching-title">Theoretical Particle Physics</div>
-                    <div class="teaching-subtitle">Advanced Quantum Field Theory</div>
-                    <div class="teaching-date">Fall 2024: Teaching Assistant</div>
-                    <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
-                    <div class="details-content">
-                        <p>Held problem solving discussion sessions and graded homework assignments.</p>
+                    <div class="teaching-card">
+                        <span class="teaching-badge">ICTP-PWF</span>
+                        <div class="teaching-title">Theoretical Particle Physics</div>
+                        <div class="teaching-subtitle">Advanced Quantum Field Theory</div>
+                        <div class="teaching-date">Fall 2024: Teaching Assistant</div>
+                        <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
+                        <div class="details-content">
+                            <p>Held problem solving discussion sessions and graded homework assignments.</p>
+                        </div>
                     </div>
                 </div>
 
                 <h2 class="teaching-institution">University of Texas at Austin</h2>
-
-                <div class="teaching-card">
-                    <span class="teaching-badge">CNS</span>
-                    <div class="teaching-title">Graduate Quantum Mechanics</div>
-                    <div class="teaching-subtitle">Graduate core course</div>
-                    <div class="teaching-date">2026: Teaching Assistant</div>
-                    <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
-                    <div class="details-content">
-                        <p>Mentored students and graded assignments for a graduate course on quantum mechanics.</p>
+                <div class="teaching-grid">
+                    <div class="teaching-card">
+                        <span class="teaching-badge">CNS</span>
+                        <div class="teaching-title">Graduate Quantum Mechanics</div>
+                        <div class="teaching-subtitle">Graduate core course</div>
+                        <div class="teaching-date">2026: Teaching Assistant</div>
+                        <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
+                        <div class="details-content">
+                            <p>Mentored students and graded assignments for a graduate course on quantum mechanics.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="teaching-card">
-                    <span class="teaching-badge">CNS</span>
-                    <div class="teaching-title">Waves and Optics</div>
-                    <div class="teaching-date">2025: Teaching Assistant</div>
-                    <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
-                    <div class="details-content">
-                        <p>
-                            Held weekly discussion sections and graded coursework spanning wave phenomena, optics, and
-                            electromagnetism.
-                        </p>
+                    <div class="teaching-card">
+                        <span class="teaching-badge">CNS</span>
+                        <div class="teaching-title">Waves and Optics</div>
+                        <div class="teaching-date">2025: Teaching Assistant</div>
+                        <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
+                        <div class="details-content">
+                            <p>
+                                Held weekly discussion sections and graded coursework spanning wave phenomena, optics, and
+                                electromagnetism.
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="teaching-card">
-                    <span class="teaching-badge">CNS</span>
-                    <div class="teaching-title">PHY 315 & PHY 105N</div>
-                    <div class="teaching-subtitle">Modern Physics / Electromagnetism Lab</div>
-                    <div class="teaching-date">Fall 2023 – Spring 2025: Teaching Assistant</div>
-                    <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
-                    <div class="details-content">
-                        <p>Mentored students, held weekly problem solving sessions, graded homeworks and exams.</p>
-                        <p>Gave short lectures introducing concepts for electromagnetism experiments.</p>
+                    <div class="teaching-card">
+                        <span class="teaching-badge">CNS</span>
+                        <div class="teaching-title">PHY 315 & PHY 105N</div>
+                        <div class="teaching-subtitle">Modern Physics / Electromagnetism Lab</div>
+                        <div class="teaching-date">Fall 2023 – Spring 2025: Teaching Assistant</div>
+                        <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
+                        <div class="details-content">
+                            <p>Mentored students, held weekly problem solving sessions, graded homeworks and exams.</p>
+                            <p>Gave short lectures introducing concepts for electromagnetism experiments.</p>
+                        </div>
                     </div>
                 </div>
 
                 <h2 class="teaching-institution">National Autonomous University of Mexico</h2>
+                <div class="teaching-grid">
+                    <div class="teaching-card">
+                        <span class="teaching-badge">FC-UNAM</span>
+                        <div class="teaching-title">Thermodynamics</div>
+                        <div class="teaching-date">Spring 2022: Teaching Assistant</div>
+                        <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
+                        <div class="details-content">
+                            <p>
+                                Undergraduate-level thermodynamics course, taught by Juan Valentín Escobar Sotomayor
+                                and Iván Hernández Garibay.
+                            </p>
+                            <p>Mentored students, held problem solving sessions, created and graded homeworks and exams.</p>
+                        </div>
+                    </div>
 
-                <div class="teaching-card">
-                    <span class="teaching-badge">FC-UNAM</span>
-                    <div class="teaching-title">Thermodynamics</div>
-                    <div class="teaching-date">Spring 2022: Teaching Assistant</div>
-                    <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
-                    <div class="details-content">
-                        <p>
-                            Undergraduate-level thermodynamics course, taught by Prof. Juan Valentín Escobar Sotomayor
-                            and MSc. Iván Hernández Garibay.
-                        </p>
-                        <p>Mentored students, held problem solving sessions, created and graded homeworks and exams.</p>
+                    <div class="teaching-card">
+                        <span class="teaching-badge">FC-UNAM</span>
+                        <div class="teaching-title">Nuclear and Subnuclear Physics</div>
+                        <div class="teaching-date">2020: Teaching Assistant</div>
+                        <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
+                        <div class="details-content">
+                            <p>
+                                Undergraduate level Nuclear and Subnuclear Physics taught by Manuel Torres Labansat.
+                            </p>
+                            <p>Mentored groups of students, graded homeworks and exams.</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="teaching-card">
-                    <span class="teaching-badge">FC-UNAM</span>
-                    <div class="teaching-title">Nuclear and Subnuclear Physics</div>
-                    <div class="teaching-date">2019: Teaching Assistant</div>
-                    <button class="details-toggle" onclick="toggleDetails(this)">Details</button>
-                    <div class="details-content">
-                        <p>
-                            Undergraduate level Nuclear and Subnuclear Physics taught by Prof. Manuel Torres Labansat.
-                        </p>
-                        <p>Mentored groups of students, graded homeworks and exams.</p>
-                    </div>
-                </div>
             </div>
         </section>
 
         <section id="readings" class="section">
             <div class="section-container">
                 <h1 class="section-title">Readings</h1>
-                <p class="section-note">What I have been reading, day by day</p>
+                <p class="section-note">What I have been reading</p>
 
                 <!-- Newest first: details.reading-year > details.reading-month > div.reading-day; keep "open" only on the latest year and month -->
                 <details class="reading-year" open>
