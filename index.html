@@ -2336,6 +2336,12 @@
                     display: none;
                 }
             }
+            .coords-display {
+                transition: opacity 0.6s ease;
+            }
+            .coords-display.uncertain {
+                opacity: 0.75;
+            }
         </style>
     </head>
     <body>
@@ -4402,9 +4408,11 @@
                 let rest;
                 document.addEventListener("mousemove", () => {
                     clearTimeout(rest);
+                    out.classList.remove("uncertain");
                     rest = setTimeout(() => {
                         if (!out.textContent.includes("±")) out.textContent = out.textContent.replace(/(x \S+)(\s+)(y \S+)/, "$1 ± 1$2$3 ± 1");
-                    }, 2500);
+                        out.classList.add("uncertain");
+                    }, 1800);
                 });
 
                 // the theme toggle says what it does
