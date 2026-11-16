@@ -3925,6 +3925,9 @@
                 const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
                 const brand = document.querySelector(".nav-brand");
                 let rate = 1, target = 1, phase = 0, last = 0;
+                const ratios = [[3, 2], [4, 3], [5, 4], [1, 1], [2, 1]];
+                let r = 0;
+                document.querySelector(".brand-mark").addEventListener("click", () => (r = (r + 1) % ratios.length));
                 brand.addEventListener("mouseenter", () => (target = 10));
                 brand.addEventListener("mouseleave", () => (target = 1));
                 function draw(t) {
@@ -3935,8 +3938,8 @@
                     let d = "";
                     for (let i = 0; i <= 200; i++) {
                         const s = (i / 200) * 2 * Math.PI;
-                        const x = 10 + 9 * Math.sin(3 * s + phi);
-                        const y = 10 + 9 * Math.sin(2 * s);
+                        const x = 10 + 9 * Math.sin(ratios[r][0] * s + phi);
+                        const y = 10 + 9 * Math.sin(ratios[r][1] * s);
                         d += (i ? "L" : "M") + x.toFixed(2) + " " + y.toFixed(2);
                     }
                     path.setAttribute("d", d);
@@ -4154,7 +4157,7 @@
                     const top = nav.getBoundingClientRect().bottom;
                     label.style.top = top + 3 + "px";
                     label.style.left = Math.max(f * innerWidth, 60) + "px";
-                    label.textContent = (Math.round(T / 100) * 100).toLocaleString("en-US").replace(",", "\u2009") + " K";
+                    label.textContent = (Math.round(T / 100) * 100).toLocaleString("en-US").replace(",", "\u2009") + " K" + (Math.abs(T - 5772) < 150 ? "  ☉" : "");
                     if (f > 0) {
                         label.classList.add("on");
                         clearTimeout(hide);
@@ -4255,6 +4258,37 @@
                     svg.innerHTML = diagrams[i % diagrams.length];
                     h.prepend(svg);
                 });
+            })();
+        </script>
+        <script>
+            // winks
+            (function () {
+                // the portrait caption changes under observation
+                const wrap = document.querySelector(".profile-wrapper");
+                const label = wrap && wrap.querySelector(".portrait-label");
+                if (label) {
+                    const text = [...label.childNodes].find((n) => n.nodeType === 3 && n.textContent.trim());
+                    if (text) {
+                        const plain = text.textContent;
+                        wrap.addEventListener("mouseenter", () => (text.textContent = plain.replace("The author.", "The author, observed.")));
+                        wrap.addEventListener("mouseleave", () => (text.textContent = plain));
+                    }
+                }
+
+                // hold the cursor still and the readout admits its uncertainty
+                const out = document.getElementById("coordsDisplay");
+                let rest;
+                document.addEventListener("mousemove", () => {
+                    clearTimeout(rest);
+                    rest = setTimeout(() => {
+                        if (!out.textContent.includes("±")) out.textContent = out.textContent.replace(/(x \S+)(\s+)(y \S+)/, "$1 ± 1$2$3 ± 1");
+                    }, 2500);
+                });
+
+                // the theme toggle says what it does
+                const toggle = document.querySelector(".theme-toggle");
+                const tip = () => (toggle.title = document.documentElement.getAttribute("data-theme") === "dark" ? "Lights on." : "Lights off. The cloud chamber keeps running.");
+                if (toggle) { tip(); toggle.addEventListener("click", () => setTimeout(tip, 0)); }
             })();
         </script>
     </body>
