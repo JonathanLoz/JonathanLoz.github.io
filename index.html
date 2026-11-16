@@ -2214,6 +2214,49 @@
             .feyn circle.point {
                 fill: var(--accent);
             }
+            /* ===== Moiré, Chladni ===== */
+            .moire {
+                width: 76px;
+                height: 76px;
+                flex: none;
+                margin-left: auto;
+                margin-right: 1.5rem;
+                overflow: hidden;
+                border-radius: 50%;
+            }
+            .moire g {
+                fill: var(--text-primary);
+            }
+            .moire > g,
+            .moire .top {
+                opacity: 0.7;
+            }
+            .moire .top {
+                transform-origin: 38px 38px;
+                transition: transform 1.2s var(--ease-smooth);
+            }
+            .moire:hover .top {
+                transform: rotate(9deg);
+            }
+            .chladni {
+                display: block;
+                width: 64px;
+                height: 64px;
+                margin: 0 0 1.6rem;
+                overflow: visible;
+            }
+            .chladni path {
+                fill: none;
+                stroke: var(--text-primary);
+                stroke-width: 0.9;
+                opacity: 0.7;
+                stroke-linecap: round;
+            }
+            .chladni rect {
+                fill: none;
+                stroke: var(--border);
+                stroke-width: 0.8;
+            }
         </style>
     </head>
     <body>
@@ -4289,6 +4332,87 @@
                 const toggle = document.querySelector(".theme-toggle");
                 const tip = () => (toggle.title = document.documentElement.getAttribute("data-theme") === "dark" ? "Lights on." : "Lights off. The cloud chamber keeps running.");
                 if (toggle) { tip(); toggle.addEventListener("click", () => setTimeout(tip, 0)); }
+            })();
+        </script>
+        <script>
+            (function () {
+                const NS = "http://www.w3.org/2000/svg";
+
+                // two hexagonal dot lattices, one slightly twisted against the other
+                const head = document.querySelector("#cv .cv-header");
+                if (head) {
+                    const svg = document.createElementNS(NS, "svg");
+                    svg.setAttribute("class", "moire");
+                    svg.setAttribute("viewBox", "0 0 76 76");
+                    svg.setAttribute("aria-hidden", "true");
+                    const lattice = (cls, angle) => {
+                        const g = document.createElementNS(NS, "g");
+                        g.setAttribute("class", cls);
+                        const a = 2.6, h = (a * Math.sqrt(3)) / 2;
+                        let dots = "";
+                        for (let j = -20; j <= 20; j++)
+                            for (let i = -20; i <= 20; i++) {
+                                const x = 38 + i * a + (j % 2 ? a / 2 : 0), y = 38 + j * h;
+                                dots += `<circle cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="0.62"/>`;
+                            }
+                        g.innerHTML = dots;
+                        g.setAttribute("transform", `rotate(${angle} 38 38)`);
+                        return g;
+                    };
+                    svg.append(lattice("bottom", 0));
+                    const top = document.createElementNS(NS, "g");
+                    top.setAttribute("class", "top");
+                    top.append(lattice("", 4.2));
+                    svg.append(top);
+                    head.insertBefore(svg, head.querySelector(".pdf-download"));
+                }
+
+                // nodal lines of a vibrating square plate; a different mode on each visit
+                const news = document.querySelector(".news-section");
+                if (news) {
+                    const modes = [[1, 4], [2, 5], [3, 5], [1, 6], [3, 7], [2, 7], [4, 7], [1, 5]];
+                    const [n, m] = modes[Math.floor(Math.random() * modes.length)];
+                    const sign = Math.random() < 0.5 ? -1 : 1;
+                    const f = (x, y) => Math.cos(n * Math.PI * x) * Math.cos(m * Math.PI * y) + sign * Math.cos(m * Math.PI * x) * Math.cos(n * Math.PI * y);
+                    const N = 90, S = 64, segs = [];
+                    const v = [];
+                    for (let j = 0; j <= N; j++) { v.push([]); for (let i = 0; i <= N; i++) v[j].push(f(i / N, j / N)); }
+                    const lerp = (a, b, va, vb) => a + ((b - a) * va) / (va - vb);
+                    for (let j = 0; j < N; j++)
+                        for (let i = 0; i < N; i++) {
+                            const x0 = (i / N) * S, x1 = ((i + 1) / N) * S, y0 = (j / N) * S, y1 = ((j + 1) / N) * S;
+                            const a = v[j][i], b = v[j][i + 1], c = v[j + 1][i + 1], d = v[j + 1][i];
+                            const p = [];
+                            if ((a > 0) !== (b > 0)) p.push([lerp(x0, x1, a, b), y0]);
+                            if ((b > 0) !== (c > 0)) p.push([x1, lerp(y0, y1, b, c)]);
+                            if ((c > 0) !== (d > 0)) p.push([lerp(x1, x0, c, d), y1]);
+                            if ((d > 0) !== (a > 0)) p.push([x0, lerp(y1, y0, d, a)]);
+                            if (p.length >= 2) segs.push(`M${p[0][0].toFixed(2)} ${p[0][1].toFixed(2)}L${p[1][0].toFixed(2)} ${p[1][1].toFixed(2)}`);
+                            if (p.length === 4) segs.push(`M${p[2][0].toFixed(2)} ${p[2][1].toFixed(2)}L${p[3][0].toFixed(2)} ${p[3][1].toFixed(2)}`);
+                        }
+                    const svg = document.createElementNS(NS, "svg");
+                    svg.setAttribute("class", "chladni");
+                    svg.setAttribute("viewBox", `0 0 ${S} ${S}`);
+                    svg.setAttribute("aria-hidden", "true");
+                    svg.innerHTML = `<rect x="0" y="0" width="${S}" height="${S}"/><path d="${segs.join("")}"/>`;
+                    news.prepend(svg);
+                }
+
+                // a hovered news item lets its stationary state evolve: the real part breathes at its own frequency
+                document.querySelectorAll(".news-item").forEach((item, n) => {
+                    const path = item.querySelector(".eigen path");
+                    if (!path) return;
+                    const d0 = path.getAttribute("d");
+                    const pts = d0.match(/[ML][^ML]+/g).map((s) => s.slice(1).trim().split(/\s+/).map(Number));
+                    let raf = null, t0 = 0;
+                    function frame(t) {
+                        const c = Math.cos(((t - t0) / 1000) * 2.2 * (n + 0.5));
+                        path.setAttribute("d", pts.map(([x, y], i) => (i ? "L" : "M") + x + " " + (6 + (y - 6) * c).toFixed(2)).join(""));
+                        raf = requestAnimationFrame(frame);
+                    }
+                    item.addEventListener("mouseenter", () => { t0 = performance.now(); raf = requestAnimationFrame(frame); });
+                    item.addEventListener("mouseleave", () => { cancelAnimationFrame(raf); path.setAttribute("d", d0); });
+                });
             })();
         </script>
     </body>
