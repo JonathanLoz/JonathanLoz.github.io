@@ -2257,6 +2257,63 @@
                 stroke: var(--border);
                 stroke-width: 0.8;
             }
+            /* ===== Condensed matter: spins, Fermi surfaces, Ising ===== */
+            .spins {
+                display: inline-block;
+                width: 46px;
+                height: 46px;
+                margin-left: 1.4rem;
+                vertical-align: -0.06em;
+            }
+            .spins line {
+                stroke: var(--text-primary);
+                stroke-width: 1;
+                stroke-linecap: round;
+                opacity: 0.7;
+            }
+            .spins circle {
+                fill: var(--accent);
+            }
+            .fermi {
+                display: block;
+                width: 64px;
+                height: 64px;
+                margin-top: 1.6rem;
+            }
+            .fermi path {
+                fill: none;
+                stroke: var(--text-primary);
+                stroke-width: 0.8;
+                opacity: 0.55;
+            }
+            .fermi path.mu {
+                stroke: var(--accent);
+                stroke-width: 1;
+                opacity: 1;
+            }
+            #readings .section-container {
+                position: relative;
+            }
+            .ising {
+                position: absolute;
+                width: 72px;
+                height: 72px;
+                image-rendering: pixelated;
+                outline: 1px solid var(--border);
+                outline-offset: 5px;
+                cursor: crosshair;
+            }
+            @media (max-width: 1100px) {
+                .ising {
+                    display: none;
+                }
+            }
+            @media (max-width: 768px) {
+                .spins,
+                .fermi {
+                    display: none;
+                }
+            }
         </style>
     </head>
     <body>
@@ -4413,6 +4470,125 @@
                     item.addEventListener("mouseenter", () => { t0 = performance.now(); raf = requestAnimationFrame(frame); });
                     item.addEventListener("mouseleave", () => { cancelAnimationFrame(raf); path.setAttribute("d", d0); });
                 });
+            })();
+        </script>
+        <script>
+            (function () {
+                const NS = "http://www.w3.org/2000/svg";
+                const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                const shown = (el) => el.offsetParent !== null;
+
+                // a small lattice of spins that turn toward the cursor, never quite in step
+                const title = document.querySelector("#projects .section-title");
+                if (title) {
+                    const svg = document.createElementNS(NS, "svg");
+                    svg.setAttribute("class", "spins");
+                    svg.setAttribute("viewBox", "0 0 84 84");
+                    svg.setAttribute("aria-hidden", "true");
+                    const N = 7, gap = 12, r = 4.2, spins = [];
+                    for (let j = 0; j < N; j++)
+                        for (let i = 0; i < N; i++) {
+                            const l = document.createElementNS(NS, "line"), c = document.createElementNS(NS, "circle");
+                            c.setAttribute("r", "1.3");
+                            svg.append(l, c);
+                            spins.push({ x: 6 + i * gap, y: 6 + j * gap, a: Math.random() * 6.28, l, c });
+                        }
+                    const el = title.querySelector(".element");
+                    title.insertBefore(svg, el);
+                    let mx = 1e4, my = -1e4;
+                    addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; });
+                    const draw = () => {
+                        const b = svg.getBoundingClientRect(), k = 84 / b.width;
+                        for (const s of spins) {
+                            const t = Math.atan2((my - b.top) * k - s.y, (mx - b.left) * k - s.x);
+                            s.a += 0.08 * Math.atan2(Math.sin(t - s.a), Math.cos(t - s.a)) + 0.05 * (Math.random() - 0.5);
+                            const cx = r * Math.cos(s.a), cy = r * Math.sin(s.a);
+                            s.l.setAttribute("x1", (s.x - cx).toFixed(2)); s.l.setAttribute("y1", (s.y - cy).toFixed(2));
+                            s.l.setAttribute("x2", (s.x + cx).toFixed(2)); s.l.setAttribute("y2", (s.y + cy).toFixed(2));
+                            s.c.setAttribute("cx", (s.x + cx).toFixed(2)); s.c.setAttribute("cy", (s.y + cy).toFixed(2));
+                        }
+                    };
+                    const loop = () => { if (shown(svg)) draw(); requestAnimationFrame(loop); };
+                    still ? draw() : loop();
+                }
+
+                // Fermi surfaces of the square lattice; hovering sweeps the chemical potential through the band
+                const year = document.querySelector("#publications .publication-year");
+                if (year) {
+                    const S = 84, G = 120;
+                    const v = [];
+                    for (let j = 0; j <= G; j++) { v.push([]); for (let i = 0; i <= G; i++) v[j].push(-2 * (Math.cos(Math.PI * (2 * i / G - 1)) + Math.cos(Math.PI * (2 * j / G - 1)))); }
+                    const contour = (E) => {
+                        const segs = [], lerp = (a, b, va, vb) => a + ((b - a) * va) / (va - vb);
+                        for (let j = 0; j < G; j++)
+                            for (let i = 0; i < G; i++) {
+                                const x0 = (i / G) * S, x1 = ((i + 1) / G) * S, y0 = (j / G) * S, y1 = ((j + 1) / G) * S;
+                                const a = v[j][i] - E, b = v[j][i + 1] - E, c = v[j + 1][i + 1] - E, d = v[j + 1][i] - E, p = [];
+                                if ((a > 0) !== (b > 0)) p.push([lerp(x0, x1, a, b), y0]);
+                                if ((b > 0) !== (c > 0)) p.push([x1, lerp(y0, y1, b, c)]);
+                                if ((c > 0) !== (d > 0)) p.push([lerp(x1, x0, c, d), y1]);
+                                if ((d > 0) !== (a > 0)) p.push([x0, lerp(y1, y0, d, a)]);
+                                if (p.length >= 2) segs.push(`M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}L${p[1][0].toFixed(1)} ${p[1][1].toFixed(1)}`);
+                                if (p.length === 4) segs.push(`M${p[2][0].toFixed(1)} ${p[2][1].toFixed(1)}L${p[3][0].toFixed(1)} ${p[3][1].toFixed(1)}`);
+                            }
+                        return segs.join("");
+                    };
+                    const svg = document.createElementNS(NS, "svg");
+                    svg.setAttribute("class", "fermi");
+                    svg.setAttribute("viewBox", `0 0 ${S} ${S}`);
+                    svg.setAttribute("aria-hidden", "true");
+                    let html = "";
+                    for (const E of [-3.5, -2.8, -2, -1.2, -0.5, 0.5, 1.2, 2, 2.8, 3.5]) html += `<path d="${contour(E)}"/>`;
+                    svg.innerHTML = html + `<path class="mu" d="${contour(1e-9)}"/>`;
+                    year.appendChild(svg);
+                    const mu = svg.querySelector(".mu"), levels = [];
+                    for (let n = 0; n <= 48; n++) levels.push(contour(-3.84 + (7.68 * n) / 48 + 1e-9));
+                    let raf = null, t0 = 0;
+                    const frame = (t) => {
+                        const n = Math.round(24 + 24 * Math.sin((t - t0) / 900));
+                        mu.setAttribute("d", levels[n]);
+                        raf = requestAnimationFrame(frame);
+                    };
+                    if (!still) {
+                        svg.addEventListener("mouseenter", () => { t0 = performance.now(); raf = requestAnimationFrame(frame); });
+                        svg.addEventListener("mouseleave", () => { cancelAnimationFrame(raf); mu.setAttribute("d", levels[24]); });
+                    }
+                }
+
+                // the Ising model at its critical temperature; a hovering cursor cools it into domains
+                const box = document.querySelector("#readings .section-container");
+                const month = box && box.querySelector(".reading-month");
+                if (month) {
+                    const L = 48, cv = document.createElement("canvas");
+                    cv.className = "ising";
+                    cv.width = cv.height = L;
+                    cv.setAttribute("aria-hidden", "true");
+                    box.appendChild(cv);
+                    const ctx = cv.getContext("2d"), img = ctx.createImageData(L, L);
+                    const s = new Int8Array(L * L).map(() => (Math.random() < 0.5 ? 1 : -1));
+                    const Tc = 2 / Math.log(1 + Math.SQRT2);
+                    let T = Tc, ink = [20, 20, 20], frameN = 0;
+                    const sweep = () => {
+                        for (let k = 0; k < L * L; k++) {
+                            const i = (Math.random() * L) | 0, j = (Math.random() * L) | 0;
+                            const h = s[((i + 1) % L) * L + j] + s[((i + L - 1) % L) * L + j] + s[i * L + ((j + 1) % L)] + s[i * L + ((j + L - 1) % L)];
+                            s[i * L + j] = Math.random() * (1 + Math.exp((-2 * h) / T)) < 1 ? 1 : -1;
+                        }
+                    };
+                    const paint = () => {
+                        if (frameN++ % 60 === 0) ink = (getComputedStyle(document.documentElement).getPropertyValue("--text-primary").match(/[0-9a-f]{2}/gi) || ["14", "14", "14"]).slice(0, 3).map((x) => parseInt(x, 16));
+                        for (let k = 0; k < L * L; k++) img.data.set(s[k] > 0 ? [ink[0], ink[1], ink[2], ink[0] > 128 ? 120 : 185] : [0, 0, 0, 0], 4 * k);
+                        ctx.putImageData(img, 0, 0);
+                    };
+                    const head = box.querySelector(".section-title");
+                    const place = () => { cv.style.top = month.offsetTop + 10 + "px"; cv.style.left = head.offsetLeft + head.offsetWidth - 72 + "px"; };
+                    for (let n = 0; n < 300; n++) sweep();
+                    paint();
+                    const loop = () => { if (shown(cv)) { place(); sweep(); paint(); } requestAnimationFrame(loop); };
+                    if (still) place(); else loop();
+                    cv.addEventListener("mouseenter", () => (T = 1.6));
+                    cv.addEventListener("mouseleave", () => (T = Tc));
+                }
             })();
         </script>
     </body>
