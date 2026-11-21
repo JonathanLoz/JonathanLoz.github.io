@@ -2342,6 +2342,138 @@
             .coords-display.uncertain {
                 opacity: 0.75;
             }
+            /* ===== Research network ===== */
+            .net-wrap {
+                margin: 0.5rem 0 3.2rem;
+            }
+            .net {
+                display: block;
+                width: 100%;
+                height: auto;
+                overflow: visible;
+                user-select: none;
+                -webkit-user-select: none;
+            }
+            @media (max-width: 768px) {
+                .net-wrap {
+                    overflow-x: auto;
+                    margin-left: -1.5rem;
+                    margin-right: -1.5rem;
+                    padding: 0 1.5rem 0.6rem;
+                }
+                .net {
+                    width: 760px;
+                }
+            }
+            .net .thread path,
+            .net .thread circle {
+                fill: none;
+                stroke: var(--text-primary);
+                stroke-width: 1;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                transition: stroke 0.3s;
+            }
+            .net .thread circle {
+                fill: var(--bg-primary);
+            }
+            .net .thread {
+                opacity: 0.85;
+                transition: opacity 0.3s;
+            }
+            .net .thread.lit path,
+            .net .thread.lit circle {
+                stroke: var(--accent);
+            }
+            .net .thread .hit {
+                stroke: transparent !important;
+                stroke-width: 9;
+            }
+            .net .thread text {
+                font-family: var(--font-mono);
+                font-size: 8.5px;
+                letter-spacing: 0.06em;
+                fill: var(--text-muted);
+                stroke: var(--bg-primary);
+                stroke-width: 5px;
+                paint-order: stroke;
+                text-anchor: middle;
+                transition: fill 0.3s, opacity 0.3s;
+            }
+            .net .thread text {
+                opacity: 0;
+            }
+            .net .thread.lit text {
+                fill: var(--accent);
+                opacity: 1;
+            }
+            .net .node {
+                cursor: pointer;
+                transition: opacity 0.3s;
+                outline: none;
+            }
+            .net .node .shape {
+                fill: var(--text-primary);
+                stroke: var(--text-primary);
+                stroke-width: 1;
+            }
+            .net .node.now .shape {
+                fill: var(--accent);
+                stroke: var(--accent);
+            }
+            .net .node.hollow .shape,
+            .net .node .hole {
+                fill: var(--bg-primary);
+            }
+            .net .node .frame {
+                fill: var(--bg-primary);
+                stroke: var(--text-primary);
+                stroke-width: 1;
+            }
+            .net .node .core {
+                fill: var(--text-primary);
+            }
+            .net .node text {
+                font-family: var(--font-mono);
+                font-size: 10px;
+                letter-spacing: 0.06em;
+                fill: var(--text-secondary);
+                stroke: var(--bg-primary);
+                stroke-width: 5px;
+                paint-order: stroke;
+                transition: fill 0.3s;
+            }
+            .net .node:hover text,
+            .net .node:focus-visible text {
+                fill: var(--text-primary);
+            }
+            .net .key text {
+                font-family: var(--font-mono);
+                font-size: 8.5px;
+                letter-spacing: 0.1em;
+                fill: var(--text-muted);
+            }
+            .net .key .node {
+                cursor: default;
+                opacity: 0.7;
+            }
+            .net .key .node .shape,
+            .net .key .node .frame {
+                stroke-width: 0.8;
+            }
+            .net.focus g:not(.key) > .node:not(.near):not(.self) {
+                opacity: 0.28;
+            }
+            .net.focus .thread:not(.lit) {
+                opacity: 0.15;
+            }
+            .project {
+                scroll-margin-top: 5.5rem;
+            }
+            .project.arrived .project-number {
+                color: var(--accent);
+                transition: color 0.3s;
+            }
         </style>
     </head>
     <body>
@@ -2975,11 +3107,54 @@
                     </div>
                 </article>
 
+                <article class="project">
+                    <header class="project-header">
+                        <span class="project-number">04</span>
+                        <h2 class="project-title">
+                            Composite Domain Walls in Hexagonal Manganites<span class="project-badge">Accepted · PRB</span>
+                        </h2>
+                    </header>
+                    <div class="project-content">
+                        <div class="project-text">
+                            <p>
+                                An electric field along the \(c\) axis of a hexagonal manganite pushes two neighbouring
+                                trimerization domain walls together into a composite wall. I solved the Landau theory of
+                                the pair and compared it with its reduction to a biased double sine-Gordon model. As long
+                                as the polarization relaxes over a short distance, the walls repel and the field sets
+                                their separation. Once the polarization tail is long enough, the tails oscillate and bind
+                                the pair even at zero field.
+                            </p>
+                            <button class="details-toggle" onclick="toggleDetails(this)">Read more</button>
+                            <div class="details-content">
+                                <p>
+                                    While the walls repel, the reduced model reproduces the full theory to within 2%
+                                    below switching, and in ErMnO\(_3\) the separation contracts by 1.5 nm for each
+                                    decade of field. When the tails bind the pair, the separation is 5.7 nm for the
+                                    parameters inherited from YMnO\(_3\), comparable to the remanent pairs seen in
+                                    ErMnO\(_3\), and the field moves the separation by only 0.2 nm. Which case
+                                    ErMnO\(_3\) realizes is open, and the field dependence of the separation can decide
+                                    it.
+                                </p>
+                                <p>
+                                    A uniform field cannot translate the composite in either case, because the
+                                    polarizations on its two outer sides are equal. A field gradient restores the
+                                    translation.
+                                </p>
+                                <p>Accepted in Physical Review B.</p>
+                            </div>
+                            <div class="project-tags">
+                                <span class="tag">Domain Walls</span><span class="tag">Hexagonal Manganites</span
+                                ><span class="tag">Double Sine-Gordon</span><span class="tag">Landau Theory</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
                 <h2 class="project-group">Earlier work</h2>
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">04</span>
+                        <span class="project-number">05</span>
                         <h2 class="project-title">Static Multikinks<span class="project-badge">JHEP</span></h2>
                     </header>
                     <div class="project-content">
@@ -3021,7 +3196,7 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">05</span>
+                        <span class="project-number">06</span>
                         <h2 class="project-title">
                             One-Loop Mass Renormalization of Kink Solutions<span class="project-badge">J. Phys. Commun.</span>
                         </h2>
@@ -3070,7 +3245,7 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">06</span>
+                        <span class="project-number">07</span>
                         <h2 class="project-title">
                             JWST "Too Massive" Galaxies<span class="project-badge">In revision · MNRAS</span>
                         </h2>
@@ -3114,7 +3289,7 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">07</span>
+                        <span class="project-number">08</span>
                         <h2 class="project-title">
                             \(h\text{-}D^0\) Angular Correlations<span class="project-badge">ALICE</span>
                         </h2>
@@ -3162,7 +3337,7 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">08</span>
+                        <span class="project-number">09</span>
                         <h2 class="project-title">
                             Fate of the False Vacuum<span class="project-badge">Notes</span>
                         </h2>
@@ -3207,7 +3382,7 @@
 
                 <article class="project">
                     <header class="project-header">
-                        <span class="project-number">09</span>
+                        <span class="project-number">10</span>
                         <h2 class="project-title">Photon Wave Function<span class="project-badge">Notes</span></h2>
                     </header>
                     <div class="project-content">
@@ -4729,6 +4904,227 @@
                     const toggle = document.querySelector(".theme-toggle");
                     if (toggle) toggle.addEventListener("click", () => setTimeout(draw, 50));
                 }
+            })();
+        </script>
+        <script>
+            // the projects as a network; each connection is drawn as the idea that links the two projects
+            (function () {
+                const NS = "http://www.w3.org/2000/svg";
+                const box = document.querySelector("#projects .section-container");
+                const firstGroup = box && box.querySelector(".project-group");
+                if (!firstGroup) return;
+                const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                const el = (tag, attrs, parent) => {
+                    const e = document.createElementNS(NS, tag);
+                    for (const k in attrs) e.setAttribute(k, attrs[k]);
+                    if (parent) parent.appendChild(e);
+                    return e;
+                };
+                const W = 1036, H = 430;
+
+                // one figure per field: circle, square, triangle, ring, half disc; two projects mix circle and square
+                const figures = [["c", "field theory"], ["s", "condensed matter"], ["t", "collider experiment"], ["ring", "cosmology"], ["half", "quantum mechanics"]];
+                const projects = [
+                    { id: "vir", match: "Virial", name: "Virial identities", shape: "c", r: 20, kind: "now", at: [150, 96, "a"] },
+                    { id: "fv", match: "False Vacuum", name: "False vacuum", shape: "c", r: 12, kind: "hollow", at: [640, 48, "a"] },
+                    { id: "kink", match: "One-Loop", name: "One-loop kink mass", shape: "c", r: 18, kind: "solid", at: [150, 330, "b"] },
+                    { id: "mk", match: "Multikinks", name: "Static multi-kinks", shape: "c", r: 24, kind: "solid", at: [400, 138, "r"] },
+                    { id: "qvi", match: "Quantum Vacuum", name: "Quantum vacuum inversion", shape: "cs", r: 24, kind: "now", at: [800, 300, "b"] },
+                    { id: "mang", match: "Manganite", name: "Manganite domain walls", shape: "sc", r: 19, kind: "now", at: [480, 262, "b"] },
+                    { id: "exc", match: "Excitons", name: "Excitons & phonons", shape: "s", r: 23, kind: "now", at: [968, 176, "a"] },
+                    { id: "ph", match: "Photon", name: "Photon wave function", shape: "half", r: 13, kind: "solid", at: [900, 50, "b"] },
+                    { id: "alice", match: "Angular", name: "h–D⁰ correlations", shape: "t", r: 15, kind: "solid", at: [54, 210, "b"] },
+                    { id: "jwst", match: "JWST", name: "JWST galaxies", shape: "ring", r: 15, kind: "solid", at: [950, 352, "b"] },
+                ];
+                // each connection: the two projects, how the line is drawn, what links them, and where the words sit [segment, side]
+                const threads = [
+                    { route: ["kink", "mk"], style: "kink", name: "unequal vacua", label: [0, -1] },
+                    { route: ["mk", "qvi"], style: "quantum", name: "same model, now quantum", label: [0, -1] },
+                    { route: ["kink", "qvi"], style: "loop", name: "one-loop corrections", label: [0, 1] },
+                    { route: ["kink", "mang"], style: "kink", name: "kinks as domain walls", label: [0, -1] },
+                    { route: ["mk", "mang"], style: "dsg", name: "double sine-Gordon", label: [0, 1] },
+                    { route: ["mang", "qvi"], style: "kink2", name: "binding of kink pairs", label: [0, -1] },
+                    { route: ["fv", "mk"], style: "string", name: "vacuum pressure", label: [0, -1] },
+                    { route: ["fv", "qvi"], style: "string", name: "false and true vacua", label: [0, -1] },
+                    { route: ["vir", "fv"], style: "bounce", name: "bounces", label: [0, -1] },
+                    { route: ["vir", "kink"], style: "balance", name: "virial relations", label: [0, -1] },
+                    { route: ["vir", "mk"], style: "balance", name: "Derrick's theorem", label: [0, 1] },
+                    { route: ["qvi", "exc"], style: "mps", name: "tensor networks", label: [0, -1] },
+                ];
+                const figure = (shape, r, g) => {
+                    if (shape === "s" || shape === "sc") el("rect", { class: "shape", x: -r, y: -r, width: 2 * r, height: 2 * r }, g);
+                    if (shape === "sc") el("circle", { class: "hole", r: r * 0.5 }, g);
+                    if (shape === "cs") { el("rect", { class: "frame", x: -r, y: -r, width: 2 * r, height: 2 * r }, g); el("circle", { class: "shape", r: r * 0.78 }, g); }
+                    if (shape === "c") el("circle", { class: "shape", r }, g);
+                    if (shape === "t") el("path", { class: "shape", d: `M0 ${-r * 1.1}L${r * 1.1} ${r * 0.8}L${-r * 1.1} ${r * 0.8}Z` }, g);
+                    if (shape === "ring") { el("circle", { class: "frame", r }, g); el("circle", { class: "shape", r: r * 0.42 }, g); }
+                    if (shape === "half") { el("circle", { class: "frame", r }, g); el("path", { class: "shape", d: `M0 ${-r}A${r} ${r} 0 0 0 0 ${r}Z` }, g); }
+                };
+                const articles = [...box.querySelectorAll("article.project")];
+                for (const p of projects) p.article = articles.find((a) => a.querySelector(".project-title").textContent.includes(p.match));
+
+                const wrap = document.createElement("div");
+                wrap.className = "net-wrap";
+                box.insertBefore(wrap, firstGroup);
+                const svg = el("svg", { class: "net", viewBox: `0 0 ${W} ${H}`, role: "group", "aria-label": "How the projects connect" }, wrap);
+                const gThread = el("g", {}, svg), gNode = el("g", {}, svg);
+
+                const nodes = projects.filter((p) => p.article).map((p) => {
+                    const [x, y, side] = p.at, r = p.r;
+                    const g = el("g", { class: "node " + p.kind, tabindex: "0", role: "link", "aria-label": p.name }, gNode);
+                    figure(p.shape, r, g);
+                    if (p.kind === "hollow") el("circle", { class: "core", r: 2.4 }, g);
+                    const t = el("text", {}, g);
+                    t.textContent = p.name;
+                    const set = (x, y, anchor) => { t.setAttribute("x", x); t.setAttribute("y", y); t.setAttribute("text-anchor", anchor); };
+                    if (side === "a") set(0, -r - 10, "middle");
+                    else if (side === "al") set(-r * 0.3, -r - 10, "end");
+                    else if (side === "r") set(r + 14, 3.5, "start");
+                    else set(0, r + 18, "middle");
+                    return { p, g, x, y, r, threads: [] };
+                });
+                const byId = Object.fromEntries(nodes.map((n) => [n.p.id, n]));
+
+                // lines that share a stretch run side by side
+                const shared = {};
+                const lines = threads.map((t) => {
+                    const g = el("g", { class: "thread" }, gThread), stops = t.route.map((id) => byId[id]).filter(Boolean);
+                    const line = { t, g, stops, segs: [] };
+                    for (let i = 0; i + 1 < stops.length; i++) {
+                        const A = stops[i], B = stops[i + 1], flip = A.p.id > B.p.id, key = flip ? B.p.id + A.p.id : A.p.id + B.p.id;
+                        const seg = { A, B, flip, key, path: el("path", {}, g), extra: [], hit: el("path", { class: "hit" }, g) };
+                        if (t.style === "string") seg.path2 = el("path", {}, g);
+                        (shared[key] = shared[key] || []).push(seg);
+                        line.segs.push(seg);
+                    }
+                    line.text = el("text", {}, g);
+                    line.text.textContent = t.name;
+                    for (const n of stops) n.threads.push(line);
+                    g.addEventListener("mouseenter", () => { if (touch || shown) return; light(line, true); svg.classList.add("focus"); });
+                    g.addEventListener("mouseleave", () => { if (touch || shown) return; light(line, false); svg.classList.remove("focus"); });
+                    return line;
+                });
+                for (const key in shared) shared[key].forEach((seg, i, all) => (seg.shift = (i - (all.length - 1) / 2) * 11));
+
+                // key: which figure stands for which field
+                const key = el("g", { class: "key" }, svg);
+                let kx = 5;
+                for (const [shape, name] of figures) {
+                    figure(shape, 4.2, el("g", { class: "node solid", transform: `translate(${kx} ${H - 12})` }, key));
+                    el("text", { x: kx + 11, y: H - 9 }, key).textContent = name;
+                    kx += 16 + name.length * 6.2 + 22;
+                }
+
+                // pointing at a project keeps what it is tied to and lets the rest fade; a click goes to the project
+                let shown = null, touch = false;
+                function show(n) {
+                    if (shown === n) return;
+                    if (shown) { shown.g.classList.remove("self"); for (const l of shown.threads) light(l, false); }
+                    shown = n;
+                    svg.classList.toggle("focus", !!n);
+                    if (n) { n.g.classList.add("self"); for (const l of n.threads) light(l, true); }
+                }
+                function light(line, on) {
+                    line.g.classList.toggle("lit", on);
+                    for (const n of line.stops) n.g.classList.toggle("near", on);
+                }
+                svg.addEventListener("pointerdown", (ev) => { touch = ev.pointerType === "touch"; if (touch && !ev.target.closest(".node")) show(null); });
+                nodes.forEach((n) => {
+                    n.g.addEventListener("mouseenter", () => !touch && show(n));
+                    n.g.addEventListener("mouseleave", () => !touch && show(null));
+                    n.g.addEventListener("focus", () => show(n));
+                    n.g.addEventListener("blur", () => show(null));
+                    const go = () => {
+                        const a = n.p.article;
+                        a.classList.add("visible");
+                        a.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
+                        a.classList.add("arrived");
+                        setTimeout(() => a.classList.remove("arrived"), 2600);
+                    };
+                    // on a touch screen the first tap shows the connections and the second one goes
+                    let was = false;
+                    n.g.addEventListener("pointerdown", () => (was = shown === n));
+                    n.g.addEventListener("click", () => { if (touch && !was) show(n); else go(); });
+                    n.g.addEventListener("keydown", (ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); go(); } });
+                });
+
+                // the sideways displacement of each kind of line at a distance s along a stretch of length L
+                const sech2 = (x) => 1 / Math.cosh(x) ** 2;
+                const profile = {
+                    kink: (s, L) => 4.5 * Math.tanh((s - L / 2) / 11),
+                    kink2: (s, L) => 3 * (Math.tanh((s - 0.42 * L) / 8) + Math.tanh((s - 0.58 * L) / 8)),
+                    bounce: (s, L) => -13 * sech2((s - L / 2) / 15),
+                    balance: (s, L) => 7 * (sech2((s - L / 2 + 13) / 8) - sech2((s - L / 2 - 13) / 8)),
+                    dsg: (s, L) => 3.2 * Math.sin((Math.PI * s) / L) ** 2 * (Math.sin((2 * Math.PI * s) / 30) + Math.sin((4 * Math.PI * s) / 30)),
+                    quantum: (s, L, t) => 4.6 * (s / L) ** 1.6 * Math.sin((2 * Math.PI * (s - 7 * t)) / 11),
+                };
+
+                function draw(now, only) {
+                    
+                    for (const line of lines) {
+                        if (only && line.t.style !== only) continue;
+                        line.segs.forEach((seg, i) => {
+                            const ax = seg.A.x, ay = seg.A.y, bx = seg.B.x, by = seg.B.y;
+                            const D = Math.hypot(bx - ax, by - ay), tx = (bx - ax) / D, ty = (by - ay) / D;
+                            const off = seg.flip ? -seg.shift : seg.shift;
+                            const x0 = ax + tx * (seg.A.r + 4) - ty * off, y0 = ay + ty * (seg.A.r + 4) + tx * off, L = Math.max(1, D - seg.A.r - seg.B.r - 8);
+                            const at = (s, w) => `${(x0 + tx * s - ty * w).toFixed(2)} ${(y0 + ty * s + tx * w).toFixed(2)}`;
+                            const curve = (f) => {
+                                let d = "";
+                                const N = Math.max(8, Math.round(L));
+                                for (let k = 0; k <= N; k++) { const s = (L * k) / N; d += (k ? "L" : "M") + at(s, f(s)); }
+                                return d;
+                            };
+                            const style = line.t.style;
+                            const marks = (n) => { while (seg.extra.length < n) seg.extra.push(el("circle", {}, line.g)); while (seg.extra.length > n) seg.extra.pop().remove(); };
+                            if (profile[style]) seg.path.setAttribute("d", curve((s) => profile[style](s, L, still ? 0 : now / 1000)));
+                            else if (style === "string") { seg.path.setAttribute("d", curve(() => -2.4)); seg.path2.setAttribute("d", curve(() => 2.4)); }
+                            else if (style === "loop") {
+                                // a propagator with its one-loop correction
+                                seg.path.setAttribute("d", curve(() => 0));
+                                const radii = [8];
+                                marks(radii.length);
+                                let s = L * 0.5 - 8;
+                                seg.extra.forEach((c, k) => {
+                                    s += radii[k];
+                                    c.setAttribute("r", radii[k]); c.setAttribute("cx", x0 + tx * s); c.setAttribute("cy", y0 + ty * s);
+                                    s += radii[k] + 9;
+                                });
+                            } else {
+                                // a matrix product state: sites on a line, each with its open leg
+                                const n = Math.max(2, Math.round(L / 17)), side = tx >= 0 ? -1 : 1;
+                                marks(n);
+                                let d = `M${at(0, 0)}L${at(L, 0)}`;
+                                seg.extra.forEach((c, k) => {
+                                    const s = (L * (k + 0.5)) / n;
+                                    c.setAttribute("r", 2.6); c.setAttribute("cx", x0 + tx * s); c.setAttribute("cy", y0 + ty * s);
+                                    d += `M${at(s, side * 2.6)}L${at(s, side * 8)}`;
+                                });
+                                seg.path.setAttribute("d", d);
+                            }
+                            seg.hit.setAttribute("d", `M${at(0, 0)}L${at(L, 0)}`);
+                            if (i === line.t.label[0]) {
+                                let angle = (Math.atan2(ty, tx) * 180) / Math.PI, side = off ? Math.sign(off) : line.t.label[1];
+                                if (angle > 90 || angle <= -90) { angle += 180; side = -side; }
+                                const f = style === "loop" ? 0.3 : 0.5;
+                                const lift = side * (style === "mps" || style === "bounce" || style === "dsg" ? 17 : 12) + (side > 0 ? 6 : 0);
+                                line.text.setAttribute("transform", `translate(${(x0 + tx * L * f).toFixed(1)} ${(y0 + ty * L * f).toFixed(1)}) rotate(${angle.toFixed(2)}) translate(0 ${lift})`);
+                            }
+                        });
+                    }
+                }
+
+                for (const n of nodes) n.g.setAttribute("transform", `translate(${n.x} ${n.y})`);
+                draw(0);
+                // the only thing that moves by itself: the quantum line ripples slowly
+                function frame(now) {
+                    if (svg.offsetParent !== null) {
+                        const b = svg.getBoundingClientRect();
+                        if (b.bottom > 0 && b.top < innerHeight) draw(now, "quantum");
+                    }
+                    requestAnimationFrame(frame);
+                }
+                if (!still) requestAnimationFrame(frame);
             })();
         </script>
     </body>
